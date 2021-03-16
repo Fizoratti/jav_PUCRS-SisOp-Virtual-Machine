@@ -13,30 +13,25 @@
   <p align="center">Prof. Fernando Luís Dotti</p>
 </h3>
 
-# Maquina Virtual
+# Máquina Virtual
 
-Nossa máquina virtual (MV) tem CPU e Memória.
+Nossa máquina virtual tem CPU e Memória.
 
 ## Trabalho Prático
 
-###### Enunciado do trabalho
-Em grupos de até 4 alunos. Construir uma máquina virtual conforme definido neste documento, em linguagem de alto nível de sua escolha. [Link para o pdf](https://moodle.pucrs.br/pluginfile.php/3524730/mod_folder/content/0/TrabalhoSO2021-1-Fase1.pdf) que está no Moodle com o enunciado completo.
+**Enunciado do trabalho**: Em grupos de até 3 alunos. Construir uma máquina virtual conforme definido no enunciado do trabalho. [Link para o pdf](https://moodle.pucrs.br/pluginfile.php/3524730/mod_folder/content/0/TrabalhoSO2021-1-Fase1.pdf) que está no Moodle com o enunciado da primeira parte do trabalho.
 
-###### Primeira parte
 
-##### CPU
+### 1. CPU 
 
- A máquina virtual deve poder executar programas descritos com o conjunto de instruções da CPU (seção 1.1). 
- Como parte do trabalho voce deve construir alguns programas (seção 1.4), veja o programa exemplo. 
- Em cada teste da máquina virtual, um destes programas é carregado a partir da posição 0 da memória (seção 1.2), e a CPU então é liberada para executar fazendo seu ciclo (seção 1.3).
+ A máquina virtual deve poder executar programas descritos com o conjunto de instruções da CPU (```OPCODES```). 
+ Como parte do trabalho voce deve construir alguns programas. 
+ Em cada teste da máquina virtual, um destes programas é carregado a partir da posição ```0``` da memória e a CPU então é liberada para executar fazendo seu ciclo.
 
-###### Segunda parte
+ ### 2. Memória
 
-##### Gerência de Memória
+_Em breve..._
 
-Construir gerente de memória para memória paginada. Deve-se demonstrar que o sistema pode carregar vários processos em memória. E depois executar cada um
-sequencialmente, do início ao fim. Deve-se provocar que processos utilizem frames não vizinhos na memória para testar
-adequadamente a carga e o endereçamento dos processos.
 
 ## Pré Requisitos
 
@@ -46,7 +41,7 @@ Usando a IDE de browser [GitPod](https://gitpod.io/) não é preciso instalar na
 
 ## 🏃ㅤGetting Started
 
-> **Não é preciso instalar o gradle para rodar o código.**
+> **Não é preciso ter o gradle instalado para executar o código.**
 
 ```bash
 # Clone este repositório
@@ -58,6 +53,7 @@ $ cd jav_PUCRS-SisOp-Virtual-Machine
 # Execute a aplicação
 $ gradle run
 ```
+###### Para executar em ambiente Windows use o comando ```gradlew run```.
 
 ## 🌿ㅤBranches
 
@@ -103,22 +99,6 @@ Conjunto de instruções.
 
 - [ ] STOP
 
-### Gerência de Memória
-
-- [ ] Valores Básicos
-- [ ] Testes
-
-#### Funcionalidades do Gerênte
-
-- [ ] Alocação
-- [ ] Desalocação
-- [ ] Interface
-- [ ] Estruturas internas
-
-#### Paginação
-
-- [ ] Alocação do programa
-- [ ] Execução do processo
 
 ## 🛠ㅤTecnologias
 
