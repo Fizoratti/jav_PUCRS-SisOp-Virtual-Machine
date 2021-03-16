@@ -5,7 +5,10 @@
 // Fase 1 - máquina virtual (vide enunciado correspondente)
 //
 
+package virtualmachine;
+
 import java.util.*;
+
 public class Sistema {
 	
 	// -------------------------------------------------------------------------------------------------------
