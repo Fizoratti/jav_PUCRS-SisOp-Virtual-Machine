@@ -17,23 +17,21 @@
 
 Nossa máquina virtual tem CPU e Memória.
 
-## Trabalho Prático
-
 **Enunciado do trabalho**: Em grupos de até 3 alunos. Construir uma máquina virtual conforme definido no enunciado do trabalho. [Link para o pdf](https://moodle.pucrs.br/pluginfile.php/3524730/mod_folder/content/0/TrabalhoSO2021-1-Fase1.pdf) que está no Moodle com o enunciado da primeira parte do trabalho.
 
 
-### 1. CPU 
+## 1. CPU 
 
  A máquina virtual deve poder executar programas descritos com o conjunto de instruções da CPU (```OPCODES```). 
  Como parte do trabalho voce deve construir alguns programas. 
  Em cada teste da máquina virtual, um destes programas é carregado a partir da posição ```0``` da memória e a CPU então é liberada para executar fazendo seu ciclo.
 
- ### 2. Memória
+ ## 2. Memória
 
 _Em breve..._
 
 
-## Pré Requisitos
+## 🔦ㅤPré Requisitos
 
 Antes de começar, você vai precisar ter instalado o [Java](https://www.oracle.com/br/java/technologies/javase/javase-jdk8-downloads.html) e o [Git](https://git-scm.com) localmente no seu computador. 
 Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/).
@@ -57,8 +55,8 @@ $ gradle run
 
 ## 🌿ㅤBranches
 
-- ```main```: Branch para desenvolvimento de features.
-- ```stable```: Branch com a última build do projeto em que o código que executa sem erros.
+- ```main```: branch para desenvolvimento de features.
+- ```stable```: branch com a última build do projeto em que o código que executa sem erros.
 
 ## 🚀ㅤFeatures
 
@@ -70,7 +68,7 @@ Conjunto de instruções.
 
 - [ ] JMP
 - [ ] JMPI
-- [ ] JMPIG
+- [x] JMPIG
 - [ ] JMPIL
 - [ ] JMPIE
 - [ ] JMPIM
@@ -80,24 +78,24 @@ Conjunto de instruções.
 
 #### Instruções Aritméticas
 
-- [ ] ADDI
+- [x] ADD
+- [x] ADDI
+- [x] SUB
 - [ ] SUBI
-- [ ] ADD
-- [ ] SUB
 - [ ] MULT
 
 #### Instruções de Movimentação
 
-- [ ] LDI
+- [x] LDI
+- [x] STD
+- [x] STX
 - [ ] LDD
-- [ ] STD
 - [ ] LDX
-- [ ] STX
 - [ ] SWAP
 
 #### Instruções Genréricas
 
-- [ ] STOP
+- [x] STOP
 - [ ] DATA
 
 
