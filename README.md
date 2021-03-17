@@ -57,7 +57,7 @@ $ gradle run
 
 ## 🌿ㅤBranches
 
-- ```master```: Branch para desenvolvimento de features.
+- ```main```: Branch para desenvolvimento de features.
 - ```stable```: Branch com a última build do projeto em que o código que executa sem erros.
 
 ## 🚀ㅤFeatures
@@ -98,6 +98,7 @@ Conjunto de instruções.
 #### Instruções Genréricas
 
 - [ ] STOP
+- [ ] DATA
 
 
 ## 🛠ㅤTecnologias
