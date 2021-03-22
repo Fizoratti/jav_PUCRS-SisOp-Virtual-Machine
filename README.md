@@ -20,16 +20,19 @@ Nossa máquina virtual tem CPU e Memória.
 **Enunciado do trabalho**: Em grupos de até 3 alunos. Construir uma máquina virtual conforme definido no enunciado do trabalho. [Link para o pdf](https://moodle.pucrs.br/pluginfile.php/3524730/mod_folder/content/0/TrabalhoSO2021-1-Fase1.pdf) que está no Moodle com o enunciado da primeira parte do trabalho.
 
 
-## 1. CPU 
+## 📝 To Do
+**To Do**
+- [ ] Todas instruções (opcodes)
+- [ ] Todos programas
+  - [ ] Fibonacci
+  - [ ] Programa 2
+  - [ ] Programa 3
+  - [ ] Programa 4
+- [ ] Interrupções
+- [ ] Traps
 
- A máquina virtual deve poder executar programas descritos com o conjunto de instruções da CPU (```OPCODES```). 
- Como parte do trabalho voce deve construir alguns programas. 
- Em cada teste da máquina virtual, um destes programas é carregado a partir da posição ```0``` da memória e a CPU então é liberada para executar fazendo seu ciclo.
-
- ## 2. Memória
-
-_Em breve..._
-
+**Done**
+- [x] Café
 
 ## 🔦ㅤPré Requisitos
 
@@ -96,13 +99,10 @@ Conjunto de instruções.
 #### Instruções Genréricas
 
 - [x] STOP
-- [ ] DATA
-
+- [x] DATA
 
 ## 🛠ㅤTecnologias
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
 - [Gradle](https://gradle.org/install/)
-
-
