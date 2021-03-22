@@ -10,207 +10,212 @@ package virtualmachine;
 import java.util.*;
 
 public class Sistema {
-	
-	// -------------------------------------------------------------------------------------------------------
-	// --------------------- H A R D W A R E - definicoes de HW ---------------------------------------------- 
 
 	// -------------------------------------------------------------------------------------------------------
-	// --------------------- M E M O R I A -  definicoes de opcode e palavra de memoria ---------------------- 
-	
-	public class Word { 	// cada posicao da memoria tem uma instrucao (ou um dado)
-		public Opcode opc; 	//
-		public int r1; 		// indice do primeiro registrador da operacao (Rs ou Rd cfe opcode na tabela)
-		public int r2; 		// indice do segundo registrador da operacao (Rc ou Rs cfe operacao)
-		public int p; 		// parametro para instrucao (k ou A cfe operacao), ou o dado, se opcode = DADO
+	// --------------------- H A R D W A R E - definicoes de HW
+	// ----------------------------------------------
 
-		public Word(Opcode _opc, int _r1, int _r2, int _p) {  
-			opc = _opc;   r1 = _r1;    r2 = _r2;	p = _p;
+	// -------------------------------------------------------------------------------------------------------
+	// --------------------- M E M O R I A - definicoes de opcode e palavra de memoria ----------------------
+
+	public class Word { // cada posicao da memoria tem uma instrucao (ou um dado)
+		public Opcode opc; //
+		public int r1; // indice do primeiro registrador da operacao (Rs ou Rd cfe opcode na tabela)
+		public int r2; // indice do segundo registrador da operacao (Rc ou Rs cfe operacao)
+		public int p; // parametro para instrucao (k ou A cfe operacao), ou o dado, se opcode = DADO
+
+		public Word(Opcode _opc, int _r1, int _r2, int _p) {
+			opc = _opc;
+			r1 = _r1;
+			r2 = _r2;
+			p = _p;
 		}
 	}
-    // -------------------------------------------------------------------------------------------------------
+	// -------------------------------------------------------------------------------------------------------
 
 	// -------------------------------------------------------------------------------------------------------
-    // --------------------- C P U  -  definicoes da CPU ----------------------------------------------------- 
+	// --------------------- C P U - definicoes da CPU -----------------------------------------------------
 
 	public enum Opcode {
-		DATA, ___,		    // se memoria nesta posicao tem um dado, usa DATA, se nao usada ee NULO ___
-		JMP, JMPI, JMPIG, JMPIL, JMPIE,  JMPIM, JMPIGM, JMPILM, JMPIEM, STOP,   // desvios e parada
-		ADDI, SUBI,  ADD, SUB, MULT,         // matematicos
-		LDI, LDD, STD,LDX, STX, SWAP;        // movimentacao
+		DATA, ___, // se memoria nesta posicao tem um dado, usa DATA, se nao usada é NULO ___
+		JMP, JMPI, JMPIG, JMPIL, JMPIE, JMPIM, JMPIGM, JMPILM, JMPIEM, STOP, // desvios e parada
+		ADDI, SUBI, ADD, SUB, MULT, // matematicos
+		LDI, LDD, STD, LDX, STX, SWAP; // movimentacao
 	}
 
 	public class CPU {
-							// característica do processador: contexto da CPU ...
-		private int pc; 			// ... composto de program counter,
-		private Word ir; 			// instruction register,
-		private int[] reg;       	// registradores da CPU
+		// característica do processador: contexto da CPU ...
+		private int pc; // ... composto de program counter,
+		private Word ir; // instruction register,
+		private int[] reg; // registradores da CPU
 
-		private Word[] m;   // CPU acessa MEMORIA, guarda referencia 'm' a ela. memoria nao muda. ee sempre a mesma.
-						
-		public CPU(Word[] _m) {     // ref a MEMORIA e interrupt handler passada na criacao da CPU
-			m = _m; 				// usa o atributo 'm' para acessar a memoria.
-			reg = new int[8]; 		// aloca o espaço dos registradores
+		private Word[] m; // CPU acessa MEMORIA, guarda referencia 'm' a ela. memoria nao muda. ee sempre
+							// a mesma.
+
+		public CPU(Word[] _m) { // ref a MEMORIA e interrupt handler passada na criacao da CPU
+			m = _m; // usa o atributo 'm' para acessar a memoria.
+			reg = new int[8]; // aloca o espaço dos registradores
 		}
 
-		public void setContext(int _pc) {  // no futuro esta funcao vai ter que ser 
-			pc = _pc;                                              // limite e pc (deve ser zero nesta versao)
+		public void setContext(int _pc) { // no futuro esta funcao vai ter que ser
+			pc = _pc; // limite e pc (deve ser zero nesta versao)
 		}
-	
-		public void run() { 		// execucao da CPU supoe que o contexto da CPU, vide acima, esta devidamente setado
-			while (true) { 			// ciclo de instrucoes. acaba cfe instrucao, veja cada caso.
+
+		public void run() { // execucao da CPU supoe que o contexto da CPU, vide acima, esta devidamente
+							// setado
+			while (true) { // ciclo de instrucoes. acaba cfe instrucao, veja cada caso.
 				// FETCH
-					ir = m[pc]; 	// busca posicao da memoria apontada por pc, guarda em ir
+				ir = m[pc]; // busca posicao da memoria apontada por pc, guarda em ir
 				// EXECUTA INSTRUCAO NO ir
-					switch (ir.opc) { // para cada opcode, sua execução
+				switch (ir.opc) { // para cada opcode, sua execução
 
-            case JMP: // PC ← k
-              pc = ir.p;
-              break;
+				case JMP: // PC ← k
+					pc = ir.p;
+					break;
 
-            case JMPI: // PC ← Rs
-              pc =  reg[ir.r1];
-              break;
+				case JMPI: // PC ← Rs
+					pc = reg[ir.r1];
+					break;
 
-						case JMPIG: // If Rc > 0 Then PC ← Rs Else PC ← PC +1
-							if (reg[ir.r2] > 0) {
-								pc = reg[ir.r1];
-							} else {
-								pc++;
-							}
-							break;
-
-            case JMPIL: // if Rc < 0 then PC ← Rs Else PC ← PC +1
-              if(reg[ir.r2] < 0){
-                pc = reg[ir.r1];
-              } else {
-                pc ++;
-              }
-              break;
-
-            case JMPIE: // if Rc = 0 then PC ← Rs Else PC ← PC +1
-              if(reg[ir.r2] == 0){
-                pc = reg[ir.r1];
-              } else {
-                pc++;
-              }
-              break;
-
-            case ADD: // Rd ← Rd + Rs
-							reg[ir.r1] = reg[ir.r1] + reg[ir.r2];
-							pc++;
-							break;
-
-						case ADDI: // Rd ← Rd + k
-							reg[ir.r1] = reg[ir.r1] + ir.p;
-							pc++;
-							break;
-
-						case SUB: // Rd ← Rd - Rs
-							reg[ir.r1] = reg[ir.r1] - reg[ir.r2];
-							pc++;
-							break;
-
-            case SUBI: //Rd ← Rd – k
-              reg[ir.r1] = reg[ir.r1] - ir.p;
-              pc++;
-              break;
-
-            case MULT: // Rd ← Rd * Rs
-              reg[ir.r1] = reg[ir.r1] * reg[ir.r2];
-              pc++;
-              break;
-
-						case LDI: // Rd ← k
-							reg[ir.r1] = ir.p;
-							pc++;
-							break;
-
-						case STD: // [A] ← Rs
-              m[ir.p].opc = Opcode.DATA;
-              m[ir.p].p = reg[ir.r1];
-              pc++;
-						  break;
-					
-						case STX: // [Rd] ←Rs
-              m[reg[ir.r1]].opc = Opcode.DATA;      
-              m[reg[ir.r1]].p = reg[ir.r2];          
-              pc++;
-              break;
-            
-            case LDD: //  Rd ← [A] | R1 <- p
-              int posicao = ir.r1;  
-              reg[posicao] = ir.p;
-              break;
-            case STOP: // por enquanto, para execucao
-							break;
+				case JMPIG: // If Rc > 0 Then PC ← Rs Else PC ← PC +1
+					if (reg[ir.r2] > 0) {
+						pc = reg[ir.r1];
+					} else {
+						pc++;
 					}
-				
+					break;
+
+				case JMPIL: // if Rc < 0 then PC ← Rs Else PC ← PC +1
+					if (reg[ir.r2] < 0) {
+						pc = reg[ir.r1];
+					} else {
+						pc++;
+					}
+					break;
+
+				case JMPIE: // if Rc = 0 then PC ← Rs Else PC ← PC +1
+					if (reg[ir.r2] == 0) {
+						pc = reg[ir.r1];
+					} else {
+						pc++;
+					}
+					break;
+
+				case ADD: // Rd ← Rd + Rs
+					reg[ir.r1] = reg[ir.r1] + reg[ir.r2];
+					pc++;
+					break;
+
+				case ADDI: // Rd ← Rd + k
+					reg[ir.r1] = reg[ir.r1] + ir.p;
+					pc++;
+					break;
+
+				case SUB: // Rd ← Rd - Rs
+					reg[ir.r1] = reg[ir.r1] - reg[ir.r2];
+					pc++;
+					break;
+
+				case SUBI: // Rd ← Rd – k
+					reg[ir.r1] = reg[ir.r1] - ir.p;
+					pc++;
+					break;
+
+				case MULT: // Rd ← Rd * Rs
+					reg[ir.r1] = reg[ir.r1] * reg[ir.r2];
+					pc++;
+					break;
+
+				case LDI: // Rd ← k
+					reg[ir.r1] = ir.p;
+					pc++;
+					break;
+
+				case STD: // [A] ← Rs
+					m[ir.p].opc = Opcode.DATA;
+					m[ir.p].p = reg[ir.r1];
+					pc++;
+					break;
+
+				case STX: // [Rd] ←Rs
+					m[reg[ir.r1]].opc = Opcode.DATA;
+					m[reg[ir.r1]].p = reg[ir.r2];
+					pc++;
+					break;
+
+				case LDD: // Rd ← [A] | R1 <- p
+					int posicao = ir.r1;
+					reg[posicao] = ir.p;
+					break;
+				case STOP: // por enquanto, para execucao
+					break;
+				}
+
 				// VERIFICA INTERRUPÇÃO !!! - TERCEIRA FASE DO CICLO DE INSTRUÇÕES
-				if (ir.opc==Opcode.STOP) {   
+				if (ir.opc == Opcode.STOP) {
 					break; // break sai do loop da cpu
 				}
 			}
 		}
 	}
-  // ------------------ C P U - fim ------------------------------------------------------------------------
+	// ------------------ C P U - fim ------------------------------------------------------------------------
 	// -------------------------------------------------------------------------------------------------------
 
-	
-  // ------------------- V M  - constituida de CPU e MEMORIA -----------------------------------------------
-  // -------------------------- atributos e construcao da VM -----------------------------------------------
+	// ------------------- V M - constituida de CPU e MEMORIA -----------------------------------------------
+	// -------------------------- atributos e construcao da VM -----------------------------------------------
 	public class VM {
-		public int tamMem;    
-        public Word[] m;     
-        public CPU cpu;    
+		public int tamMem;
+		public Word[] m;
+		public CPU cpu;
 
-        public VM(){   // vm deve ser configurada com endereço de tratamento de interrupcoes
-	     // memória
-  		 	 tamMem = 1024;
-			 m = new Word[tamMem]; // m é a memoria
-			 for (int i=0; i<tamMem; i++) { m[i] = new Word(Opcode.___,-1,-1,-1); };
-	  	 // cpu
-			 cpu = new CPU(m);
-	    }	
+		public VM() { // vm deve ser configurada com endereço de tratamento de interrupcoes
+			// memória
+			tamMem = 1024;
+			m = new Word[tamMem]; // m é a memoria
+			for (int i = 0; i < tamMem; i++) {
+				m[i] = new Word(Opcode.___, -1, -1, -1);
+			};
+			// cpu
+			cpu = new CPU(m);
+		}
 	}
-    // ------------------- V M  - fim ------------------------------------------------------------------------
+	// ------------------- V M - fim ------------------------------------------------------------------------
 	// -------------------------------------------------------------------------------------------------------
 
-    // --------------------H A R D W A R E - fim -------------------------------------------------------------
-    // -------------------------------------------------------------------------------------------------------
+	// --------------------H A R D W A R E - fim -------------------------------------------------------------
+	// -------------------------------------------------------------------------------------------------------
 
 	// -------------------------------------------------------------------------------------------------------
 	// -------------------------------------------------------------------------------------------------------
 	// ------------------- S O F T W A R E - inicio ----------------------------------------------------------
 
 	// ------------------- VAZIO
-	
 
 	// -------------------------------------------------------------------------------------------------------
-    // -------------------  S I S T E M A --------------------------------------------------------------------
+	// ------------------- S I S T E M A --------------------------------------------------------------------
 
 	public VM vm;
 
-    public Sistema(){   // a VM com tratamento de interrupções
-		 vm = new VM();
+	public Sistema() { // a VM com tratamento de interrupções
+		vm = new VM();
 	}
 
-    // -------------------  S I S T E M A - fim --------------------------------------------------------------
-    // -------------------------------------------------------------------------------------------------------
+	// ------------------- S I S T E M A - fim --------------------------------------------------------------
+	// -------------------------------------------------------------------------------------------------------
 
-	
-    // -------------------------------------------------------------------------------------------------------
-    // ------------------- instancia e testa sistema
+	// -------------------------------------------------------------------------------------------------------
+	// ------------------- instancia e testa sistema
 	public static void main(String args[]) {
 		Sistema s = new Sistema();
 		s.test1();
 		s.test2();
 	}
-    // -------------------------------------------------------------------------------------------------------
-    // --------------- TUDO ABAIXO DE MAIN É AUXILIAR PARA FUNCIONAMENTO DO SISTEMA - nao faz parte 
+	// -------------------------------------------------------------------------------------------------------
+	// --------------- TUDO ABAIXO DE MAIN É AUXILIAR PARA FUNCIONAMENTO DO SISTEMA - nao faz parte
 
-	// -------------------------------------------- teste do sistema ,  veja classe de programas
-	
-	public void test1(){
+	// -------------------------------------------- teste do sistema , veja classe de programas
+
+	public void test1() {
 		Aux aux = new Aux();
 		Word[] p = new Programas().progMinimo;
 		aux.carga(p, vm.m);
@@ -221,8 +226,8 @@ public class Sistema {
 		vm.cpu.run();
 		aux.dump(vm.m, 0, 15);
 	}
-	
-	public void test2(){
+
+	public void test2() {
 		Aux aux = new Aux();
 		Word[] p = new Programas().fibonacci10;
 		aux.carga(p, vm.m);
@@ -233,54 +238,58 @@ public class Sistema {
 		vm.cpu.run();
 		aux.dump(vm.m, 0, 33);
 	}
-	// -------------------------------------------  classes e funcoes auxiliares
-    public class Aux {
+
+	// ------------------------------------------- classes e funcoes auxiliares
+	public class Aux {
 		public void dump(Word w) {
-			System.out.print("[ "+w.opc+", "+w.r1+", "+w.r2+", "+w.p+" ] \n");
+			System.out.print("[ " + w.opc + ", " + w.r1 + ", " + w.r2 + ", " + w.p + " ] \n");
 		}
 		public void dump(Word[] m, int ini, int fim) {
 			for (int i = ini; i < fim; i++) {
-				System.out.print(i); System.out.print(":  ");  dump(m[i]);
+				System.out.print(i);
+				System.out.print(":  ");
+				dump(m[i]);
 			}
 		}
 		public void carga(Word[] p, Word[] m) {
 			for (int i = 0; i < p.length; i++) {
-				m[i].opc = p[i].opc;     m[i].r1 = p[i].r1;     m[i].r2 = p[i].r2;     m[i].p = p[i].p;
+				m[i].opc = p[i].opc;
+				m[i].r1 = p[i].r1;
+				m[i].r2 = p[i].r2;
+				m[i].p = p[i].p;
 			}
 		}
-   }
-   // -------------------------------------------  fim classes e funcoes auxiliares
-	
-   //  -------------------------------------------- programas aa disposicao para copiar na memoria (vide aux.carga)
-   public class Programas {
-	   public Word[] progMinimo = new Word[] {
-		    new Word(Opcode.LDI, 0, -1, 999), 		
-			new Word(Opcode.STD, 0, -1, 10), 
+	}
+	// ------------------------------------------- fim classes e funcoes auxiliares
+
+	// -------------------------------------------- programas aa disposicao para copiar na memoria (vide aux.carga)
+	public class Programas {
+		public Word[] progMinimo = new Word[] { 
+			new Word(Opcode.LDI, 0, -1, 999), 
+			new Word(Opcode.STD, 0, -1, 10),
 			new Word(Opcode.STD, 0, -1, 11), 
 			new Word(Opcode.STD, 0, -1, 12), 
-			new Word(Opcode.STD, 0, -1, 13), 
+			new Word(Opcode.STD, 0, -1, 13),
 			new Word(Opcode.STD, 0, -1, 14), 
 			new Word(Opcode.STOP, -1, -1, -1) };
 
-	   public Word[] fibonacci10 = new Word[] { // mesmo que prog exemplo, so que usa r0 no lugar de r8
+		public Word[] fibonacci10 = new Word[] { // mesmo que prog exemplo, so que usa r0 no lugar de r8
 			new Word(Opcode.LDI, 1, -1, 0), 
-			new Word(Opcode.STD, 1, -1, 20), //50 
-			new Word(Opcode.LDI, 2, -1, 1),
-			new Word(Opcode.STD, 2, -1, 21), //51
-			new Word(Opcode.LDI, 0, -1, 22), //52
-			new Word(Opcode.LDI, 6, -1, 6),
-			new Word(Opcode.LDI, 7, -1, 31), //61
+			new Word(Opcode.STD, 1, -1, 20), // 50
+			new Word(Opcode.LDI, 2, -1, 1), 
+			new Word(Opcode.STD, 2, -1, 21), // 51
+			new Word(Opcode.LDI, 0, -1, 22), // 52
+			new Word(Opcode.LDI, 6, -1, 6), 
+			new Word(Opcode.LDI, 7, -1, 31), // 61
 			new Word(Opcode.LDI, 3, -1, 0), 
-			new Word(Opcode.ADD, 3, 1, -1),
-			new Word(Opcode.LDI, 1, -1, 0), 
+			new Word(Opcode.ADD, 3, 1, -1), 
+			new Word(Opcode.LDI, 1, -1, 0),
 			new Word(Opcode.ADD, 1, 2, -1), 
-			new Word(Opcode.ADD, 2, 3, -1),
-			new Word(Opcode.STX, 0, 2, -1), 
+			new Word(Opcode.ADD, 2, 3, -1), 
+			new Word(Opcode.STX, 0, 2, -1),
 			new Word(Opcode.ADDI, 0, -1, 1), 
-			new Word(Opcode.SUB, 7, 0, -1),
-			new Word(Opcode.JMPIG, 6, 7, -1), 
+			new Word(Opcode.SUB, 7, 0, -1), new Word(Opcode.JMPIG, 6, 7, -1),
 			new Word(Opcode.STOP, -1, -1, -1) };
-   }
+	}
 
 }
-
