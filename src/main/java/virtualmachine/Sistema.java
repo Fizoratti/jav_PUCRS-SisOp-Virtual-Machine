@@ -128,7 +128,7 @@ public class Sistema {
         public VM(){   // vm deve ser configurada com endereço de tratamento de interrupcoes
 	     // memória
   		 	 tamMem = 1024;
-			 m = new Word[tamMem]; // m ee a memoria
+			 m = new Word[tamMem]; // m é a memoria
 			 for (int i=0; i<tamMem; i++) { m[i] = new Word(Opcode.___,-1,-1,-1); };
 	  	 // cpu
 			 cpu = new CPU(m);
@@ -164,26 +164,15 @@ public class Sistema {
     // ------------------- instancia e testa sistema
 	public static void main(String args[]) {
 		Sistema s = new Sistema();
-		s.test2();
 		s.test1();
+		s.test2();
 	}
     // -------------------------------------------------------------------------------------------------------
     // --------------- TUDO ABAIXO DE MAIN É AUXILIAR PARA FUNCIONAMENTO DO SISTEMA - nao faz parte 
 
 	// -------------------------------------------- teste do sistema ,  veja classe de programas
+	
 	public void test1(){
-		Aux aux = new Aux();
-		Word[] p = new Programas().fibonacci10;
-		aux.carga(p, vm.m);
-		vm.cpu.setContext(0);
-		System.out.println("---------------------------------- programa carregado ");
-		aux.dump(vm.m, 0, 33);
-		System.out.println("---------------------------------- após execucao ");
-		vm.cpu.run();
-		aux.dump(vm.m, 0, 33);
-	}
-
-	public void test2(){
 		Aux aux = new Aux();
 		Word[] p = new Programas().progMinimo;
 		aux.carga(p, vm.m);
@@ -194,15 +183,28 @@ public class Sistema {
 		vm.cpu.run();
 		aux.dump(vm.m, 0, 15);
 	}
-
+	
+	public void test2(){
+		Aux aux = new Aux();
+		Word[] p = new Programas().fibonacci10;
+		aux.carga(p, vm.m);
+		vm.cpu.setContext(0);
+		System.out.println("---------------------------------- programa carregado ");
+		aux.dump(vm.m, 0, 33);
+		System.out.println("---------------------------------- após execucao ");
+		vm.cpu.run();
+		aux.dump(vm.m, 0, 33);
+	}
 	// -------------------------------------------  classes e funcoes auxiliares
     public class Aux {
 		public void dump(Word w) {
-			System.out.print("[ "); 
-			System.out.print(w.opc); System.out.print(", ");
-			System.out.print(w.r1);  System.out.print(", ");
-			System.out.print(w.r2);  System.out.print(", ");
-			System.out.print(w.p);  System.out.println("  ] ");
+			System.out.print("[ "+w.opc+", "+w.r1+", "+w.r2+", "+w.p+" ] \n");
+			
+			// System.out.print("[ "); 
+			// System.out.print(w.opc); System.out.print(", ");
+			// System.out.print(w.r1);  System.out.print(", ");
+			// System.out.print(w.r2);  System.out.print(", ");
+			// System.out.print(w.p);  System.out.println("  ] ");
 		}
 		public void dump(Word[] m, int ini, int fim) {
 			for (int i = ini; i < fim; i++) {
