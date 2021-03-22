@@ -136,7 +136,11 @@ public class Sistema {
               m[reg[ir.r1]].p = reg[ir.r2];          
               pc++;
               break;
-
+            
+            case LDD: //  Rd ← [A] | R1 <- p
+              int posicao = ir.r1;  
+              reg[posicao] = ir.p;
+              break;
             case STOP: // por enquanto, para execucao
 							break;
 					}
@@ -148,12 +152,12 @@ public class Sistema {
 			}
 		}
 	}
-    // ------------------ C P U - fim ------------------------------------------------------------------------
+  // ------------------ C P U - fim ------------------------------------------------------------------------
 	// -------------------------------------------------------------------------------------------------------
 
 	
-    // ------------------- V M  - constituida de CPU e MEMORIA -----------------------------------------------
-    // -------------------------- atributos e construcao da VM -----------------------------------------------
+  // ------------------- V M  - constituida de CPU e MEMORIA -----------------------------------------------
+  // -------------------------- atributos e construcao da VM -----------------------------------------------
 	public class VM {
 		public int tamMem;    
         public Word[] m;     
@@ -233,12 +237,6 @@ public class Sistema {
     public class Aux {
 		public void dump(Word w) {
 			System.out.print("[ "+w.opc+", "+w.r1+", "+w.r2+", "+w.p+" ] \n");
-			
-			// System.out.print("[ "); 
-			// System.out.print(w.opc); System.out.print(", ");
-			// System.out.print(w.r1);  System.out.print(", ");
-			// System.out.print(w.r2);  System.out.print(", ");
-			// System.out.print(w.p);  System.out.println("  ] ");
 		}
 		public void dump(Word[] m, int ini, int fim) {
 			for (int i = ini; i < fim; i++) {

@@ -89,7 +89,7 @@ Conjunto de instruções.
 - [x] LDI
 - [x] STD
 - [x] STX
-- [ ] LDD
+- [x] LDD
 - [ ] LDX
 - [ ] SWAP
 
