@@ -66,11 +66,11 @@ Conjunto de instruções.
 
 #### Instruções JUMP
 
-- [ ] JMP
-- [ ] JMPI
+- [x] JMP
+- [x] JMPI
 - [x] JMPIG
-- [ ] JMPIL
-- [ ] JMPIE
+- [x] JMPIL
+- [x] JMPIE
 - [ ] JMPIM
 - [ ] JMPIGM
 - [ ] JMPILM
@@ -81,8 +81,8 @@ Conjunto de instruções.
 - [x] ADD
 - [x] ADDI
 - [x] SUB
-- [ ] SUBI
-- [ ] MULT
+- [x] SUBI
+- [x] MULT
 
 #### Instruções de Movimentação
 
