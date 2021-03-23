@@ -12,8 +12,7 @@ import java.util.*;
 public class Sistema {
 
 	// -------------------------------------------------------------------------------------------------------
-	// --------------------- H A R D W A R E - definicoes de HW
-	// ----------------------------------------------
+	// --------------------- H A R D W A R E - definicoes de HW ----------------------------------------------
 
 	// -------------------------------------------------------------------------------------------------------
 	// --------------------- M E M O R I A - definicoes de opcode e palavra de memoria ----------------------
@@ -36,7 +35,7 @@ public class Sistema {
 	// -------------------------------------------------------------------------------------------------------
 	// --------------------- C P U - definicoes da CPU -----------------------------------------------------
 
-	public enum Opcode {
+	public enum Opcode {  // "operation code"
 		DATA, ___, // se memoria nesta posicao tem um dado, usa DATA, se nao usada é NULO ___
 		JMP, JMPI, JMPIG, JMPIL, JMPIE, JMPIM, JMPIGM, JMPILM, JMPIEM, STOP, // desvios e parada
 		ADDI, SUBI, ADD, SUB, MULT, // matematicos
@@ -141,7 +140,7 @@ public class Sistema {
 
 					case LDD: // Rd ← [A] | R1 <- p
 						int posicao = ir.r1;
-						reg[posicao] = ir.p;
+						reg[posicao] = m[ir.p].p;
 						break;
 					case STOP: // por enquanto, para execucao
 						break;
