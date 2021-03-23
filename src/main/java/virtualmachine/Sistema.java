@@ -228,15 +228,48 @@ public class Sistema {
 	// ------------------- instancia e testa sistema
 	public static void main(String args[]) {
 		Sistema s = new Sistema();
-		s.test1();
-		s.test2();
+		s.p2_logica_fibonacci(5);
+//		s.test();
+//		s.test1();
+//		s.test2();
+//		s.test3();
+//		s.test4();
 	}
 	// -------------------------------------------------------------------------------------------------------
 	// --------------- TUDO ABAIXO DE MAIN É AUXILIAR PARA FUNCIONAMENTO DO SISTEMA - nao faz parte
 
 	// -------------------------------------------- teste do sistema , veja classe de programas
 
-	public void test1() {
+	public void p2_logica_fibonacci(int quantidadeNumerosFibonacci){
+		int r1;
+		int r2;
+		int p;
+		r1 = 0;
+		r2 = 1;
+
+		// 1 - 1 - 2 - 3 - 5 - 8
+
+		for(int i = 0; i < quantidadeNumerosFibonacci; i++){  // linha 10 a 20
+			p = r1 + r2;
+			r1 = r2;
+			r2 = p;
+
+			System.out.println(r2);
+		}
+	}
+
+	public void p3_logica_fatorial(int numeroFatorial){
+		int inicio_saida = 100;
+		int[] m = new int[1024];
+
+		if(numeroFatorial < 0){
+			m[inicio_saida] = -1;
+		} else if(numeroFatorial > 0) {
+
+		}
+	}
+
+	public void test() {
 		Aux aux = new Aux();
 		Word[] p = new Programas().progMinimo;
 		aux.carga(p, vm.m);
@@ -248,9 +281,9 @@ public class Sistema {
 		aux.dump(vm.m, 0, 15);
 	}
 
-	public void test2() {
+	public void test1() {
 		Aux aux = new Aux();
-		Word[] p = new Programas().fibonacci10;
+		Word[] p = new Programas().programa1;
 		aux.carga(p, vm.m);
 		vm.cpu.setContext(0);
 		System.out.println("---------------------------------- programa carregado ");
@@ -258,6 +291,42 @@ public class Sistema {
 		System.out.println("---------------------------------- após execucao ");
 		vm.cpu.run();
 		aux.dump(vm.m, 0, 33);
+	}
+
+	public void test2() {
+		Aux aux = new Aux();
+		Word[] p = new Programas().programa2;
+		aux.carga(p, vm.m);
+		vm.cpu.setContext(0);
+		System.out.println("---------------------------------- programa carregado ");
+		aux.dump(vm.m, 0, 60);
+		System.out.println("---------------------------------- após execucao ");
+		vm.cpu.run();
+		aux.dump(vm.m, 0, 60);
+	}
+
+	public void test3() {
+		Aux aux = new Aux();
+		Word[] p = new Programas().programa3;
+		aux.carga(p, vm.m);
+		vm.cpu.setContext(0);
+		System.out.println("---------------------------------- programa carregado ");
+		aux.dump(vm.m, 0, 60);
+		System.out.println("---------------------------------- após execucao ");
+		vm.cpu.run();
+		aux.dump(vm.m, 0, 60);
+	}
+
+	public void test4() {
+		Aux aux = new Aux();
+		Word[] p = new Programas().programa4;
+		aux.carga(p, vm.m);
+		vm.cpu.setContext(0);
+		System.out.println("---------------------------------- programa carregado ");
+		aux.dump(vm.m, 0, 60);
+		System.out.println("---------------------------------- após execucao ");
+		vm.cpu.run();
+		aux.dump(vm.m, 0, 60);
 	}
 
 	// ------------------------------------------- classes e funcoes auxiliares
@@ -286,32 +355,141 @@ public class Sistema {
 	// -------------------------------------------- programas aa disposicao para copiar na memoria (vide aux.carga)
 	public class Programas {
 		public Word[] progMinimo = new Word[] { 
-			new Word(Opcode.LDI, 0, -1, 999), 
-			new Word(Opcode.STD, 0, -1, 10),
+			new Word(Opcode.LDI, 0, -1, 999), // carrega o valor 999 no registrador 0
+			new Word(Opcode.STD, 0, -1, 10),  // Passando pra memoria na posicao 10 o valor do registrador 0
 			new Word(Opcode.STD, 0, -1, 11), 
 			new Word(Opcode.STD, 0, -1, 12), 
 			new Word(Opcode.STD, 0, -1, 13),
 			new Word(Opcode.STD, 0, -1, 14), 
 			new Word(Opcode.STOP, -1, -1, -1) };
 
-		public Word[] fibonacci10 = new Word[] { // mesmo que prog exemplo, so que usa r0 no lugar de r8
-			new Word(Opcode.LDI, 1, -1, 0), 
-			new Word(Opcode.STD, 1, -1, 20), // 50
-			new Word(Opcode.LDI, 2, -1, 1), 
-			new Word(Opcode.STD, 2, -1, 21), // 51
-			new Word(Opcode.LDI, 0, -1, 22), // 52
-			new Word(Opcode.LDI, 6, -1, 6), 
-			new Word(Opcode.LDI, 7, -1, 31), // 61
-			new Word(Opcode.LDI, 3, -1, 0), 
-			new Word(Opcode.ADD, 3, 1, -1), 
-			new Word(Opcode.LDI, 1, -1, 0),
-			new Word(Opcode.ADD, 1, 2, -1), 
-			new Word(Opcode.ADD, 2, 3, -1), 
-			new Word(Opcode.STX, 0, 2, -1),
-			new Word(Opcode.ADDI, 0, -1, 1), 
-			new Word(Opcode.SUB, 7, 0, -1), 
-			new Word(Opcode.JMPIG, 6, 7, -1),
-			new Word(Opcode.STOP, -1, -1, -1) };
-	}
+		/*
+        	ALGORITMO:
+            10 primeiros números da sequência de Fibonacci.
+    	*/
+		public Word[] programa1 = new Word[] {
+			new Word(Opcode.LDI, 0, -1, 0),
+			new Word(Opcode.STD, 0, -1, 20),
+			new Word(Opcode.LDI, 1, -1, 1),
+			new Word(Opcode.STD, 1, -1, 21),
+			new Word(Opcode.LDI, 7, -1, 22),
+			new Word(Opcode.LDI, 5, -1, 6),
+			new Word(Opcode.LDI, 6, -1, 31),
+			new Word(Opcode.LDI, 2, -1, 0),
+			new Word(Opcode.ADD, 2, 0, -1),
+			new Word(Opcode.LDI, 0, -1, 0),
+			new Word(Opcode.ADD, 0, 1, -1),
+			new Word(Opcode.ADD, 1, 2, -1),
+			new Word(Opcode.STX, 7, 1, -1),
+			new Word(Opcode.ADDI, 7, -1, 1),
+			new Word(Opcode.SUB, 6, 7, -1),
+			new Word(Opcode.JMPIG, 5, 6, -1),
+			new Word(Opcode.STOP, -1, -1, -1)
+		};
 
+		/*
+        	ALGORITMO:
+            Escrever N números da sequência de Fibonacci a partir de um valor na memória.
+            Escreve números de maneira crescente.
+    	*/
+		public Word[] programa2 = new Word[] {
+			new Word(Opcode.LDI, 0, -1, -1),
+			new Word(Opcode.LDI, 1, -1, 0),
+			new Word(Opcode.LDI, 2, -1, 1),
+			new Word(Opcode.LDI, 3, -1, 50),
+			new Word(Opcode.LDX, 4, 3, -1),
+			new Word(Opcode.LDI, 5, -1, 18),
+			new Word(Opcode.LDI, 6, -1, 32),
+			new Word(Opcode.JMPIL, 5, 4, -1),
+			new Word(Opcode.JMPIE, 6, 4, -1),
+			new Word(Opcode.STX, 3, 1, -1),
+			new Word(Opcode.ADDI, 3, -1, 1),
+			new Word(Opcode.SUBI, 4, -1, 1),
+			new Word(Opcode.JMPIE, 6, 4, -1),
+			new Word(Opcode.JMP, -1, -1, 20),
+			new Word(Opcode.STX, 3, 0, -1),
+			new Word(Opcode.JMP, -1, -1, 32),
+			new Word(Opcode.LDI, 0, -1, 0),
+			new Word(Opcode.LDI, 1, -1, 1),
+			new Word(Opcode.LDI, 5, -1, 23),
+			new Word(Opcode.LDI, 2, -1, 0),
+			new Word(Opcode.ADD, 2, 1, -1),
+			new Word(Opcode.LDI, 0, -1, 0),
+			new Word(Opcode.ADD, 0, 1, -1),
+			new Word(Opcode.ADD, 1, 2, -1),
+			new Word(Opcode.STX, 3, 1, -1),
+			new Word(Opcode.ADDI, 3, -1, 1),
+			new Word(Opcode.SUBI, 4, -1, 1),
+			new Word(Opcode.JMPIG, 5, 4, -1),
+			new Word(Opcode.STOP, -1, -1, -1)
+		};
+
+		/*
+    		ALGORITMO:
+        	Escrever o fatorial de um valor pré determinado na memória.
+		*/
+		public Word[] programa3 = new Word[] {
+			new Word(Opcode.DATA, 50, -1, 10),
+			new Word(Opcode.LDI, 0, -1, -1),
+			new Word(Opcode.LDI, 1, -1, 1),
+			new Word(Opcode.LDI, 2, -1, 50),
+			new Word(Opcode.LDX, 3, 2, -1),
+			new Word(Opcode.LDI, 4, -1, 11),
+			new Word(Opcode.LDI, 5, -1, 13),
+			new Word(Opcode.LDI, 6, -1, 25),
+			new Word(Opcode.JMPIL, 4, 3, -1),
+			new Word(Opcode.JMPIE, 5, 3, -1),
+			new Word(Opcode.JMP, -1, -1, 15),
+			new Word(Opcode.STX, 2, 0, -1),
+			new Word(Opcode.JMP, -1, -1, 24),
+			new Word(Opcode.STX, 2, 1, -1),
+			new Word(Opcode.JMP, -1, -1, 24),
+			new Word(Opcode.LDI, 4, -1, 0),
+			new Word(Opcode.ADD, 4, 3, -1),
+			new Word(Opcode.SUBI, 3, -1, 1),
+			new Word(Opcode.STX, 2, 1, -1),
+			new Word(Opcode.JMPIE, 6, 3, -1),
+			new Word(Opcode.LDI, 0, -1, 21),
+			new Word(Opcode.MULT, 4, 3, -1),
+			new Word(Opcode.STX, 2, 4, -1),
+			new Word(Opcode.SUB, 3, -1, 1),
+			new Word(Opcode.JMPIG, 0, 3, -1),
+			new Word(Opcode.STOP, -1, -1, -1)
+		};
+
+		/*
+    		ALGORITMO:
+        	Bubble sort.
+		*/
+		public Word[] programa4 = new Word[] {
+			new Word(Opcode.DATA, 0, 0, 5),
+			new Word(Opcode.DATA, 1, 0, 3),
+			new Word(Opcode.DATA, 2, 0, 4),
+			new Word(Opcode.DATA, 3, 0, 1),
+			new Word(Opcode.DATA, 4, 0, 2),
+
+			new Word(Opcode.LDI, 3, -1, 6),
+			new Word(Opcode.LDI, 2, -1, 5),
+			new Word(Opcode.LDI, 0, -1, 1),
+			new Word(Opcode.LDI, 1, -1, 1),
+			new Word(Opcode.JMPIL, 4, 2, -1),
+			new Word(Opcode.STOP, -1, -1, -1),
+			new Word(Opcode.LDX, 3, 0, -1),
+			new Word(Opcode.LDX, 4, 1, -1),
+			new Word(Opcode.SUB, 3, 4, -1),
+			new Word(Opcode.LDI, 4, -1, 12),
+			new Word(Opcode.JMPIG, 4, 3, -1),
+			new Word(Opcode.JMP, -1, -1, 4),
+			new Word(Opcode.LDX, 3, 1, -1),
+			new Word(Opcode.SWAP, 3, 4, -1),
+			new Word(Opcode.STX, 0, 3, -1),
+			new Word(Opcode.STX, 1, 4, -1),
+			new Word(Opcode.ADDI, 0, -1, 1),
+			new Word(Opcode.ADDI, 1, -1, 1),
+			new Word(Opcode.JMP, -1, -1, 4)
+		};
+
+	}
 }
+
+
