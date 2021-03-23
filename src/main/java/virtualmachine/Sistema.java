@@ -99,7 +99,7 @@ public class Sistema {
 						break;
 
 					case JMPIM: // PC <- [A]
-						pc = reg[ir.p];
+						pc = m[ir.p].p;
 						pc++;
 						break;
 
