@@ -64,6 +64,7 @@ public class Sistema {
 			while (true) {				// ciclo de instrucoes. acaba cfe instrucao, veja cada caso.
 				ir = m[pc];				// FETCH - busca posicao da memoria apontada por pc, guarda em ir
 				switch (ir.opc) {		// EXECUTA INSTRUCAO NO ir - para cada opcode, sua execução
+
 					case JMP: // PC ← k
 						pc = ir.p;
 						break;
@@ -94,6 +95,11 @@ public class Sistema {
 						} else {
 							pc++;
 						}
+						break;
+
+					case JMPIM: // PC <- [A]
+						pc = m[ir.p].p;
+						pc++;
 						break;
 
 					case ADD: // Rd ← Rd + Rs
@@ -138,14 +144,30 @@ public class Sistema {
 						pc++;
 						break;
 
-					case LDD: // Rd ← [A] | R1 <- p
-						int posicao = ir.r1;
-						reg[posicao] = m[ir.p].p;
+					case LDD: // Rd ← [A]
+						reg[ir.r1] = m[ir.p].p;
+						pc++;
 						break;
+
+					case LDX: // Rd ← [Rs]
+						reg[ir.r1] = m[reg[ir.r2]].p;
+						pc++;
+						break;
+
+					case SWAP: // T <- Ra | Ra <- Rb | Rb <- T
+						int aux;
+						aux = reg[ir.r1];
+						reg[ir.r1] = reg[ir.r2];
+						reg[ir.r2] = aux;
+						pc++;
+						break;
+
 					case STOP: // por enquanto, para execucao
 						break;
-					case DATA: 
+
+					case DATA:
 						break;
+
 					default:
 						break;
 				}
