@@ -230,7 +230,8 @@ public class Sistema {
 		Sistema s = new Sistema();
 
 		// s.p2_logica_fibonacci(5);
-		s.p3_logica_fatorial(6);
+		// s.p3_logica_fatorial(6);
+		s.test_p4_logica_bubblesort();
 
 		// s.test();
 		// s.test1();
@@ -269,6 +270,48 @@ public class Sistema {
 		}
 
 		System.out.println(fatorial);
+	}
+
+	public int[] p4_logica_bubblesort(int[] _array){
+		int[] array = _array;
+		int temp;
+		int length = array.length;
+		int swapped;
+
+		for(int j=0; j < length-1; j++){
+			swapped = 0;							// false
+
+			for(int i=0; i < length-j-1; i++){
+				if(array[i] > array[i+1]){
+					temp = array[i];
+					array[i] = array[i+1];
+					array[i+1] = temp;
+					swapped = 1;					// true
+				}
+			}
+
+			if(swapped == 0){
+				break;
+			}
+		}
+
+		return array;
+	}
+
+	public void test_p4_logica_bubblesort(){
+		int[] array = {3,6,6,2,3,7,4,5,0,2,-1,9};
+
+		System.out.print("Before: ");
+		for(int n: array){
+			System.out.print(n+", ");
+		}System.out.println();
+
+		int[] sortedArray = p4_logica_bubblesort(array);
+
+		System.out.print("After: ");
+		for(int n: sortedArray){
+			System.out.print(n+", ");
+		}System.out.println();
 	}
 
 	public void test() {
