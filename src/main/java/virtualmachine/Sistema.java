@@ -228,12 +228,15 @@ public class Sistema {
 	// ------------------- instancia e testa sistema
 	public static void main(String args[]) {
 		Sistema s = new Sistema();
-		s.p2_logica_fibonacci(5);
-//		s.test();
-//		s.test1();
-//		s.test2();
-//		s.test3();
-//		s.test4();
+
+		// s.p2_logica_fibonacci(5);
+		s.p3_logica_fatorial(6);
+
+		// s.test();
+		// s.test1();
+		// s.test2();
+		// s.test3();
+		// s.test4();
 	}
 	// -------------------------------------------------------------------------------------------------------
 	// --------------- TUDO ABAIXO DE MAIN É AUXILIAR PARA FUNCIONAMENTO DO SISTEMA - nao faz parte
@@ -258,15 +261,14 @@ public class Sistema {
 		}
 	}
 
-	public void p3_logica_fatorial(int numeroFatorial){
-		int inicio_saida = 100;
-		int[] m = new int[1024];
+	public void p3_logica_fatorial(int n){
+		int fatorial = 1;
 
-		if(numeroFatorial < 0){
-			m[inicio_saida] = -1;
-		} else if(numeroFatorial > 0) {
-
+		for(int i = 1; i <= n; i++){    
+			fatorial = fatorial * i;    
 		}
+
+		System.out.println(fatorial);
 	}
 
 	public void test() {
