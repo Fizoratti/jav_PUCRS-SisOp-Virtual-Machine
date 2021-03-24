@@ -22,12 +22,12 @@ Nossa máquina virtual tem CPU e Memória.
 
 ## 📝 To Do
 **To Do**
-- [ ] Todas instruções (opcodes)
-- [ ] Todos programas
-  - [ ] Fibonacci
-  - [ ] Programa 2
-  - [ ] Programa 3
-  - [ ] Programa 4
+- [ ] Finalizar instruções (opcodes)
+- [ ] Finalizar Programas
+  - [ ] Avaliar Programa 1
+  - [ ] Escrever Programa 2 (Fibonacci)
+  - [ ] Escrever Programa 3 (Fatorial) 
+  - [ ] Escrever Programa 4 (Bubble sort)
 - [ ] Interrupções
 - [ ] Traps
 
@@ -93,8 +93,8 @@ Conjunto de instruções.
 - [x] STD
 - [x] STX
 - [x] LDD
-- [ ] LDX
-- [ ] SWAP
+- [x] LDX
+- [x] SWAP
 
 #### Instruções Genréricas
 
