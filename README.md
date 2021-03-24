@@ -23,8 +23,10 @@ Nossa máquina virtual tem CPU e Memória.
 ## 📝 To Do
 **To Do**
 - [ ] Finalizar instruções (opcodes)
+  - [ ] Escrever as instruções
+  - [ ] Verificar as instruções com o professor
 - [ ] Finalizar Programas
-  - [ ] Avaliar Programa 1
+  - [x] Avaliar Programa 1 ```works!```
   - [ ] Escrever Programa 2 (Fibonacci)
   - [ ] Escrever Programa 3 (Fatorial) 
   - [ ] Escrever Programa 4 (Bubble sort)
@@ -33,6 +35,10 @@ Nossa máquina virtual tem CPU e Memória.
 
 **Done**
 - [x] Café
+- [x] Escrever a lógica dos programas em Java
+  - [x] Fibonacci
+  - [x] Fatorial
+  - [x] Bubble sort
 
 ## 🔦ㅤPré Requisitos
 

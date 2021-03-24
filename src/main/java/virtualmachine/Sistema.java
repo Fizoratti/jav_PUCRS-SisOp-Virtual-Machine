@@ -228,12 +228,16 @@ public class Sistema {
 	// ------------------- instancia e testa sistema
 	public static void main(String args[]) {
 		Sistema s = new Sistema();
-		s.p2_logica_fibonacci(5);
-//		s.test();
-//		s.test1();
-//		s.test2();
-//		s.test3();
-//		s.test4();
+
+		// s.p2_logica_fibonacci(5);
+		// s.p3_logica_fatorial(6);
+		// s.test_p4_logica_bubblesort();
+
+		// s.test();
+		// s.test1();
+		s.test2();
+		// s.test3();
+		// s.test4();
 	}
 	// -------------------------------------------------------------------------------------------------------
 	// --------------- TUDO ABAIXO DE MAIN É AUXILIAR PARA FUNCIONAMENTO DO SISTEMA - nao faz parte
@@ -258,15 +262,56 @@ public class Sistema {
 		}
 	}
 
-	public void p3_logica_fatorial(int numeroFatorial){
-		int inicio_saida = 100;
-		int[] m = new int[1024];
+	public void p3_logica_fatorial(int n){
+		int fatorial = 1;
 
-		if(numeroFatorial < 0){
-			m[inicio_saida] = -1;
-		} else if(numeroFatorial > 0) {
-
+		for(int i = 1; i <= n; i++){    
+			fatorial = fatorial * i;    
 		}
+
+		System.out.println(fatorial);
+	}
+
+	public int[] p4_logica_bubblesort(int[] _array){
+		int[] array = _array;
+		int temp;
+		int length = array.length;
+		int swapped;
+
+		for(int j=0; j < length-1; j++){
+			swapped = 0;							// false
+
+			for(int i=0; i < length-j-1; i++){
+				if(array[i] > array[i+1]){
+					temp = array[i];
+					array[i] = array[i+1];
+					array[i+1] = temp;
+					swapped = 1;					// true
+				}
+			}
+
+			if(swapped == 0){
+				break;
+			}
+		}
+
+		return array;
+	}
+
+	public void test_p4_logica_bubblesort(){
+		int[] array = {3,6,6,2,3,7,4,5,0,2,-1,9};
+
+		System.out.print("Before: ");
+		for(int n: array){
+			System.out.print(n+", ");
+		}System.out.println();
+
+		int[] sortedArray = p4_logica_bubblesort(array);
+
+		System.out.print("After: ");
+		for(int n: sortedArray){
+			System.out.print(n+", ");
+		}System.out.println();
 	}
 
 	public void test() {
@@ -368,23 +413,23 @@ public class Sistema {
             10 primeiros números da sequência de Fibonacci.
     	*/
 		public Word[] programa1 = new Word[] {
-			new Word(Opcode.LDI, 0, -1, 0),
-			new Word(Opcode.STD, 0, -1, 20),
-			new Word(Opcode.LDI, 1, -1, 1),
-			new Word(Opcode.STD, 1, -1, 21),
-			new Word(Opcode.LDI, 7, -1, 22),
-			new Word(Opcode.LDI, 5, -1, 6),
-			new Word(Opcode.LDI, 6, -1, 31),
-			new Word(Opcode.LDI, 2, -1, 0),
-			new Word(Opcode.ADD, 2, 0, -1),
-			new Word(Opcode.LDI, 0, -1, 0),
-			new Word(Opcode.ADD, 0, 1, -1),
-			new Word(Opcode.ADD, 1, 2, -1),
-			new Word(Opcode.STX, 7, 1, -1),
-			new Word(Opcode.ADDI, 7, -1, 1),
-			new Word(Opcode.SUB, 6, 7, -1),
-			new Word(Opcode.JMPIG, 5, 6, -1),
-			new Word(Opcode.STOP, -1, -1, -1)
+			new Word(Opcode.LDI, 0, -1, 0),		// cpu.r[0]      = 0   	 | 										*R0:0  r1:-  r2:-  r3:-  r4:-  r5:-  r6:-  r7:-
+			new Word(Opcode.STD, 0, -1, 20),	// memory[20]    = 0 	 | memory.write(Address: 20, DATA: 0)
+			new Word(Opcode.LDI, 1, -1, 1),		// cpu.r[1]      = 1   	 | 										 r0:0 *R1:1  r2:-  r3:-  r4:-  r5:-  r6:-  r7:-
+			new Word(Opcode.STD, 1, -1, 21),	// memory[21]    = 1   	 | memory.write(Address: 21, DATA: 1)
+			new Word(Opcode.LDI, 7, -1, 22),	// cpu.r[7]      = 22  	 | 										 r0:0  r1:1  r2:-  r3:-  r4:-  r5:-  r6:- *R7:22
+			new Word(Opcode.LDI, 5, -1, 6),		// cpu.r[5]      = 6   	 | 										 r0:0  r1:2  r2:0  r3:-  r4:- *R5:6  r6:-  r7:22
+			new Word(Opcode.LDI, 6, -1, 31),	// cpu.r[6]      = 31  	 | 										 r0:0  r1:1  r2:0  r3:-  r4:-  r5:6 *R6:31 r7:22
+			new Word(Opcode.LDI, 2, -1, 0),		// cpu.r[2]      = 0   	 | 										 r0:0  r1:1 *R2:0  r3:-  r4:-  r5:6  r6:31 r7:22
+			new Word(Opcode.ADD, 2, 0, -1),		// cpu.r[2]	     = 0+0 	 | cpu.r[2] = cpu.r[2] + cpu.r[0]
+			new Word(Opcode.LDI, 0, -1, 0),		// cpu.r[0]      = 0     | 										*R0:0  r1:1  r2:0  r3:-  r4:-  r5:6  r6:31 r7:22
+			new Word(Opcode.ADD, 0, 1, -1),		// cpu.r[0]      = 0+1   | cpu.r[0] = cpu.r[0] + cpu.r[1]		*R0:1  r1:1  r2:0  r3:-  r4:-  r5:6  r6:31 r7:22
+			new Word(Opcode.ADD, 1, 2, -1),		// cpu.r[1]      = 1+1   | cpu.r[1] = cpu.r[1] + cpu.r[2]		 r0:1 *R1:2  r2:0  r3:-  r4:-  r5:6  r6:31 r7:22
+			new Word(Opcode.STX, 7, 1, -1),		// memory[r7:22] = 1     | memory.write(Address:22, DATA:1)
+			new Word(Opcode.ADDI, 7, -1, 1),	// cpu.r[7]      = 22+1  | cpu.r[7] = cpu.r[7] + 1				 r0:1  r1:2  r2:0  r3:-  r4:-  r5:6  r6:31*R7:23
+			new Word(Opcode.SUB, 6, 7, -1),		// cpu.r[6]      = 31-23 | cpu.r[6] = cpu.r[6] - cpu.r[7]		 r0:1  r1:2  r2:0  r3:-  r4:-  r5:6 *R6:8  r7:23
+			new Word(Opcode.JMPIG, 5, 6, -1),	// jump(memory[6])       | if(cpu.r[6]>0) jump(memory[cpu.r[5])  r0:1  r1:2  r2:0  r3:-  r4:- *R5:6  r6:8  r7:23
+			new Word(Opcode.STOP, -1, -1, -1)	
 		};
 
 		/*
@@ -393,16 +438,16 @@ public class Sistema {
             Escreve números de maneira crescente.
     	*/
 		public Word[] programa2 = new Word[] {
-			new Word(Opcode.LDI, 0, -1, -1),
-			new Word(Opcode.LDI, 1, -1, 0),
-			new Word(Opcode.LDI, 2, -1, 1),
-			new Word(Opcode.LDI, 3, -1, 50),
-			new Word(Opcode.LDX, 4, 3, -1),
-			new Word(Opcode.LDI, 5, -1, 18),
-			new Word(Opcode.LDI, 6, -1, 32),
+			new Word(Opcode.LDI, 0, -1, -1),	// cpu.r[0]      = ?   	 | cpu.r[0] = -1 (null)					*R0:?  r1:-  r2:-  r3:-  r4:-  r5:-  r6:-  r7:-
+			new Word(Opcode.LDI, 1, -1, 0),		// cpu.r[1]      = 0   	 | 										 r0:? *R1:0  r2:-  r3:-  r4:-  r5:-  r6:-  r7:-
+			new Word(Opcode.LDI, 2, -1, 1),		// cpu.r[2]      = 1   	 | 										 r0:?  r1:0 *R2:1  r3:-  r4:-  r5:-  r6:-  r7:-
+			new Word(Opcode.LDI, 3, -1, 50),	// cpu.r[3]      = 50    | 										 r0:?  r1:0  r2:1 *R3:50 r4:-  r5:-  r6:-  r7:-
+			new Word(Opcode.LDX, 4, 3, -1),		// cpu.r[4]      = ?     | cpu.r[4] = memory.read(Address:50) 	 r0:?  r1:0  r2:1  r3:50*R4:?  r5:-  r6:-  r7:-
+			new Word(Opcode.LDI, 5, -1, 18),	// cpu.r[5]      = 18    | 									 	 r0:?  r1:0  r2:1  r3:50 r4:? *R5:18 r6:-  r7:-
+			new Word(Opcode.LDI, 6, -1, 32),	// cpu.r[6]      = 32    | 									 	 r0:?  r1:0  r2:1  r3:50 r4:?  r5:18*R6:32 r7:-
 			new Word(Opcode.JMPIL, 5, 4, -1),
 			new Word(Opcode.JMPIE, 6, 4, -1),
-			new Word(Opcode.STX, 3, 1, -1),
+			new Word(Opcode.STX, 3, 1, -1),		// memory[50] = 0 		 | memory.write(Address:50, DATA:0)
 			new Word(Opcode.ADDI, 3, -1, 1),
 			new Word(Opcode.SUBI, 4, -1, 1),
 			new Word(Opcode.JMPIE, 6, 4, -1),
