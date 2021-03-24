@@ -235,7 +235,7 @@ public class Sistema {
 
 		// s.test();
 		// s.test1();
-		// s.test2();
+		s.test2();
 		// s.test3();
 		// s.test4();
 	}
@@ -438,16 +438,16 @@ public class Sistema {
             Escreve números de maneira crescente.
     	*/
 		public Word[] programa2 = new Word[] {
-			new Word(Opcode.LDI, 0, -1, -1),
-			new Word(Opcode.LDI, 1, -1, 0),
-			new Word(Opcode.LDI, 2, -1, 1),
-			new Word(Opcode.LDI, 3, -1, 50),
-			new Word(Opcode.LDX, 4, 3, -1),
-			new Word(Opcode.LDI, 5, -1, 18),
-			new Word(Opcode.LDI, 6, -1, 32),
+			new Word(Opcode.LDI, 0, -1, -1),	// cpu.r[0]      = ?   	 | cpu.r[0] = -1 (null)					*R0:?  r1:-  r2:-  r3:-  r4:-  r5:-  r6:-  r7:-
+			new Word(Opcode.LDI, 1, -1, 0),		// cpu.r[1]      = 0   	 | 										 r0:? *R1:0  r2:-  r3:-  r4:-  r5:-  r6:-  r7:-
+			new Word(Opcode.LDI, 2, -1, 1),		// cpu.r[2]      = 1   	 | 										 r0:?  r1:0 *R2:1  r3:-  r4:-  r5:-  r6:-  r7:-
+			new Word(Opcode.LDI, 3, -1, 50),	// cpu.r[3]      = 50    | 										 r0:?  r1:0  r2:1 *R3:50 r4:-  r5:-  r6:-  r7:-
+			new Word(Opcode.LDX, 4, 3, -1),		// cpu.r[4]      = ?     | cpu.r[4] = memory.read(Address:50) 	 r0:?  r1:0  r2:1  r3:50*R4:?  r5:-  r6:-  r7:-
+			new Word(Opcode.LDI, 5, -1, 18),	// cpu.r[5]      = 18    | 									 	 r0:?  r1:0  r2:1  r3:50 r4:? *R5:18 r6:-  r7:-
+			new Word(Opcode.LDI, 6, -1, 32),	// cpu.r[6]      = 32    | 									 	 r0:?  r1:0  r2:1  r3:50 r4:?  r5:18*R6:32 r7:-
 			new Word(Opcode.JMPIL, 5, 4, -1),
 			new Word(Opcode.JMPIE, 6, 4, -1),
-			new Word(Opcode.STX, 3, 1, -1),
+			new Word(Opcode.STX, 3, 1, -1),		// memory[50] = 0 		 | memory.write(Address:50, DATA:0)
 			new Word(Opcode.ADDI, 3, -1, 1),
 			new Word(Opcode.SUBI, 4, -1, 1),
 			new Word(Opcode.JMPIE, 6, 4, -1),
