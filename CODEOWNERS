@@ -1,8 +1,0 @@
-# Este é um comentário.
-# Cada linha é um padrão de arquivo seguido por um ou mais proprietários.
-
-# Esses proprietários serão os proprietários padrão para tudo no
-# repositório. A menos que uma correspondência posterior tenha precedência,
-# @global-owner1 e @global-owner2 serão solicitados para
-# revisão quando alguém abrir uma pull request.
-*       @fizoratti
