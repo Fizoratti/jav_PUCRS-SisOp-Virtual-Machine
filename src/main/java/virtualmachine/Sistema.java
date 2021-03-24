@@ -231,7 +231,7 @@ public class Sistema {
 
 		// s.p2_logica_fibonacci(5);
 		// s.p3_logica_fatorial(6);
-		s.test_p4_logica_bubblesort();
+		// s.test_p4_logica_bubblesort();
 
 		// s.test();
 		// s.test1();
@@ -413,23 +413,23 @@ public class Sistema {
             10 primeiros números da sequência de Fibonacci.
     	*/
 		public Word[] programa1 = new Word[] {
-			new Word(Opcode.LDI, 0, -1, 0),
-			new Word(Opcode.STD, 0, -1, 20),
-			new Word(Opcode.LDI, 1, -1, 1),
-			new Word(Opcode.STD, 1, -1, 21),
-			new Word(Opcode.LDI, 7, -1, 22),
-			new Word(Opcode.LDI, 5, -1, 6),
-			new Word(Opcode.LDI, 6, -1, 31),
-			new Word(Opcode.LDI, 2, -1, 0),
-			new Word(Opcode.ADD, 2, 0, -1),
-			new Word(Opcode.LDI, 0, -1, 0),
-			new Word(Opcode.ADD, 0, 1, -1),
-			new Word(Opcode.ADD, 1, 2, -1),
-			new Word(Opcode.STX, 7, 1, -1),
-			new Word(Opcode.ADDI, 7, -1, 1),
-			new Word(Opcode.SUB, 6, 7, -1),
-			new Word(Opcode.JMPIG, 5, 6, -1),
-			new Word(Opcode.STOP, -1, -1, -1)
+			new Word(Opcode.LDI, 0, -1, 0),		// cpu.r[0]      = 0   	 | 										*R0:0  r1:-  r2:-  r3:-  r4:-  r5:-  r6:-  r7:-
+			new Word(Opcode.STD, 0, -1, 20),	// memory[20]    = 0 	 | memory.write(Address: 20, DATA: 0)
+			new Word(Opcode.LDI, 1, -1, 1),		// cpu.r[1]      = 1   	 | 										 r0:0 *R1:1  r2:-  r3:-  r4:-  r5:-  r6:-  r7:-
+			new Word(Opcode.STD, 1, -1, 21),	// memory[21]    = 1   	 | memory.write(Address: 21, DATA: 1)
+			new Word(Opcode.LDI, 7, -1, 22),	// cpu.r[7]      = 22  	 | 										 r0:0  r1:1  r2:-  r3:-  r4:-  r5:-  r6:- *R7:22
+			new Word(Opcode.LDI, 5, -1, 6),		// cpu.r[5]      = 6   	 | 										 r0:0  r1:2  r2:0  r3:-  r4:- *R5:6  r6:-  r7:22
+			new Word(Opcode.LDI, 6, -1, 31),	// cpu.r[6]      = 31  	 | 										 r0:0  r1:1  r2:0  r3:-  r4:-  r5:6 *R6:31 r7:22
+			new Word(Opcode.LDI, 2, -1, 0),		// cpu.r[2]      = 0   	 | 										 r0:0  r1:1 *R2:0  r3:-  r4:-  r5:6  r6:31 r7:22
+			new Word(Opcode.ADD, 2, 0, -1),		// cpu.r[2]	     = 0+0 	 | cpu.r[2] = cpu.r[2] + cpu.r[0]
+			new Word(Opcode.LDI, 0, -1, 0),		// cpu.r[0]      = 0     | 										*R0:0  r1:1  r2:0  r3:-  r4:-  r5:6  r6:31 r7:22
+			new Word(Opcode.ADD, 0, 1, -1),		// cpu.r[0]      = 0+1   | cpu.r[0] = cpu.r[0] + cpu.r[1]		*R0:1  r1:1  r2:0  r3:-  r4:-  r5:6  r6:31 r7:22
+			new Word(Opcode.ADD, 1, 2, -1),		// cpu.r[1]      = 1+1   | cpu.r[1] = cpu.r[1] + cpu.r[2]		 r0:1 *R1:2  r2:0  r3:-  r4:-  r5:6  r6:31 r7:22
+			new Word(Opcode.STX, 7, 1, -1),		// memory[r7:22] = 1     | memory.write(Address:22, DATA:1)
+			new Word(Opcode.ADDI, 7, -1, 1),	// cpu.r[7]      = 22+1  | cpu.r[7] = cpu.r[7] + 1				 r0:1  r1:2  r2:0  r3:-  r4:-  r5:6  r6:31*R7:23
+			new Word(Opcode.SUB, 6, 7, -1),		// cpu.r[6]      = 31-23 | cpu.r[6] = cpu.r[6] - cpu.r[7]		 r0:1  r1:2  r2:0  r3:-  r4:-  r5:6 *R6:8  r7:23
+			new Word(Opcode.JMPIG, 5, 6, -1),	// jump(memory[6])       | if(cpu.r[6]>0) jump(memory[cpu.r[5])  r0:1  r1:2  r2:0  r3:-  r4:- *R5:6  r6:8  r7:23
+			new Word(Opcode.STOP, -1, -1, -1)	
 		};
 
 		/*
