@@ -2,11 +2,11 @@ package virtualmachine;
 
 // ------------------------------------------- classes e funcoes auxiliares
 public class Aux {
-    public void dump(Word w) {
+    private void dump(Word w) {
         System.out.print("[ " + w.opc + ", " + w.r1 + ", " + w.r2 + ", " + w.p + " ] \n");
     }
 
-    public void dump(Word[] m, int ini, int fim) {
+    public void dumpMemoria(Word[] m, int ini, int fim) {
         for (int i = ini; i < fim; i++) {
             System.out.print(i);
             System.out.print(":  ");
@@ -14,12 +14,12 @@ public class Aux {
         }
     }
 
-    public void carga(Word[] p, Word[] m) {
-        for (int i = 0; i < p.length; i++) {
-            m[i].opc = p[i].opc;
-            m[i].r1 = p[i].r1;
-            m[i].r2 = p[i].r2;
-            m[i].p = p[i].p;
+    public void cargaProgramaParaMemoria(Word[] programa, Word[] memoria) {
+        for (int i = 0; i < programa.length; i++) {
+            memoria[i].opc = programa[i].opc;
+            memoria[i].r1 = programa[i].r1;
+            memoria[i].r2 = programa[i].r2;
+            memoria[i].p = programa[i].p;
         }
     }
 }

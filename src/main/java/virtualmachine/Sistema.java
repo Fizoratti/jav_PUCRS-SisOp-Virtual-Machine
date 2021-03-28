@@ -9,103 +9,83 @@ package virtualmachine;
 
 public class Sistema {
 
-    // -------------------------------------------------------------------------------------------------------
-    // --------------------- H A R D W A R E - definicoes de HW ----------------------------------------------
-
-    // -------------------------------------------------------------------------------------------------------
-    // --------------------- M E M O R I A - definicoes de opcode e palavra de memoria ----------------------
-
-    // -------------------------------------------------------------------------------------------------------
-
-    // -------------------------------------------------------------------------------------------------------
-    // --------------------- C P U - definicoes da CPU -----------------------------------------------------
-
-    // ------------------ C P U - fim ------------------------------------------------------------------------
-    // -------------------------------------------------------------------------------------------------------
-
-    // ------------------- V M - fim ------------------------------------------------------------------------
-    // -------------------------------------------------------------------------------------------------------
-
-    // --------------------H A R D W A R E - fim -------------------------------------------------------------
-    // -------------------------------------------------------------------------------------------------------
-
-    // -------------------------------------------------------------------------------------------------------
-    // -------------------------------------------------------------------------------------------------------
-    // ------------------- S O F T W A R E - inicio ----------------------------------------------------------
-
-    // ------------------- VAZIO
-
-    // -------------------------------------------------------------------------------------------------------
-    // ------------------- S I S T E M A --------------------------------------------------------------------
-
     public VM vm;
 
     public Sistema() { // a VM com tratamento de interrupções
-        vm = new VM(this);
+        vm = new VM();
     }
 
-    // ------------------- S I S T E M A - fim --------------------------------------------------------------
-    // -------------------------------------------------------------------------------------------------------
-
-    // -------------------------------------------------------------------------------------------------------
-    // ------------------- instancia e testa sistema
-    public static void main(String args[]) {
+    public static void main() {
         Sistema s = new Sistema();
-        Logica logica = new Logica();
 
-//        s.progMinimo();
+        int programaExecutado = 0;
 
-//        logica.fibonacci(5);
-        s.fibonacci();
-//
-//        logica.fatorial(6);
-//        s.fatorial();
-//
-//        logica.bubbleSort();
-//        s.bubbleSort();
+        switch (programaExecutado) {
+            case 0:
+                s.fibonacci10();
+                break;
+
+            case 1:
+                s.fibonacci();
+                break;
+
+            case 2:
+                s.fatorial();
+                break;
+
+            case 3:
+                s.bubbleSort();
+                break;
+        }
     }
-    // -------------------------------------------------------------------------------------------------------
-    // --------------- TUDO ABAIXO DE MAIN É AUXILIAR PARA FUNCIONAMENTO DO SISTEMA - nao faz parte
 
-    // -------------------------------------------- teste do sistema , veja classe de programas
-
-    public void progMinimo() {
+    public void fibonacci10() {
         Aux aux = new Aux();
-        Word[] p = new Programas().progMinimo;
-        aux.carga(p, vm.m);
+        Word[] p = new Programas().progFibonacci10;
+        aux.cargaProgramaParaMemoria(p, vm.memoria);
         vm.cpu.setContext(0);
-        System.out.println("---------------------------------- programa progMinimo carregado ");
-        aux.dump(vm.m, 0, 15);
+        System.out.println("---------------------------------- programa fibonacci carregado ");
+        aux.dumpMemoria(vm.memoria, 0, 17);
         System.out.println("---------------------------------- após execucao ");
         vm.cpu.run();
-        aux.dump(vm.m, 0, 15);
+        aux.dumpMemoria(vm.memoria, 18, 27);
     }
 
     public void fibonacci() {
         Aux aux = new Aux();
         Word[] p = new Programas().progFibonacci;
-        aux.carga(p, vm.m);
+        aux.cargaProgramaParaMemoria(p, vm.memoria);
         vm.cpu.setContext(0);
         System.out.println("---------------------------------- programa fibonacci carregado ");
-        aux.dump(vm.m, 0, 16);
+        aux.dumpMemoria(vm.memoria, 0, 16);
         System.out.println("---------------------------------- após execucao ");
         vm.cpu.run();
-        aux.dump(vm.m, 50, 80);
+        aux.dumpMemoria(vm.memoria, 27, 40);
     }
 
     public void fatorial() {
         Aux aux = new Aux();
         Word[] p = new Programas().progFatorial;
-        aux.carga(p, vm.m);
+        aux.cargaProgramaParaMemoria(p, vm.memoria);
         vm.cpu.setContext(0);
         System.out.println("---------------------------------- programa fatorial carregado ");
-        aux.dump(vm.m, 0, 60);
+        aux.dumpMemoria(vm.memoria, 0, 27);
         System.out.println("---------------------------------- após execucao ");
         vm.cpu.run();
-        aux.dump(vm.m, 0, 60);
+        aux.dumpMemoria(vm.memoria, 29, 33);
     }
 
-    // ------------------------------------------- fim classes e funcoes auxiliares
+    public void bubbleSort() {
+        Aux aux = new Aux();
+        Word[] p = new Programas().bubbleSort;
+        aux.cargaProgramaParaMemoria(p, vm.memoria);
+        vm.cpu.setContext(0);
+        System.out.println("---------------------------------- programa fatorial carregado ");
+        aux.dumpMemoria(vm.memoria, 0, 39);
+        System.out.println("---------------------------------- após execucao ");
+        vm.cpu.run();
+        aux.dumpMemoria(vm.memoria, 39, 50);
+    }
 
 }
 
