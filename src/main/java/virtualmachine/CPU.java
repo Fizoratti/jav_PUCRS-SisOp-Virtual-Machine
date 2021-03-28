@@ -24,29 +24,29 @@ public class CPU {
 
 //              --------------------------------------------------------------------------------------------------
 //              Instruções JUMP
-                case JMP: // PC ← k
+                case JMP: // PC <-   k
                     programCounter = instrucionRegister.p;
                     break;
 
-                case JMPI: // PC ← Rs
+                case JMPI: // PC <- Rs
                     programCounter = registers[instrucionRegister.r1];
                     break;
 
-                case JMPIG: // If Rc > 0 Then PC ← Rs Else PC ← PC +1 | if(R2>0){PC=R1}else{PC=PC++}
+                case JMPIG: // If Rc > 0 Then PC <-  Rs Else PC <-  PC +1 | if(R2>0){PC=R1}else{PC=PC++}
                     if (registers[instrucionRegister.r2] > 0)
                         programCounter = registers[instrucionRegister.r1];
                     else
                         programCounter++;
                     break;
 
-                case JMPIL: // if Rc < 0 then PC ← Rs Else PC ← PC +1
+                case JMPIL: // if Rc < 0 then PC <- Rs Else PC <-  PC +1
                     if (registers[instrucionRegister.r2] < 0)
                         programCounter = registers[instrucionRegister.r1];
                     else
                         programCounter++;
                     break;
 
-                case JMPIE: // if Rc = 0 then PC ← Rs Else PC ← PC +1
+                case JMPIE: // if Rc = 0 then PC <-  Rs Else PC <-  PC +1
                     if (registers[instrucionRegister.r2] == 0)
                         programCounter = registers[instrucionRegister.r1];
                     else
@@ -58,21 +58,21 @@ public class CPU {
                     programCounter++;
                     break;
 
-                case JMPIGM: // if Rc > 0 then PC ← [A] Else PC ← PC +1
+                case JMPIGM: // if Rc > 0 then PC <-  [A] Else PC <-  PC +1
                     if (registers[instrucionRegister.r2] > 0)
                         programCounter = instrucionRegister.p;
                     else
                         programCounter++;
                     break;
 
-                case JMPILM: // if Rc < 0 then PC ← [A] Else PC ← PC +1
+                case JMPILM: // if Rc < 0 then PC <-  [A] Else PC <-  PC +1
                     if (registers[instrucionRegister.r2] < 0)
                         programCounter = instrucionRegister.p;
                     else
                         programCounter++;
                     break;
 
-                case JMPIEM: // if Rc = 0 then PC ← [A] Else PC ← PC +1
+                case JMPIEM: // if Rc = 0 then PC <-  [A] Else PC <-  PC +1
                     if (registers[instrucionRegister.r2] == 0) {
                         programCounter = instrucionRegister.p;
                     } else
@@ -85,27 +85,27 @@ public class CPU {
 
 //              --------------------------------------------------------------------------------------------------
 //              Instruções Aritméticas
-                case ADDI: // Rd ← Rd + k
+                case ADDI: // Rd <-  Rd + k
                     registers[instrucionRegister.r1] = registers[instrucionRegister.r1] + instrucionRegister.p;
                     programCounter++;
                     break;
 
-                case SUBI: // Rd ← Rd – k
+                case SUBI: // Rd <-  Rd – k
                     registers[instrucionRegister.r1] = registers[instrucionRegister.r1] - instrucionRegister.p;
                     programCounter++;
                     break;
 
-                case ADD: // Rd ← Rd + Rs
+                case ADD: // Rd <-  Rd + Rs
                     registers[instrucionRegister.r1] = registers[instrucionRegister.r1] + registers[instrucionRegister.r2];
                     programCounter++;
                     break;
 
-                case SUB: // Rd ← Rd - Rs
+                case SUB: // Rd <-  Rd - Rs
                     registers[instrucionRegister.r1] = registers[instrucionRegister.r1] - registers[instrucionRegister.r2];
                     programCounter++;
                     break;
 
-                case MULT: // Rd ← Rd * Rs
+                case MULT: // Rd <-  Rd * Rs
                     registers[instrucionRegister.r1] = registers[instrucionRegister.r1] * registers[instrucionRegister.r2];
                     programCounter++;
                     break;
@@ -113,28 +113,28 @@ public class CPU {
 
 //              --------------------------------------------------------------------------------------------------
 //              Instruções de Movimentação
-                case LDI: // Rd ← k
+                case LDI: // Rd <-  k
                     registers[instrucionRegister.r1] = instrucionRegister.p;
                     programCounter++;
                     break;
 
-                case LDD: // Rd ← [A]
+                case LDD: // Rd <-  [A]
                     registers[instrucionRegister.r1] = memory[instrucionRegister.p].p;
                     programCounter++;
                     break;
 
-                case STD: // [A] ← Rs
+                case STD: // [A] <-  Rs
                     memory[instrucionRegister.p].opc = Opcode.DATA;
                     memory[instrucionRegister.p].p = registers[instrucionRegister.r1];
                     programCounter++;
                     break;
 
-                case LDX: // Rd ← [Rs]
+                case LDX: // Rd <-  [Rs]
                     registers[instrucionRegister.r1] = memory[registers[instrucionRegister.r2]].p; // OBS
                     programCounter++;
                     break;
 
-                case STX: // [Rd] ←Rs
+                case STX: // [Rd] <- Rs
                     memory[registers[instrucionRegister.r1]].opc = Opcode.DATA;
                     memory[registers[instrucionRegister.r1]].p = registers[instrucionRegister.r2];
                     programCounter++;
