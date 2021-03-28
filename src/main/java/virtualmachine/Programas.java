@@ -36,78 +36,33 @@ public class Programas {
     public static Word[] progFibonacci = new Word[]{
 
 //          Parametro P recebe o numero do fatorial
-            new Word(Opcode.LDI, 0, -1, 13),
-            new Word(Opcode.STD, 0, -1, 25),
-            new Word(Opcode.LDD, 1, -1, 25),
-            new Word(Opcode.LDI, 7, -1, 8),
-            new Word(Opcode.JMPIG, 7, 1, -1),
-            new Word(Opcode.LDI, 3, -1, -1),
-            new Word(Opcode.STD, 3, -1, 26),
-            new Word(Opcode.STOP, -1, -1, -1), // 7
+            new Word(Opcode.LDI, 0, -1, 13), //armazena no registrador 0 o valor do parametro que dirá o máximo da sequencia de fibonacci
+            new Word(Opcode.STD, 0, -1, 25),// armazena o valor do registrador 0 na posição 25 da memória 
+            new Word(Opcode.LDD, 1, -1, 25),// guarda no registrador 1 o valor da posição 25 da memória
+            new Word(Opcode.LDI, 7, -1, 8), // armazena no registrador 7 o valor 8 que indica o inicio da lógica do programa
+            new Word(Opcode.JMPIG, 7, 1, -1),// verifica o valor do registrador 1 é positivo, se sim vai para a linha 8
+            new Word(Opcode.LDI, 3, -1, -1),// caso o valor do registrador 1 seja negativo ou zero, armazena -1 no registrador 3 e cai nas duas linhas abaixo
+            new Word(Opcode.STD, 3, -1, 26), // imprime na posição 26 da memória o valor -1 que está no registrador 3
+            new Word(Opcode.STOP, -1, -1, -1), // linha 7 - para o programa
 
-            new Word(Opcode.LDI, 0, -1, 0),
-            new Word(Opcode.LDI, 1, -1, 1),
-            new Word(Opcode.LDI, 2, -1, 27), // posicao para escrita
-            new Word(Opcode.LDD, 3, -1, 25), // reg para n de fibo
-            new Word(Opcode.LDI, 7, -1, 7), // 12  //reg para stop
+            new Word(Opcode.LDI, 0, -1, 0),//linha 8 - armazena no registrador 0 o valor 0 que indica o primeiro número de fibonacci
+            new Word(Opcode.LDI, 1, -1, 1),// armazena no registrador 1 o valor 1 que indica o segundo número de fibonacci
+            new Word(Opcode.LDI, 2, -1, 27), // posicao para escrita do início da saída d memória
+            new Word(Opcode.LDD, 3, -1, 25), // armazena no registrador 3 o valor da posição 25 da memória
+            new Word(Opcode.LDI, 7, -1, 7), // linha 12 -   armazena no registrador 7 a posição do stop
 
-            new Word(Opcode.STX, 2, 0, -1), //inicio loop
-            new Word(Opcode.ADDI, 2, -1, 1),
-            new Word(Opcode.SUBI, 3, -1, 1),
-            new Word(Opcode.JMPIE, 7, 3, -1),
-            new Word(Opcode.STX, 2, 1, -1),
-            new Word(Opcode.ADDI, 2, -1, 1), //18
-            new Word(Opcode.SUBI, 3, -1, 1),
-            new Word(Opcode.JMPIE, 7, 3, -1),
-            new Word(Opcode.ADD, 0, 1, -1),
-            new Word(Opcode.ADD, 1, 0, -1),
-            new Word(Opcode.JMP, -1, -1, 13)    //23  volta pro loop
+            new Word(Opcode.STX, 2, 0, -1), //guarda na posição da memória indicada pelo registrador 2 o valor que está no registrador 0
+            new Word(Opcode.ADDI, 2, -1, 1),// guarda no registrador 2 o valor do r1++
+            new Word(Opcode.SUBI, 3, -1, 1),// guarda no registrador 3 o valor de r1-1
+            new Word(Opcode.JMPIE, 7, 3, -1),// verifica se o registrador 3 é zero, se sim pula para o valor que está no registrador 7 que é onde diz onde está o stop
+            new Word(Opcode.STX, 2, 1, -1),// guarda na posição da memória indicada o valor
+            new Word(Opcode.ADDI, 2, -1, 1), //guarda no registrador 2 o valor do r1++
+            new Word(Opcode.SUBI, 3, -1, 1),// guarda no registrador 3 o valor de r1-1
+            new Word(Opcode.JMPIE, 7, 3, -1),// verifica se o registrador 3 é zero
+            new Word(Opcode.ADD, 0, 1, -1), // guarda no registrador 0 o valor do r0+r1
+            new Word(Opcode.ADD, 1, 0, -1),// guarda no registrador 1 o valor de r1+r0
+            new Word(Opcode.JMP, -1, -1, 13)// linha 23  volta pro loop
     };
-
-    public Word[] progFibonacciOld = new Word[]{
-
-            // Insere nos registradores os dois primeiros termos (0 e 1)
-            new Word(Opcode.LDI, 1, -1, 0),
-            new Word(Opcode.LDI, 2, -1, 1),
-
-            // Insere no registrador o de números da sequencia de fibonacci N
-            new Word(Opcode.LDI, 5, -1, 10),
-
-            // Insere o valor 50 no R4 (ponteiro para a primeira posição que iremos salvar o primeiro número da sequência
-            new Word(Opcode.LDI, 4, -1, 50),
-
-            //Salvando 0 e 1 nas posições 50 e 51 da memória --> STX [Rd],Rs
-            new Word(Opcode.STX, 4, 1, -1),
-            new Word(Opcode.ADDI, 4, -1, 1),
-            new Word(Opcode.STX, 4, 2, -1),
-
-            //Posição da memória que começa a repetição no R6 (posição 8)
-            new Word(Opcode.LDI, 6, -1, 8),
-
-            //Repetição:
-            //Apontamos para o valor anterior na memória
-            new Word(Opcode.SUBI, 4, -1, 1),
-
-            //Carrega no R3 o valor anterior (carrega direto da memória usando o ponteiro R4 que criamos)
-            new Word(Opcode.LDX, 3, 4, 0),
-
-            //Somando termo atual e o anterior
-            new Word(Opcode.ADD, 2, 3, -1),
-
-            //Retorna o ponteiro R4 para a próxima posição a salvar
-            new Word(Opcode.ADDI, 4, -1, 2),
-
-            //Salvamos o novo número na memória
-            new Word(Opcode.STX, 4, 2, -1),
-
-            //Testa se deve continuar a repetição ou parar
-            new Word(Opcode.SUBI, 5, -1, 1),
-            new Word(Opcode.JMPIG, 6, 5, -1),
-
-            //Fim
-            new Word(Opcode.STOP, -1, -1, -1)
-    };
-
 //    AJUSTAR NEGATIVO
 //    P3: dado um inteiro em alguma posição de memória,
 //        se for negativo armazena -1 na saída;
