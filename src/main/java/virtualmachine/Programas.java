@@ -123,37 +123,27 @@ public class Programas {
 //    7! = 7 . 6 . 5 . 4. 3 . 2 . 1 = 5040
     public Word[] progFatorial = new Word[]{
 
-            new Word(Opcode.LDI, 0, -1, 7), //alterar o valor de P para negativo ou positivo
-            new Word(Opcode.STD, 0, -1, 30),
-            new Word(Opcode.LDD, 1, -1, 1),
-            new Word(Opcode.LDI, 7, -1, 11), // registrador com o valor de inicio do programa
-            new Word(Opcode.LDI, 6, -1, 18), // registrador com o valor de inicio do programa caso o n seja zero
-            new Word(Opcode.LDI, 5, -1, 21), // registrador com o valor de inicio do programa caso o n seja 1
-            new Word(Opcode.JMPIG, 7, 1, -1),
-            new Word(Opcode.JMPIE, 6, 1, -1),
-            new Word(Opcode.LDI, 3, -1, -1),
+            new Word(Opcode.LDI, 0, -1, 7), //armazena no registrador 0 o valor do parametro
+            new Word(Opcode.STD, 0, -1, 30), // armazena na primeira posição de saída da memoria o valor do registrador 0
+            new Word(Opcode.LDI, 7, -1, 9), // registrador com o valor de inicio do programa
+            new Word(Opcode.LDI, 6, -1, 17), // registrador com o valor de inicio do programa caso seja zero
+            new Word(Opcode.JMPIG, 7, 0, -1), // verifica se o valor do parametro é maior que zero, se sim, pula para a linha 9 (inicio do loop)
+            new Word(Opcode.JMPIE, 6, 0, -1),// verifica se o valor do parametro é zero, se sim pula para a linha 18
+            new Word(Opcode.LDI, 3, -1, -1), // cai aqui caso nao cai nos ifs de cima, ou seja, caso o valor seja negativo
             new Word(Opcode.STD, 3, -1, 31),
-            new Word(Opcode.STOP, -1, -1, -1), // 10
-
-            new Word(Opcode.LDI, 4, -1, 16), //valor com o inicio do loop
-            new Word(Opcode.LDD, 0, -1, 30), // carrega o valor do fatorial
-            new Word(Opcode.LDD, 1, -1, 30), // carrega o valor do fatorial
-            new Word(Opcode.SUBI, 1, -1, 1), // diminui 1 de r1
-            new Word(Opcode.JMPIE, 5, 1, -1), // 15
-
-            new Word(Opcode.MULT, 0, 1, -1), // inicio do loop
-            new Word(Opcode.SUBI, 1, -1, 1),
-            new Word(Opcode.JMPIG, 4, 1, -1), // 18 teste
-            new Word(Opcode.STD, 0, -1, 31),
-            new Word(Opcode.STOP, -1, -1, -1),  // 20
-
-            new Word(Opcode.LDI, 0, -1, 1), //21 caso n zero
-            new Word(Opcode.STD, 0, -1, 31),
             new Word(Opcode.STOP, -1, -1, -1),
 
-            new Word(Opcode.LDI, 0, -1, 1), // caso n 1
-            new Word(Opcode.STD, 0, -1, 31),
-            new Word(Opcode.STOP, -1, -1, -1)
+            new Word(Opcode.LDI, 4, -1, 14), // valor com o inicio do loop em memória
+            new Word(Opcode.LDD, 0, -1, 30), // carrega o valor do fatorial no registrador 0 que está na posição 30 da memória
+            new Word(Opcode.LDD, 1, -1, 30), // carrega o valor do fatorial
+            new Word(Opcode.SUBI, 1, -1, 1), // diminui 1 de r1
+            new Word(Opcode.JMPIE, 6, 1, -1),// valida se r1 é zero, se sim, significa que o parametro tinha o valor 1 e cai na linha 17
+
+            new Word(Opcode.MULT, 0, 1, -1), // linha 14 - loop de multiplicação do fatorial
+            new Word(Opcode.SUBI, 1, -1, 1),
+            new Word(Opcode.JMPIG, 4, 1, -1),
+            new Word(Opcode.STD, 0, -1, 31),// linha 17
+            new Word(Opcode.STOP, -1, -1, -1),
     };
 
 //    AJUSTAR
