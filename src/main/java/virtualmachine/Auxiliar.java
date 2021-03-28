@@ -1,7 +1,7 @@
 package virtualmachine;
 
 // ------------------------------------------- classes e funcoes auxiliares
-public class Aux {
+public class Auxiliar {
     private void dump(Word w) {
         System.out.print("[ " + w.opc + ", " + w.r1 + ", " + w.r2 + ", " + w.p + " ] \n");
     }

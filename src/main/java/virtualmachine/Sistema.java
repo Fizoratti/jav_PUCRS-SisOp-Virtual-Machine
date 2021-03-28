@@ -40,7 +40,7 @@ public class Sistema {
     }
 
     public void fibonacci10() {
-        Aux aux = new Aux();
+        Auxiliar aux = new Auxiliar();
         Word[] p = new Programas().progFibonacci10;
         aux.cargaProgramaParaMemoria(p, vm.memoria);
         vm.cpu.setContext(0);
@@ -52,7 +52,7 @@ public class Sistema {
     }
 
     public void fibonacci() {
-        Aux aux = new Aux();
+        Auxiliar aux = new Auxiliar();
         Word[] p = new Programas().progFibonacci;
         aux.cargaProgramaParaMemoria(p, vm.memoria);
         vm.cpu.setContext(0);
@@ -64,7 +64,7 @@ public class Sistema {
     }
 
     public void fatorial() {
-        Aux aux = new Aux();
+        Auxiliar aux = new Auxiliar();
         Word[] p = new Programas().progFatorial;
         aux.cargaProgramaParaMemoria(p, vm.memoria);
         vm.cpu.setContext(0);
@@ -76,7 +76,7 @@ public class Sistema {
     }
 
     public void bubbleSort() {
-        Aux aux = new Aux();
+        Auxiliar aux = new Auxiliar();
         Word[] p = new Programas().bubbleSort;
         aux.cargaProgramaParaMemoria(p, vm.memoria);
         vm.cpu.setContext(0);
