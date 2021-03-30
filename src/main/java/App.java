@@ -11,11 +11,6 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
-        Sistema.main(args);
-    }
-
-    public void bootstrap() {
-        // Load each program one at a time while each program is connected to the next   
-        // Load drivers
+        Sistema.main();
     }
 }
