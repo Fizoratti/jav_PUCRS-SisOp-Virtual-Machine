@@ -11,9 +11,20 @@
   <p align="center">PUCRS - Escola Politécnica - 2021/1</p>
   <p align="center">Disciplina: Sistemas Operacionais</p>
   <p align="center">Prof. Fernando Luís Dotti</p>
+  <p align="center">Integrantes:   Henrique Pugens Ramires, Gustavo Kunde Silveira, Robson Felipe Bittencourt e Ruan Flesch Pereira</p>
 </h3>
 
 # Máquina Virtual
+
+### INFORMATIVO:
+ 
+#### Seção Implementação:
+
+#### Seção Programas:
+  - Até a primeira etapa do projeto, foram realizados os 4 programas solicitados. Os 3 primeiros rodam de forma coerente, porém o último programa (bubblesort) está com problema de ordenar números negativos.
+
+
+
 
 Nossa máquina virtual tem CPU e Memória.
 
@@ -22,13 +33,13 @@ Nossa máquina virtual tem CPU e Memória.
 
 ## 📝 To Do
 **To Do**
-- [ ] Finalizar instruções (opcodes)
-  - [ ] Escrever as instruções
+- [x] Finalizar instruções (opcodes)
+  - [x] Escrever as instruções
   - [ ] Verificar as instruções com o professor
 - [ ] Finalizar Programas
   - [x] Avaliar Programa 1 ```works!```
-  - [ ] Escrever Programa 2 (Fibonacci)
-  - [ ] Escrever Programa 3 (Fatorial) 
+  - [x] Escrever Programa 2 (Fibonacci)
+  - [x] Escrever Programa 3 (Fatorial) 
   - [ ] Escrever Programa 4 (Bubble sort)
 - [ ] Interrupções
 - [ ] Traps
@@ -80,10 +91,10 @@ Conjunto de instruções.
 - [x] JMPIG
 - [x] JMPIL
 - [x] JMPIE
-- [ ] JMPIM
-- [ ] JMPIGM
-- [ ] JMPILM
-- [ ] JMPIEM
+- [x] JMPIM
+- [x] JMPIGM
+- [x] JMPILM
+- [x] JMPIEM
 
 #### Instruções Aritméticas
 

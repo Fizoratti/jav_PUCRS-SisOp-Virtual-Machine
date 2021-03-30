@@ -6,11 +6,11 @@ public class Programas {
     public static Word[] progFibonacci10 = new Word[]{
             new Word(Opcode.LDI, 0, -1, 0),
             new Word(Opcode.LDI, 1, -1, 1),
-            new Word(Opcode.LDI, 2, -1, 18), // posicao para escrita
-            new Word(Opcode.LDI, 3, -1, 10), // reg para n de fibo
-            new Word(Opcode.LDI, 7, -1, 16), // 4  //reg para stop
+            new Word(Opcode.LDI, 2, -1, 18),
+            new Word(Opcode.LDI, 3, -1, 10),
+            new Word(Opcode.LDI, 7, -1, 16),
 
-            new Word(Opcode.STX, 2, 0, -1), //inicio loop
+            new Word(Opcode.STX, 2, 0, -1),
             new Word(Opcode.ADDI, 2, -1, 1),
             new Word(Opcode.SUBI, 3, -1, 1),
             new Word(Opcode.JMPIE, 7, 3, -1),
@@ -20,7 +20,7 @@ public class Programas {
             new Word(Opcode.JMPIE, 7, 3, -1),
             new Word(Opcode.ADD, 0, 1, -1),
             new Word(Opcode.ADD, 1, 0, -1),
-            new Word(Opcode.JMP, -1, -1, 5), //volta pro loop
+            new Word(Opcode.JMP, -1, -1, 5),
 
             new Word(Opcode.STOP, -1, -1, -1)
     };

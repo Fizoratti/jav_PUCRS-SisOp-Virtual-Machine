@@ -72,7 +72,7 @@ public class Sistema {
         aux.dumpMemoria(vm.memoria, 0, 27);
         System.out.println("---------------------------------- após execucao ");
         vm.cpu.run();
-        aux.dumpMemoria(vm.memoria, 29, 33);
+        aux.dumpMemoria(vm.memoria, 30, 32);
     }
 
     public void bubbleSort() {
