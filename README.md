@@ -1,5 +1,3 @@
-
-
 <h3 align="center">
   <img src="https://img.shields.io/badge/platform-windows%20%7C%20linux%20%7C%20macos-blue" />
   <img src="https://img.shields.io/badge/java-%3E%3D13.0.0-blue" />
@@ -11,45 +9,20 @@
   <p align="center">PUCRS - Escola Politécnica - 2021/1</p>
   <p align="center">Disciplina: Sistemas Operacionais</p>
   <p align="center">Prof. Fernando Luís Dotti</p>
-  <p align="center">Integrantes:   Henrique Pugens Ramires, Gustavo Kunde Silveira, Robson Felipe Bittencourt e Ruan Flesch Pereira</p>
 </h3>
 
 # Máquina Virtual
 
-### INFORMATIVO:
- 
-#### Seção Implementação:
+**Enunciado do trabalho**: Construir uma máquina virtual conforme definido no enunciado do trabalho. [Link para o pdf](https://moodle.pucrs.br/pluginfile.php/3524730/mod_folder/content/0/TrabalhoSO2021-1-Fase1.pdf) que está no Moodle com o enunciado da primeira parte do trabalho.
 
-#### Seção Programas:
-  - Até a primeira etapa do projeto, foram realizados os 4 programas solicitados. Os 3 primeiros rodam de forma coerente, porém o último programa (bubblesort) está com problema de ordenar números negativos.
+### Integrantes
+Henrique Pugens Ramires, Gustavo Kunde Silveira, Robson Felipe Bittencourt e Ruan Flesch Pereira.
 
+## 🚀ㅤFeatures
 
-
-
-Nossa máquina virtual tem CPU e Memória.
-
-**Enunciado do trabalho**: Em grupos de até 3 alunos. Construir uma máquina virtual conforme definido no enunciado do trabalho. [Link para o pdf](https://moodle.pucrs.br/pluginfile.php/3524730/mod_folder/content/0/TrabalhoSO2021-1-Fase1.pdf) que está no Moodle com o enunciado da primeira parte do trabalho.
-
-
-## 📝 To Do
-**To Do**
-- [x] Finalizar instruções (opcodes)
-  - [x] Escrever as instruções
-  - [ ] Verificar as instruções com o professor
-- [ ] Finalizar Programas
-  - [x] Avaliar Programa 1 ```works!```
-  - [x] Escrever Programa 2 (Fibonacci)
-  - [x] Escrever Programa 3 (Fatorial) 
-  - [ ] Escrever Programa 4 (Bubble sort)
+- [x] CPU
+- [x] Memória
 - [ ] Interrupções
-- [ ] Traps
-
-**Done**
-- [x] Café
-- [x] Escrever a lógica dos programas em Java
-  - [x] Fibonacci
-  - [x] Fatorial
-  - [x] Bubble sort
 
 ## 🔦ㅤPré Requisitos
 
@@ -71,52 +44,105 @@ $ cd jav_PUCRS-SisOp-Virtual-Machine
 # Execute a aplicação
 $ gradle run
 ```
+
 ###### Para executar em ambiente Windows use o comando ```gradlew run```.
 
 ## 🌿ㅤBranches
 
-- ```main```: branch para desenvolvimento de features.
-- ```stable```: branch com a última build do projeto em que o código que executa sem erros.
+- ```dev/``` : branch para desenvolvimento de features.
+- ```main``` : branch para o agregamento de features.
+- ```stable``` : branch com a última build do projeto em que o código que executa sem erros.
 
-## 🚀ㅤFeatures
+## Programas
 
-### OPCODES
+Até a primeira etapa do projeto, foram realizados os 4 programas solicitados. Com exceção do último programa (bubblesort) que está com problema para ordenar números negativos, todos os programas funcionam adequadamente.
 
-Conjunto de instruções.
+### 1. Fibonacci
 
-#### Instruções JUMP
+**Algoritmo em linguagem de alto nível**
 
-- [x] JMP
-- [x] JMPI
-- [x] JMPIG
-- [x] JMPIL
-- [x] JMPIE
-- [x] JMPIM
-- [x] JMPIGM
-- [x] JMPILM
-- [x] JMPIEM
+```java
+public void fibonacci(int quantidadeNumerosFibonacci) {
+    int r1;
+    int r2;
+    int p;
+    r1 = 0;
+    r2 = 1;
 
-#### Instruções Aritméticas
+    // 1 - 1 - 2 - 3 - 5 - 8
 
-- [x] ADD
-- [x] ADDI
-- [x] SUB
-- [x] SUBI
-- [x] MULT
+    for (int i = 0; i < quantidadeNumerosFibonacci; i++) {  // linha 10 a 20
+        p = r1 + r2;
+        r1 = r2;
+        r2 = p;
 
-#### Instruções de Movimentação
+        System.out.println(r2);
+    }
+}
+```
 
-- [x] LDI
-- [x] STD
-- [x] STX
-- [x] LDD
-- [x] LDX
-- [x] SWAP
+**Saída**
+<div align="center"><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gp3jamim8xj30ut0k1mxq.jpg" /></div>
 
-#### Instruções Genréricas
+### 2. Fatorial
 
-- [x] STOP
-- [x] DATA
+**Algoritmo em linguagem de alto nível**
+
+```java
+public void fatorial(int n) {
+    int fatorial = 1;
+
+    for (int i = 1; i <= n; i++) {
+        fatorial = fatorial * i;
+    }
+
+    System.out.println(fatorial);
+}
+```
+
+**Saída**
+<div align="center"><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gp3jdy75fsj30ur0kmaao.jpg" /></div>
+
+### 3. Bubble Sort
+
+**Algoritmo em linguagem de alto nível**
+
+```java
+private int[] bubblesort(int[] _array) {
+    int[] array = _array;
+    int temp;
+    int length = array.length;
+    int swapped;
+
+    for (int j = 0; j < length - 1; j++) {
+        swapped = 0;                            // false
+
+        for (int i = 0; i < length - j - 1; i++) {
+            if (array[i] > array[i + 1]) {
+                temp = array[i];
+                array[i] = array[i + 1];
+                array[i + 1] = temp;
+                swapped = 1;                    // true
+            }
+        }
+
+        if (swapped == 0) {
+            break;
+        }
+    }
+
+    return array;
+}
+```
+
+**Saída**
+<div align="center"><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gp3jl5xzklj30us0kojry.jpg" /></div>
+
+## 📦ㅤReleases
+
+- ```VM0``` : Instruções da CPU implementadas. Todos os programas implementados. **(Fase 1)**
+- ```VM1``` : Interrupções. **(Fase 2)**
+- ```VM2``` : I/O. **(Fase 3)**
 
 ## 🛠ㅤTecnologias
 
