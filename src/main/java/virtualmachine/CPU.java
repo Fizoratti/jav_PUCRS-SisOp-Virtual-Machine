@@ -60,22 +60,22 @@ public class CPU {
 
                 case JMPIGM: // if Rc > 0 then PC <-  [A] Else PC <-  PC +1
                     if (registers[instrucionRegister.r2] > 0)
-                        programCounter = instrucionRegister.p;
+                        programCounter = memory[instrucionRegister.p].p;
                     else
                         programCounter++;
                     break;
 
                 case JMPILM: // if Rc < 0 then PC <-  [A] Else PC <-  PC +1
                     if (registers[instrucionRegister.r2] < 0)
-                        programCounter = instrucionRegister.p;
+                        programCounter = memory[instrucionRegister.p].p;
                     else
                         programCounter++;
                     break;
 
                 case JMPIEM: // if Rc = 0 then PC <-  [A] Else PC <-  PC +1
-                    if (registers[instrucionRegister.r2] == 0) {
-                        programCounter = instrucionRegister.p;
-                    } else
+                    if (registers[instrucionRegister.r2] == 0)
+                        programCounter = memory[instrucionRegister.p].p;
+                    else
                         programCounter++;
                     break;
 
