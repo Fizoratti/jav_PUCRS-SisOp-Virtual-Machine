@@ -8,11 +8,11 @@ public class VM {
     public Word[] memoria;
     public CPU cpu;
 
-    public VM(InterruptHandling interruptHandling) {
+    public VM(InterruptHandling interruptHandling, TrapHandling trapHandling) {
         tamMem = 1024;
         memoria = new Word[tamMem];
         limparMemoria();
-        cpu = new CPU(memoria, interruptHandling);
+        cpu = new CPU(memoria, interruptHandling, trapHandling);
     }
 
     private void limparMemoria() {

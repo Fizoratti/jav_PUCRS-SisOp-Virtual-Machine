@@ -9,17 +9,19 @@ package virtualmachine;
 
 public class Sistema {
     public InterruptHandling interruptHandling;
+    public TrapHandling trapHandling;
     public VM vm;
 
     public Sistema() { // a VM com tratamento de interrupções
         interruptHandling = new InterruptHandling();
-        vm = new VM(interruptHandling);
+        trapHandling = new TrapHandling();
+        vm = new VM(interruptHandling, trapHandling);
     }
 
     public static void main() {
         Sistema s = new Sistema();
 
-        int programaExecutado = 0;
+        int programaExecutado = 5;
 
         switch (programaExecutado) {
             case 0:
@@ -36,6 +38,14 @@ public class Sistema {
 
             case 3:
                 s.bubbleSort();
+                break;
+
+            case 4:
+                s.trapIn();
+                break;
+
+            case 5:
+                s.trapOut();
                 break;
         }
     }
@@ -86,6 +96,30 @@ public class Sistema {
         System.out.println("---------------------------------- após execucao ");
         vm.cpu.run();
         aux.dumpMemoria(vm.memoria, 39, 50);
+    }
+
+    public void trapIn() {
+        Auxiliar aux = new Auxiliar();
+        Word[] p = new Programas().trapIn;
+        aux.cargaProgramaParaMemoria(p, vm.memoria);
+        vm.cpu.setContext(0);
+        System.out.println("---------------------------------- programa trap in ");
+        aux.dumpMemoria(vm.memoria, 4, 5);
+        System.out.println("---------------------------------- após execucao ");
+        vm.cpu.run();
+        aux.dumpMemoria(vm.memoria, 4, 5);
+    }
+
+    public void trapOut() {
+        Auxiliar aux = new Auxiliar();
+        Word[] p = new Programas().trapOut;
+        aux.cargaProgramaParaMemoria(p, vm.memoria);
+        vm.cpu.setContext(0);
+        System.out.println("---------------------------------- programa trap in ");
+        aux.dumpMemoria(vm.memoria, 10, 11);
+        System.out.println("---------------------------------- após execucao ");
+        vm.cpu.run();
+        aux.dumpMemoria(vm.memoria, 10, 11);
     }
 
 }

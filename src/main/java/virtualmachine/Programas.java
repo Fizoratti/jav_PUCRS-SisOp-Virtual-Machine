@@ -63,7 +63,7 @@ public class Programas {
             new Word(Opcode.ADD, 1, 0, -1),// guarda no registrador 1 o valor de r1+r0
             new Word(Opcode.JMP, -1, -1, 13)// linha 23  volta pro loop
     };
-//    PRONTO
+    //    PRONTO
 //    P3: dado um inteiro em alguma posição de memória,
 //        se for negativo armazena -1 na saída;
 //        se for positivo responde o fatorial do número na saída
@@ -161,6 +161,22 @@ public class Programas {
             new Word(Opcode.LDI, 3, -1, 6),// armazena no registrador 3 o valor 6
             new Word(Opcode.JMPIG, 5, 0, -1),//fim do loop - verifica se o valor do registrador 0 é maior do que zero, se sim pula para a linha no valor do registrador 5
 
+            new Word(Opcode.STOP, -1, -1, -1)
+    };
+
+    public Word[] trapIn = new Word[]{
+            new Word(Opcode.LDI, 8, -1, 1),
+            new Word(Opcode.LDI, 9, -1, 4),
+            new Word(Opcode.TRAP, -1, -1, -1),
+            new Word(Opcode.STOP, -1, -1, -1)
+    };
+
+    public Word[] trapOut = new Word[]{
+            new Word(Opcode.LDI, 0, -1, 999),
+            new Word(Opcode.STD, 0, -1, 10),
+            new Word(Opcode.LDI, 8, -1, 2),
+            new Word(Opcode.LDI, 9, -1, 10),
+            new Word(Opcode.TRAP, -1, -1, -1),
             new Word(Opcode.STOP, -1, -1, -1)
     };
 }
