@@ -22,7 +22,7 @@ Henrique Pugens Ramires, Gustavo Kunde Silveira, Robson Felipe Bittencourt e Rua
 
 - [x] CPU
 - [x] Memória
-- [ ] Interrupções
+- [x] Interrupções
 
 ## 🔦ㅤPré Requisitos
 
