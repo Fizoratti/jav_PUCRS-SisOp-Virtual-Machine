@@ -8,11 +8,12 @@
 package virtualmachine;
 
 public class Sistema {
-
+    public InterruptHandling interruptHandling;
     public VM vm;
 
     public Sistema() { // a VM com tratamento de interrupções
-        vm = new VM();
+        interruptHandling = new InterruptHandling();
+        vm = new VM(interruptHandling);
     }
 
     public static void main() {
