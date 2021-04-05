@@ -103,7 +103,7 @@ public class Sistema {
         Word[] p = new Programas().trapIn;
         aux.cargaProgramaParaMemoria(p, vm.memoria);
         vm.cpu.setContext(0);
-        System.out.println("---------------------------------- programa trap in ");
+        System.out.println("---------------------------------- programa TRAP IN ");
         aux.dumpMemoria(vm.memoria, 4, 5);
         System.out.println("---------------------------------- após execucao ");
         vm.cpu.run();
@@ -115,7 +115,7 @@ public class Sistema {
         Word[] p = new Programas().trapOut;
         aux.cargaProgramaParaMemoria(p, vm.memoria);
         vm.cpu.setContext(0);
-        System.out.println("---------------------------------- programa trap in ");
+        System.out.println("---------------------------------- programa TRAP OUT ");
         aux.dumpMemoria(vm.memoria, 10, 11);
         System.out.println("---------------------------------- após execucao ");
         vm.cpu.run();
