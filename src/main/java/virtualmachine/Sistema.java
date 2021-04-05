@@ -21,30 +21,30 @@ public class Sistema {
     public static void main() {
         Sistema s = new Sistema();
 
-        int programaExecutado = 5;
+        Exercicios exercicio = Exercicios.TRAP_OUT;
 
-        switch (programaExecutado) {
-            case 0:
+        switch (exercicio) {
+            case FIBONACCI_10:
                 s.fibonacci10();
                 break;
 
-            case 1:
+            case FIBONACCI_N:
                 s.fibonacci();
                 break;
 
-            case 2:
+            case FATORIAL:
                 s.fatorial();
                 break;
 
-            case 3:
+            case BUBBLE_SORT:
                 s.bubbleSort();
                 break;
 
-            case 4:
+            case TRAP_IN:
                 s.trapIn();
                 break;
 
-            case 5:
+            case TRAP_OUT:
                 s.trapOut();
                 break;
         }
