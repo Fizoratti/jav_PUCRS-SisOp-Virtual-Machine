@@ -26,38 +26,20 @@ Henrique Pugens Ramires, Gustavo Kunde Silveira, Robson Felipe Bittencourt e Rua
 
 ## 🔦ㅤPré Requisitos
 
-Antes de começar, você vai precisar ter instalado o [Java](https://www.oracle.com/br/java/technologies/javase/javase-jdk8-downloads.html) e o [Git](https://git-scm.com) localmente no seu computador. 
-Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/).
-Usando a IDE de browser [GitPod](https://gitpod.io/) não é preciso instalar nada localmente no seu computador.
+Antes de começar, você vai precisar ter instalado o [Java](https://www.oracle.com/br/java/technologies/javase/javase-jdk8-downloads.html).
 
-## 🏃ㅤGetting Started
+## Para executar use os comandos.
+### 1. Compilar: javac *.java 
+### 2. Executar: java App.java
 
-> **Não é preciso ter o gradle instalado para executar o código.**
+## Como selecionar o programa para executar
+### Após mostrar as opções, devera inserir o valor correspondente ao programa, comforme a imagem abaixo:
 
-```bash
-# Clone este repositório
-$ git clone https://github.com/Fizoratti/jav_PUCRS-SisOp-Virtual-Machine/
-
-# Acesse a pasta do projeto no terminal/cmd
-$ cd jav_PUCRS-SisOp-Virtual-Machine
-
-# Execute a aplicação
-$ gradle run
-```
-
-###### Para executar em ambiente Windows use o comando ```gradlew run```.
-
-## 🌿ㅤBranches
-
-- ```dev/``` : branch para desenvolvimento de features.
-- ```main``` : branch para o agregamento de features.
-- ```stable``` : branch com a última build do projeto em que o código que executa sem erros.
+<div align="center"><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp9u4slymrj30ga072aco.jpg" /></div>
 
 ## Programas
 
-Até a primeira etapa do projeto, foram realizados os 4 programas solicitados. Com exceção do último programa (bubblesort) que está com problema para ordenar números negativos, todos os programas funcionam adequadamente.
-
-### 1. Fibonacci
+### 2. Fibonacci
 
 **Algoritmo em linguagem de alto nível**
 
@@ -82,9 +64,9 @@ public void fibonacci(int quantidadeNumerosFibonacci) {
 ```
 
 **Saída**
-<div align="center"><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gp3jamim8xj30ut0k1mxq.jpg" /></div>
+<div align="center"><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp9u0tz7mhj30p40wy7fl.jpg" /></div>
 
-### 2. Fatorial
+### 3. Fatorial
 
 **Algoritmo em linguagem de alto nível**
 
@@ -101,9 +83,9 @@ public void fatorial(int n) {
 ```
 
 **Saída**
-<div align="center"><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gp3jdy75fsj30ur0kmaao.jpg" /></div>
+<div align="center"><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp9tzsyya6j30p40wytjl.jpg" /></div>
 
-### 3. Bubble Sort
+### 4. Bubble Sort
 
 **Algoritmo em linguagem de alto nível**
 
@@ -136,7 +118,15 @@ private int[] bubblesort(int[] _array) {
 ```
 
 **Saída**
-<div align="center"><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gp3jl5xzklj30us0kojry.jpg" /></div>
+<div align="center"><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp9tx4s8nhj30p41d67ks.jpg" /></div>
+
+### 5. TRAP IN
+**Saída**
+<div align="center"><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp9tswkmfij30p40hgteg.jpg" /></div>
+
+### 6. TRAP OUT
+**Saída**
+<div align="center"><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gp9to2nzaaj30p40f2af1.jpg" /></div>
 
 ## 📦ㅤReleases
 
@@ -144,8 +134,3 @@ private int[] bubblesort(int[] _array) {
 - ```VM1``` : Interrupções. **(Fase 2)**
 - ```VM2``` : I/O. **(Fase 3)**
 
-## 🛠ㅤTecnologias
-
-As seguintes ferramentas foram usadas na construção do projeto:
-
-- [Gradle](https://gradle.org/install/)
