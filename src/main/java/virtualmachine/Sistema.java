@@ -7,6 +7,8 @@
 
 package virtualmachine;
 
+import java.util.Scanner;
+
 public class Sistema {
     public InterruptHandling interruptHandling;
     public TrapHandling trapHandling;
@@ -19,33 +21,40 @@ public class Sistema {
     }
 
     public static void main() {
+        System.out.println("Digite o valor de uma das opçoes abaixo:");
+        System.out.println("1 - Fibonacci dos 10 primeiros numeros");
+        System.out.println("2 - Fibonacci para o valor N do programa");
+        System.out.println("3 - Fatorial para o valor N do programa");
+        System.out.println("4 - Ordenação do array do programa");
+        System.out.println("5 - Trap IN:");
+        System.out.println("6 - Trap OUT");
+
+
+        Scanner scanner = new Scanner(System.in);
+        int opcao = scanner.nextInt();
+
         Sistema s = new Sistema();
 
-        int programaExecutado = 5;
-
-        switch (programaExecutado) {
-            case 0:
+        switch (opcao) {
+            case 1:
                 s.fibonacci10();
                 break;
-
-            case 1:
+            case 2:
                 s.fibonacci();
                 break;
-
-            case 2:
+            case 3:
                 s.fatorial();
                 break;
-
-            case 3:
+            case 4:
                 s.bubbleSort();
                 break;
-
-            case 4:
+            case 5:
                 s.trapIn();
                 break;
-
-            case 5:
+            case 6:
                 s.trapOut();
+                break;
+            default:
                 break;
         }
     }
@@ -55,7 +64,7 @@ public class Sistema {
         Word[] p = new Programas().progFibonacci10;
         aux.cargaProgramaParaMemoria(p, vm.memoria);
         vm.cpu.setContext(0);
-        System.out.println("---------------------------------- programa fibonacci carregado ");
+        System.out.println("---------------------------------- programa fibonacci_10 carregado ");
         aux.dumpMemoria(vm.memoria, 0, 17);
         System.out.println("---------------------------------- após execucao ");
         vm.cpu.run();
@@ -91,7 +100,7 @@ public class Sistema {
         Word[] p = new Programas().bubbleSort;
         aux.cargaProgramaParaMemoria(p, vm.memoria);
         vm.cpu.setContext(0);
-        System.out.println("---------------------------------- programa fatorial carregado ");
+        System.out.println("---------------------------------- programa bubbleSort carregado ");
         aux.dumpMemoria(vm.memoria, 0, 39);
         System.out.println("---------------------------------- após execucao ");
         vm.cpu.run();

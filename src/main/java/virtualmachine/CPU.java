@@ -251,6 +251,8 @@ public class CPU {
                     trapHandling.trap(this);
                     interrupt = Interrupts.NO_INTERRUPT;
                     break;
+                default:
+                    break;
             }
         }
     }

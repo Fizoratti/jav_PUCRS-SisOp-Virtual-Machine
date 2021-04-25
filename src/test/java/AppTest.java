@@ -3,6 +3,8 @@
  */
 
 import org.junit.Test;
+import virtualmachine.App;
+
 import static org.junit.Assert.*;
 
 public class AppTest {
