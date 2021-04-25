@@ -4,21 +4,22 @@ package virtualmachine;
 // -------------------------- atributos e construcao da VM -----------------------------------------------
 
 public class VM {
-    public int tamMem;
-    public Word[] memoria;
+    public static int tamMemoria;
+    public static int tamFrame;
+    public static Word[] memoria;
     public CPU cpu;
+    public static GerenteDeMemoria gerenteDeMemoria;
+
 
     public VM(InterruptHandling interruptHandling, TrapHandling trapHandling) {
-        tamMem = 1024;
-        memoria = new Word[tamMem];
-        limparMemoria();
-        cpu = new CPU(memoria, interruptHandling, trapHandling);
-    }
+        tamFrame = 16;
 
-    private void limparMemoria() {
-        for (int i = 0; i < tamMem; i++) {
-            memoria[i] = new Word(Opcode.___, -1, -1, -1);
-        }
+        tamMemoria = 1024;
+        memoria = new Word[tamMemoria];
+
+        cpu = new CPU(memoria, interruptHandling, trapHandling);
+
+        gerenteDeMemoria = new GerenteDeMemoria();
     }
 
 }
