@@ -1,4 +1,6 @@
-package virtualmachine;
+package util;
+
+import hardware.memory.Word;
 
 // ------------------------------------------- classes e funcoes auxiliares
 public class Auxiliar {

@@ -1,12 +1,15 @@
-import virtualmachine.Sistema;
+import util.Menu;
+import util.Console;
+import util.Emoji;
+
+import virtualmachine.VM;
 
 public class App {
-    public String getGreeting() {
-        return "Hello world! \uD83D\uDC7D \n";
-    }
-
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
-        Sistema.main();
+        Console.info("Boas vindas! "+ Emoji.DELIVERY_TRUCK);
+        
+        VM.init();
+        Menu.get().showMenu();
     }
 }
+

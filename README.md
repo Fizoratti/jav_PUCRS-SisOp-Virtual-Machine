@@ -42,10 +42,10 @@ $ git clone https://github.com/Fizoratti/jav_PUCRS-SisOp-Virtual-Machine/
 $ cd jav_PUCRS-SisOp-Virtual-Machine
 
 # Execute a aplicação
-$ gradle run
+$ gradle -q --console plain run
 ```
 
-###### Para executar em ambiente Windows use o comando ```gradlew run```.
+###### O comando padrão é ```gradle run```. Para executar em ambiente Windows use o comando ```gradlew run```.
 
 ## Como selecionar o programa para executar
 ### Após mostrar as opções, devera inserir o valor correspondente ao programa, comforme a imagem abaixo:

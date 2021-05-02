@@ -1,31 +1,38 @@
-package virtualmachine;
+package hardware.processor;
 
-public class CPU {
+import hardware.Hardware;
+import hardware.memory.Word;
+import util.Console;
+import virtualmachine.InterruptHandling;
+import virtualmachine.Interrupts;
+import virtualmachine.TrapHandling;
+
+public class CPU implements Hardware {
     // característica do processador: contexto da CPU ...
-    private int programCounter; // ... composto de program counter,
-    private Word instrucionRegister; // instruction register,
+    public int programCounter; // ... composto de program counter,
+    public Word instrucionRegister; // instruction register,
     public int[] registers; // registradores da CPU
     public Word[] memory; // CPU acessa MEMORIA, guarda referencia 'm' a ela. memoria nao muda. ee sempre a mesma.
-    private Interrupts interrupt;
+    public Interrupts interrupt;
 
     public InterruptHandling interruptHandling;
     public TrapHandling trapHandling;
 
-    public CPU(Word[] _m, InterruptHandling interruptHandling, TrapHandling trapHandling) { // ref a MEMORIA e interrupt handler passada na criacao da CPU
+    public CPU(Word[] _m) { // ref a MEMORIA e interrupt handler passada na criacao da CPU
         memory = _m; // usa o atributo 'm' para acessar a memoria.
         registers = new int[10]; // aloca o espaço dos registradores
-        this.interruptHandling = interruptHandling;
-        this.trapHandling = trapHandling;
+        this.interruptHandling = new InterruptHandling();
+        this.trapHandling = new TrapHandling();
     }
 
     public void setContext(int _pc) { // no futuro esta funcao vai ter que ser
         programCounter = _pc; // limite e pc (deve ser zero nesta versao)
-        interrupt = Interrupts.NO_INTERRUPT;
+        interrupt = Interrupts.NONE;
     }
 
     public void run() {
 
-        while (interrupt == Interrupts.NO_INTERRUPT) {                // ciclo de instrucoes. acaba cfe instrucao, veja cada caso.
+        while (interrupt == Interrupts.NONE) {                // ciclo de instrucoes. acaba cfe instrucao, veja cada caso.
 
             instrucionRegister = memory[programCounter];                // FETCH - busca posicao da memoria apontada por pc, guarda em ir
 
@@ -68,7 +75,7 @@ public class CPU {
                         programCounter = memory[value].p;
                         programCounter++;
                     } else {
-                        interrupt = Interrupts.ADDRESS_INVALID;
+                        interrupt = Interrupts.INVALID_ADDRESS;
                     }
                     break;
 
@@ -80,7 +87,7 @@ public class CPU {
                         else
                             programCounter++;
                     } else {
-                        interrupt = Interrupts.ADDRESS_INVALID;
+                        interrupt = Interrupts.INVALID_ADDRESS;
                     }
                     break;
 
@@ -92,7 +99,7 @@ public class CPU {
                         else
                             programCounter++;
                     } else {
-                        interrupt = Interrupts.ADDRESS_INVALID;
+                        interrupt = Interrupts.INVALID_ADDRESS;
                     }
                     break;
 
@@ -104,7 +111,7 @@ public class CPU {
                         else
                             programCounter++;
                     } else {
-                        interrupt = Interrupts.ADDRESS_INVALID;
+                        interrupt = Interrupts.INVALID_ADDRESS;
                     }
                     break;
 
@@ -179,7 +186,7 @@ public class CPU {
                         registers[instrucionRegister.r1] = memory[value].p;
                         programCounter++;
                     } else {
-                        interrupt = Interrupts.ADDRESS_INVALID;
+                        interrupt = Interrupts.INVALID_ADDRESS;
                     }
                     break;
 
@@ -190,7 +197,7 @@ public class CPU {
                         memory[value].p = registers[instrucionRegister.r1];
                         programCounter++;
                     } else {
-                        interrupt = Interrupts.ADDRESS_INVALID;
+                        interrupt = Interrupts.INVALID_ADDRESS;
                     }
                     break;
 
@@ -200,7 +207,7 @@ public class CPU {
                         registers[instrucionRegister.r1] = memory[value].p; // OBS
                         programCounter++;
                     } else {
-                        interrupt = Interrupts.ADDRESS_INVALID;
+                        interrupt = Interrupts.INVALID_ADDRESS;
                     }
                     break;
 
@@ -211,7 +218,7 @@ public class CPU {
                         memory[value].p = registers[instrucionRegister.r2];
                         programCounter++;
                     } else {
-                        interrupt = Interrupts.ADDRESS_INVALID;
+                        interrupt = Interrupts.INVALID_ADDRESS;
                     }
                     break;
 
@@ -230,26 +237,26 @@ public class CPU {
 //              --------------------------------------------------------------------------------------------------
 
                 default:
-                    interrupt = Interrupts.INSTRUCTION_INVALID;
+                    interrupt = Interrupts.INVALID_INSTRUCTION;
                     break;
             }
 
             switch (interrupt) {
                 case STOP:
-                    System.out.println("STOP");
+                    Console.warn("STOP");
                     break;
-                case ADDRESS_INVALID:
-                    System.out.println("ADDRESS_INVALID");
+                case INVALID_ADDRESS:
+                    Console.warn("INVALID_ADDRESS");
                     break;
-                case INSTRUCTION_INVALID:
-                    System.out.println("INSTRUCTION_INVALID");
+                case INVALID_INSTRUCTION:
+                    Console.warn("INVALID_INSTRUCTION");
                     break;
                 case OVERFLOW:
-                    System.out.println("OVERFLOW");
+                    Console.warn("OVERFLOW");
                     break;
                 case TRAP:
                     trapHandling.trap(this);
-                    interrupt = Interrupts.NO_INTERRUPT;
+                    interrupt = Interrupts.NONE;
                     break;
                 default:
                     break;

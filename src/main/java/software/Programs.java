@@ -1,9 +1,12 @@
-package virtualmachine;
+package software;
+
+import hardware.memory.Word;
+import hardware.processor.Opcode;
 
 // -------------------------------------------- programas aa disposicao para copiar na memoria (vide aux.carga)
-public class Programas {
+public class Programs implements Software {
 
-    public static Word[] progFibonacci10 = new Word[]{
+    public static Word[] fibonacci10 = new Word[]{
             new Word(Opcode.LDI, 0, -1, 0),
             new Word(Opcode.LDI, 1, -1, 1),
             new Word(Opcode.LDI, 2, -1, 18),
@@ -33,7 +36,7 @@ public class Programas {
 //
 //        1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765
 
-    public static Word[] progFibonacci = new Word[]{
+    public static Word[] fibonacci = new Word[]{
 
 //          Parametro P recebe o numero do fatorial
             new Word(Opcode.LDI, 0, -1, 13), //armazena no registrador 0 o valor do parametro que dirá o máximo da sequencia de fibonacci
@@ -76,7 +79,7 @@ public class Programas {
 //    5! = 5 . 4 . 3 . 2 . 1 = 120
 //    6! = 6 . 5 . 4 . 3 . 2 . 1 = 720
 //    7! = 7 . 6 . 5 . 4. 3 . 2 . 1 = 5040
-    public Word[] progFatorial = new Word[]{
+    public Word[] factorial = new Word[]{
 
             new Word(Opcode.LDI, 0, -1, 7), //armazena no registrador 0 o valor do parametro
             new Word(Opcode.STD, 0, -1, 30), // armazena na primeira posição de saída da memoria o valor do registrador 0

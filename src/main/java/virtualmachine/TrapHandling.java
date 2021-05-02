@@ -1,31 +1,35 @@
 package virtualmachine;
 
-import java.util.Scanner;
+import util.Console;
+
+import hardware.processor.CPU;
+import hardware.processor.Opcode;
 
 public class TrapHandling {
 
     public void trap(CPU cpu) {
-        System.out.println("reg[8] = " + cpu.registers[8]);
-        System.out.println("reg[9] = " + cpu.registers[9]);
+        Console.log("reg[8] = " + cpu.registers[8]);
+        Console.log("reg[9] = " + cpu.registers[9]);
 
         switch (cpu.registers[8]) {
             case 1:
-                System.out.println("ENTRADA");
-                System.out.println("Entre com o valor inteiro:");
-                Scanner scanner = new Scanner(System.in);
-                int value = scanner.nextInt();
-                scanner.close();
+                Console.log("ENTRADA");
+                Console.print("\n > Digite um valor inteiro: ");
+                String input = Console.read();
+
+                // Converte o input para um valor inteiro
+                int value = Integer.parseInt(input);
 
                 cpu.memory[cpu.registers[9]].opc = Opcode.DATA;
                 cpu.memory[cpu.registers[9]].p = value;
 
-                System.out.println("Valor armazenado " + cpu.memory[cpu.registers[9]].p);
-                System.out.println("Posicao " + cpu.registers[9]);
+                Console.log("Valor armazenado " + cpu.memory[cpu.registers[9]].p);
+                Console.log("Posição " + cpu.registers[9]);
                 break;
 
             case 2:
-                System.out.println("SAIDA");
-                System.out.println("Valor: " + cpu.memory[cpu.registers[9]].p);
+                Console.log("SAÍDA");
+                Console.log("Valor: " + cpu.memory[cpu.registers[9]].p);
                 break;
         }
     }
