@@ -2,6 +2,7 @@ package virtualmachine;
 
 import devices.Device;
 import devices.Display;
+import hardware.memory.Memory;
 import hardware.memory.Word;
 import hardware.processor.CPU;
 import hardware.processor.Opcode;
@@ -13,15 +14,18 @@ public class VM {
     private static VM INSTANCE;
 
     public int memorySize;
-    public Word[] memory;
+//    public Word[] memory;
+    public Memory memory;
     public CPU cpu;
 
     public Device monitor;
 
     public VM() {
         memorySize = 1024;
-        memory = new Word[memorySize];
-        cleanMemory();
+//        memory = new Word[memorySize];
+        Memory.init(memorySize);
+        memory = Memory.get();
+//        cleanMemory();
         cpu = new CPU(memory);
 
         monitor = new Display();
@@ -45,10 +49,10 @@ public class VM {
         // kernel, OS e drivers
     }
 
-    public void cleanMemory() {
-        for (int i = 0; i < memorySize; i++) {
-            memory[i] = new Word(Opcode.___, -1, -1, -1);
-        }
-    }
+//    public void cleanMemory() {
+//        for (int i = 0; i < memorySize; i++) {
+//            memory[i] = new Word(Opcode.___, -1, -1, -1);
+//        }
+//    }
 
 }
