@@ -7,12 +7,16 @@ import hardware.processor.Opcode;
 import java.util.ArrayList;
 
 public class MemoryManager {
-
+    public int MEMORY_SIZE = 1024;
+    public int tamPag;
     public int tamFrame;
-    public static boolean[] frameLivre;
+    public int nroFrames;
+    public boolean[] frameLivre;
 
     public MemoryManager() {
         this.tamFrame = 16;
+        this.tamPag = 16;
+        this.nroFrames = this.MEMORY_SIZE / this.tamPag;
 
         // tamPag = tamFrame = 16
         // nroFrames(64) || nroPaginas(64) = tamMemoria(1024) / tamPag(16)
@@ -55,16 +59,16 @@ public class MemoryManager {
 
     // Retornar o conjunto de frames alocados
     // Retorna um array de inteiros com os índices dos frames.
-    public ArrayList<Integer> aloca(Word[] p, int numeroPalavras) {
+    public ArrayList<Integer> allocate(Word[] p) {
         int quantidadeDeFramesQueVaiOcupar = 0;
 
         // Se for exatamente o tamanho da Pagina
-        if (numeroPalavras % tamFrame == 0) {
-            quantidadeDeFramesQueVaiOcupar = ((numeroPalavras / tamFrame));
+        if (p.length % tamFrame == 0) {
+            quantidadeDeFramesQueVaiOcupar = ((p.length / tamFrame));
         }
         // Se for quebrado o tamanho da pagina
         else {
-            quantidadeDeFramesQueVaiOcupar = ((numeroPalavras / tamFrame) + 1);
+            quantidadeDeFramesQueVaiOcupar = ((p.length / tamFrame) + 1);
         }
 
         int quantidadeNovosFramesOcupados = 0;
@@ -78,6 +82,7 @@ public class MemoryManager {
                 quantidadeNovosFramesOcupados++;
                 paginas.add(f);
             }
+
             for (int j = (f * tamFrame); j < (f + 1) * tamFrame; j++) {
                 if (posProg < p.length) {
                     Memory.get().data[j].opc = p[posProg].opc;
@@ -98,7 +103,7 @@ public class MemoryManager {
 
     // Dado um array de inteiros com as páginas de um processo,
     // o gerente desloca as páginas.
-    public void desaloca(ArrayList<Integer> paginasAlocadas) {
+    public void unallocate(ArrayList<Integer> paginasAlocadas) {
         for (Integer pagina : paginasAlocadas) {
             for (int i = 0; i < frameLivre.length; i++) {
                 if (pagina == i) {
