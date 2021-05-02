@@ -35,7 +35,7 @@ public class CPU implements Hardware {
 
         while (interrupt == Interrupt.NONE) {                // ciclo de instrucoes. acaba cfe instrucao, veja cada caso.
 
-            instructionRegister = memory[programCounter];                // FETCH - busca posicao da memoria apontada por pc, guarda em ir
+            instructionRegister = memory.data[programCounter];                // FETCH - busca posicao da memoria apontada por pc, guarda em ir
 
             switch (instructionRegister.opc) {        // EXECUTA INSTRUCAO NO ir - para cada opcode, sua execução
 
@@ -73,7 +73,7 @@ public class CPU implements Hardware {
                 case JMPIM: // PC <- [A]
                     int value = instructionRegister.p;
                     if (InterruptHandling.checkAddressLimits(value)) {
-                        programCounter = memory[value].p;
+                        programCounter = memory.data[value].p;
                         programCounter++;
                     } else {
                         interrupt = Interrupt.INVALID_ADDRESS;
@@ -84,7 +84,7 @@ public class CPU implements Hardware {
                     value = instructionRegister.p;
                     if (InterruptHandling.checkAddressLimits(value)) {
                         if (registers[instructionRegister.r2] > 0)
-                            programCounter = memory[value].p;
+                            programCounter = memory.data[value].p;
                         else
                             programCounter++;
                     } else {
@@ -96,7 +96,7 @@ public class CPU implements Hardware {
                     value = instructionRegister.p;
                     if (InterruptHandling.checkAddressLimits(value)) {
                         if (registers[instructionRegister.r2] < 0)
-                            programCounter = memory[value].p;
+                            programCounter = memory.data[value].p;
                         else
                             programCounter++;
                     } else {
@@ -108,7 +108,7 @@ public class CPU implements Hardware {
                     value = instructionRegister.p;
                     if (InterruptHandling.checkAddressLimits(value)) {
                         if (registers[instructionRegister.r2] == 0)
-                            programCounter = memory[value].p;
+                            programCounter = memory.data[value].p;
                         else
                             programCounter++;
                     } else {
@@ -184,7 +184,7 @@ public class CPU implements Hardware {
                 case LDD: // Rd <-  [A]
                     value = instructionRegister.p;
                     if (InterruptHandling.checkAddressLimits(value)) {
-                        registers[instructionRegister.r1] = memory[value].p;
+                        registers[instructionRegister.r1] = memory.data[value].p;
                         programCounter++;
                     } else {
                         interrupt = Interrupt.INVALID_ADDRESS;
@@ -194,8 +194,8 @@ public class CPU implements Hardware {
                 case STD: // [A] <-  Rs
                     value = instructionRegister.p;
                     if (InterruptHandling.checkAddressLimits(value)) {
-                        memory[value].opc = Opcode.DATA;
-                        memory[value].p = registers[instructionRegister.r1];
+                        memory.data[value].opc = Opcode.DATA;
+                        memory.data[value].p = registers[instructionRegister.r1];
                         programCounter++;
                     } else {
                         interrupt = Interrupt.INVALID_ADDRESS;
@@ -205,7 +205,7 @@ public class CPU implements Hardware {
                 case LDX: // Rd <-  [Rs]
                     value = registers[instructionRegister.r2];
                     if (InterruptHandling.checkAddressLimits(value)) {
-                        registers[instructionRegister.r1] = memory[value].p; // OBS
+                        registers[instructionRegister.r1] = memory.data[value].p; // OBS
                         programCounter++;
                     } else {
                         interrupt = Interrupt.INVALID_ADDRESS;
@@ -215,8 +215,8 @@ public class CPU implements Hardware {
                 case STX: // [Rd] <- Rs
                     value = registers[instructionRegister.r1];
                     if (InterruptHandling.checkAddressLimits(value)) {
-                        memory[value].opc = Opcode.DATA;
-                        memory[value].p = registers[instructionRegister.r2];
+                        memory.data[value].opc = Opcode.DATA;
+                        memory.data[value].p = registers[instructionRegister.r2];
                         programCounter++;
                     } else {
                         interrupt = Interrupt.INVALID_ADDRESS;
