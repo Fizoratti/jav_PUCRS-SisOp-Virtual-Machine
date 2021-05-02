@@ -1,6 +1,7 @@
 package hardware.memory;
 
 import hardware.Hardware;
+import hardware.processor.Opcode;
 import util.Console;
 
 public class Memory implements Hardware {
@@ -13,6 +14,7 @@ public class Memory implements Hardware {
     private Memory(int _size) {
         this.size = _size;
         data = new Word[size];
+        cleanMemory();
     }
 
 
@@ -68,6 +70,11 @@ public class Memory implements Hardware {
         }
     }
 
+    public void cleanMemory() {
+        for (int i = 0; i < size; i++) {
+            Memory.get().data[i] = new Word(Opcode.___, -1, -1, -1);
+        }
+    }
 
     public static void init(int _size) {
         if(INSTANCE == null)

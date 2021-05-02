@@ -14,19 +14,14 @@ public class VM {
     private static VM INSTANCE;
 
     public int memorySize;
-//    public Word[] memory;
-    public Memory memory;
     public CPU cpu;
-
     public Device monitor;
 
     public VM() {
         memorySize = 1024;
-//        memory = new Word[memorySize];
         Memory.init(memorySize);
-        memory = Memory.get();
-        cleanMemory();
-        cpu = new CPU(memory);
+
+        cpu = new CPU(Memory.get());
 
         monitor = new Display();
     }
@@ -47,12 +42,6 @@ public class VM {
 
     private void bootstrap() {
         // kernel, OS e drivers
-    }
-
-    public void cleanMemory() {
-        for (int i = 0; i < memorySize; i++) {
-            memory.data[i] = new Word(Opcode.___, -1, -1, -1);
-        }
     }
 
 }

@@ -1,5 +1,6 @@
 package util;
 
+import hardware.memory.Memory;
 import hardware.memory.Word;
 import software.Programs;
 import tasks.Tasks;
@@ -50,22 +51,22 @@ public class Menu {
                 
                 case 1:
                 Tasks.get().fibonacci10.run();
-                VM.get().cleanMemory();
+                    Memory.get().cleanMemory();
                 break;
                 
                 case 2:
                     Tasks.get().fibonacci.run();
-                    VM.get().cleanMemory();
+                    Memory.get().cleanMemory();
                     break;
                 
                 case 3:
                     Tasks.get().factorial.run();
-                    VM.get().cleanMemory();
+                    Memory.get().cleanMemory();
                     break;
                 
                 case 4:
                     Tasks.get().bubbleSort.run();
-                    VM.get().cleanMemory();
+                    Memory.get().cleanMemory();
                     break;
                 
                 case 5:
