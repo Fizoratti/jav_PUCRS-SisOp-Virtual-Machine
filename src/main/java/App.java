@@ -11,12 +11,12 @@ public class App {
         
         VM.init();
 
-        // Menu.get().showMenu();
+         Menu.get().showMenu();
 
-        Tasks.get().fibonacci10.run();
-        Tasks.get().fibonacci.run();
-        Tasks.get().factorial.run();
-        Tasks.get().bubbleSort.run();
+//        Tasks.get().fibonacci10.run();
+//        Tasks.get().fibonacci.run();
+//        Tasks.get().factorial.run();
+//        Tasks.get().bubbleSort.run();
         // Tasks.get().trapIn.run();
         // Tasks.get().trapOut.run();
     }

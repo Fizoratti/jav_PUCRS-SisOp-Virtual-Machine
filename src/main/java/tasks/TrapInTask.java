@@ -12,13 +12,13 @@ public class TrapInTask implements Task {
     public void run() {                             Console.debug(" > TrapInTask.run()");
         Auxiliar aux = new Auxiliar();
         Word[] p = new Programs().trapIn;
-        aux.cargaProgramaParaMemoria(p, VM.get().memory);
+        aux.cargaProgramaParaMemoria(p, VM.get().memory.data);
         VM.get().cpu.setContext(0);
         Console.log("\n---------------------------------- programa TRAP IN ");
-        aux.dumpMemoria(VM.get().memory, 4, 5);
+        aux.dumpMemoria(VM.get().memory.data, 4, 5);
         VM.get().cpu.run();
         Console.log("\n---------------------------------- após execucao ");
-        aux.dumpMemoria(VM.get().memory, 4, 5);
+        aux.dumpMemoria(VM.get().memory.data, 4, 5);
         
     }
 }

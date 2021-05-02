@@ -49,10 +49,10 @@ public class VM {
         // kernel, OS e drivers
     }
 
-//    public void cleanMemory() {
-//        for (int i = 0; i < memorySize; i++) {
-//            memory[i] = new Word(Opcode.___, -1, -1, -1);
-//        }
-//    }
+    public void cleanMemory() {
+        for (int i = 0; i < memorySize; i++) {
+            memory.data[i] = new Word(Opcode.___, -1, -1, -1);
+        }
+    }
 
 }

@@ -20,16 +20,16 @@ public class TrapHandling {
                 // Converte o input para um valor inteiro
                 int value = Integer.parseInt(input);
 
-                cpu.memory[cpu.registers[9]].opc = Opcode.DATA;
-                cpu.memory[cpu.registers[9]].p = value;
+                cpu.memory.data[cpu.registers[9]].opc = Opcode.DATA;
+                cpu.memory.data[cpu.registers[9]].p = value;
 
-                Console.log("Valor armazenado " + cpu.memory[cpu.registers[9]].p);
+                Console.log("Valor armazenado " + cpu.memory.data[cpu.registers[9]].p);
                 Console.log("Posição " + cpu.registers[9]);
                 break;
 
             case 2:
                 Console.log("SAÍDA");
-                Console.log("Valor: " + cpu.memory[cpu.registers[9]].p);
+                Console.log("Valor: " + cpu.memory.data[cpu.registers[9]].p);
                 break;
         }
     }
