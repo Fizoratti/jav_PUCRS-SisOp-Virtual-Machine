@@ -14,9 +14,7 @@ public class Memory implements Hardware {
     private Memory(int _size) {
         this.size = _size;
         data = new Word[size];
-        cleanMemory();
     }
-
 
     public void write(Word _word, int _position) {
         Word.copy(data[_position] = _word);
@@ -79,6 +77,8 @@ public class Memory implements Hardware {
     public static void init(int _size) {
         if(INSTANCE == null)
             INSTANCE = new Memory(_size);
+
+        INSTANCE.cleanMemory();
     }
 
     public static Memory get() {
