@@ -14,15 +14,13 @@ public class CPU implements Hardware {
     public int programCounter; // ... composto de program counter,
     public Word instructionRegister; // instruction register,
     public int[] registers; // registradores da CPU
-//    public Word[] memory; // CPU acessa MEMORIA, guarda referencia 'm' a ela. memoria nao muda. ee sempre a mesma.
-    public Memory memory;
+    public Memory memory; // CPU acessa MEMORIA, guarda referencia 'm' a ela. memoria nao muda. ee sempre a mesma.
     public Interrupt interrupt;
 
     public final int CLOCK = 100; // Tempo em milissegundos para a execução de cada instrução
 
     public CPU(Memory memory) { // ref a MEMORIA e interrupt handler passada na criacao da CPU
-//        memory = _m; // usa o atributo 'memory' para apontar para o atributo 'memory' da VM.
-        this.memory = memory;
+        this.memory = memory; // usa o atributo 'memory' para apontar para o atributo 'memory' da VM.
         registers = new int[10]; // aloca o espaço dos registradores
     }
 

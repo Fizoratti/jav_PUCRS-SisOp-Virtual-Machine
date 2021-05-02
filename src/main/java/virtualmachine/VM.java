@@ -25,7 +25,7 @@ public class VM {
 //        memory = new Word[memorySize];
         Memory.init(memorySize);
         memory = Memory.get();
-//        cleanMemory();
+        cleanMemory();
         cpu = new CPU(memory);
 
         monitor = new Display();
