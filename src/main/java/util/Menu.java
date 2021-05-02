@@ -2,8 +2,12 @@ package util;
 
 import hardware.memory.Word;
 import software.Programs;
+import tasks.Tasks;
 import virtualmachine.VM;
 
+/**
+ * O Menu apenas facilita a execução de tasks
+ */
 public class Menu {
     private static Menu INSTANCE = new Menu();
 
@@ -30,130 +34,54 @@ public class Menu {
     }
 
     public void showMenu() {
-        showOptions();
+        int option;
+        do {
+            showOptions();
+    
+            // Variável input recebe o valor inserido pelo terminal
+            Console.print("\n > Digite a opção: ");
+            option = Integer.parseInt(Console.read());
 
-        Options menuOption = new Options();
-
-        // Variável input recebe o valor inserido pelo terminal
-        Console.print("\n > Digite a opção: ");
-        String input = Console.read();
-
-        // Converte o input para um valor inteiro
-        int option = Integer.parseInt(input);
-
-        switch (option) {
-            case 0:
+            switch (option) {
+                case 0:
                 Console.info("Encerrando...");
-                Console.wait(2000);
+                Console.wait(800);
                 break;
-
-            case 1:
-                menuOption.fibonacci10();
+                
+                case 1:
+                Tasks.get().fibonacci10.run();
                 VM.get().cleanMemory();
-            
-            case 2:
-                menuOption.fibonacci();
-                VM.get().cleanMemory();
-            
-            case 3:
-                menuOption.fatorial();
-                VM.get().cleanMemory();
-            
-            case 4:
-                menuOption.bubbleSort();
-                VM.get().cleanMemory();
-            
-            case 5:
-                menuOption.trapIn();
-            
-            case 6:
-                menuOption.trapOut();
-            
-            default:
                 break;
-            
+                
+                case 2:
+                    Tasks.get().fibonacci.run();
+                    VM.get().cleanMemory();
+                    break;
+                
+                case 3:
+                    Tasks.get().factorial.run();
+                    VM.get().cleanMemory();
+                    break;
+                
+                case 4:
+                    Tasks.get().bubbleSort.run();
+                    VM.get().cleanMemory();
+                    break;
+                
+                case 5:
+                    Tasks.get().trapIn.run();
+                    break;
+                
+                case 6:
+                    Tasks.get().trapOut.run();
+                    break;
+                
+                default:
+                    break;
+                
+            }
         }
-    }
+        while (option != 0);
 
-
-    class Options {
-
-        public void fibonacci10() {
-            Auxiliar aux = new Auxiliar();
-            Word[] p = new Programs().fibonacci10;
-            aux.cargaProgramaParaMemoria(p, VM.get().memory);
-            VM.get().cpu.setContext(0);
-            System.out.println("\n---------------------------------- programa fibonacci_10 carregado ");
-            aux.dumpMemoria(VM.get().memory, 0, 17);
-            System.out.println("---------------------------------- após execucao ");
-            VM.get().cpu.run();
-            aux.dumpMemoria(VM.get().memory, 18, 27);
-            showMenu();
-        }
-
-        public void fibonacci() {
-            Auxiliar aux = new Auxiliar();
-            Word[] p = new Programs().fibonacci;
-            aux.cargaProgramaParaMemoria(p, VM.get().memory);
-            VM.get().cpu.setContext(0);
-            System.out.println("\n---------------------------------- programa fibonacci carregado ");
-            aux.dumpMemoria(VM.get().memory, 0, 16);
-            System.out.println("---------------------------------- após execucao ");
-            VM.get().cpu.run();
-            aux.dumpMemoria(VM.get().memory, 27, 40);
-            showMenu();
-        }
-
-        public void fatorial() {
-            Auxiliar aux = new Auxiliar();
-            Word[] p = new Programs().factorial;
-            aux.cargaProgramaParaMemoria(p, VM.get().memory);
-            VM.get().cpu.setContext(0);
-            System.out.println("\n---------------------------------- programa fatorial carregado ");
-            aux.dumpMemoria(VM.get().memory, 0, 27);
-            System.out.println("---------------------------------- após execucao ");
-            VM.get().cpu.run();
-            aux.dumpMemoria(VM.get().memory, 30, 32);
-            showMenu();
-        }
-
-        public void bubbleSort() {
-            Auxiliar aux = new Auxiliar();
-            Word[] p = new Programs().bubbleSort;
-            aux.cargaProgramaParaMemoria(p, VM.get().memory);
-            VM.get().cpu.setContext(0);
-            System.out.println("\n---------------------------------- programa bubbleSort carregado ");
-            aux.dumpMemoria(VM.get().memory, 0, 39);
-            System.out.println("---------------------------------- após execucao ");
-            VM.get().cpu.run();
-            aux.dumpMemoria(VM.get().memory, 39, 50);
-            showMenu();
-        }
-
-        public void trapIn() {
-            Auxiliar aux = new Auxiliar();
-            Word[] p = new Programs().trapIn;
-            aux.cargaProgramaParaMemoria(p, VM.get().memory);
-            VM.get().cpu.setContext(0);
-            System.out.println("\n---------------------------------- programa TRAP IN ");
-            aux.dumpMemoria(VM.get().memory, 4, 5);
-            System.out.println("---------------------------------- após execucao ");
-            VM.get().cpu.run();
-            aux.dumpMemoria(VM.get().memory, 4, 5);
-            showMenu();
-        }
-
-        public void trapOut() {
-            Auxiliar aux = new Auxiliar();
-            Word[] p = new Programs().trapOut;
-            aux.cargaProgramaParaMemoria(p, VM.get().memory);
-            VM.get().cpu.setContext(0);
-            System.out.println("\n---------------------------------- programa TRAP OUT ");
-            aux.dumpMemoria(VM.get().memory, 10, 11);
-            System.out.println("---------------------------------- após execucao ");
-            VM.get().cpu.run();
-            aux.dumpMemoria(VM.get().memory, 10, 11);
-            showMenu();
-        }
     }
 }

@@ -7,7 +7,7 @@ import hardware.processor.Opcode;
 
 public class TrapHandling {
 
-    public void trap(CPU cpu) {
+    public static void trap(CPU cpu) {
         Console.log("reg[8] = " + cpu.registers[8]);
         Console.log("reg[9] = " + cpu.registers[9]);
 

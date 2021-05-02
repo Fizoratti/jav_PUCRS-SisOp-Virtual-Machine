@@ -1,5 +1,7 @@
 package virtualmachine;
 
+import devices.Device;
+import devices.Display;
 import hardware.memory.Word;
 import hardware.processor.CPU;
 import hardware.processor.Opcode;
@@ -14,11 +16,15 @@ public class VM {
     public Word[] memory;
     public CPU cpu;
 
+    public Device monitor;
+
     public VM() {
         memorySize = 1024;
         memory = new Word[memorySize];
         cleanMemory();
         cpu = new CPU(memory);
+
+        monitor = new Display();
     }
 
     /**
