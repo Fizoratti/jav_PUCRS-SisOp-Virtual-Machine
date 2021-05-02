@@ -26,11 +26,26 @@ Henrique Pugens Ramires, Gustavo Kunde Silveira, Robson Felipe Bittencourt e Rua
 
 ## 🔦ㅤPré Requisitos
 
-Antes de começar, você vai precisar ter instalado o [Java](https://www.oracle.com/br/java/technologies/javase/javase-jdk8-downloads.html).
+Antes de começar, você vai precisar ter instalado o [Java](https://www.oracle.com/br/java/technologies/javase/javase-jdk8-downloads.html) e o [Git](https://git-scm.com) localmente no seu computador. 
+Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/).
+Usando a IDE de browser [GitPod](https://gitpod.io/) não é preciso instalar nada localmente no seu computador.
 
-## Para executar use os comandos.
-### 1. Compilar: javac *.java 
-### 2. Executar: java App.java
+## 🏃ㅤGetting Started
+
+> **Não é preciso ter o gradle instalado para executar o código.**
+
+```bash
+# Clone este repositório
+$ git clone https://github.com/Fizoratti/jav_PUCRS-SisOp-Virtual-Machine/
+
+# Acesse a pasta do projeto no terminal/cmd
+$ cd jav_PUCRS-SisOp-Virtual-Machine
+
+# Execute a aplicação
+$ gradle run
+```
+
+###### Para executar em ambiente Windows use o comando ```gradlew run```.
 
 ## Como selecionar o programa para executar
 ### Após mostrar as opções, devera inserir o valor correspondente ao programa, comforme a imagem abaixo:
@@ -133,4 +148,5 @@ private int[] bubblesort(int[] _array) {
 - ```VM0``` : Instruções da CPU implementadas. Todos os programas implementados. **(Fase 1)**
 - ```VM1``` : Interrupções. **(Fase 2)**
 - ```VM2``` : I/O. **(Fase 3)**
-
+- ```VM3``` : Gerente de Memória e Gerente de Processo. **(Fase 4)**
+- ```VM4``` : Escalonamento de processos e Concorrência. **(Fase 5)**
