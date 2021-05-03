@@ -50,7 +50,7 @@ public class Menu {
                 break;
                 
                 case 1:
-                Tasks.get().fibonacci10.run();
+                    Tasks.get().fibonacci10.run();
                     Memory.get().cleanMemory();
                 break;
                 

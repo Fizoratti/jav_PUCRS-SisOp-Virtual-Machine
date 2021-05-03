@@ -6,6 +6,7 @@ import hardware.memory.Memory;
 import hardware.memory.Word;
 import hardware.processor.CPU;
 import hardware.processor.Opcode;
+import software.ProcessManager;
 
 // ------------------- V M - constituida de CPU e MEMORIA ------------------------------------------------
 // -------------------------- atributos e construcao da VM -----------------------------------------------
@@ -15,6 +16,7 @@ public class VM {
 
     public int memorySize;
     public CPU cpu;
+    public ProcessManager pm;
     public Device monitor;
 
     public VM() {
@@ -23,7 +25,9 @@ public class VM {
 
         cpu = new CPU(Memory.get());
 
-        monitor = new Display();
+        pm = new ProcessManager();
+
+//        monitor = new Display();
     }
 
     /**

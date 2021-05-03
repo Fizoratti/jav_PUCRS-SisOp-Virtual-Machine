@@ -35,7 +35,7 @@ public class MemoryManager {
     }
 
     // Dada uma demanda em número de palavras, o gerente deve responder se a alocação é possível
-    public boolean verificaEspaco(int numeroPalavras) {
+    public boolean temEspacoParaAlocar(int numeroPalavras) {
         int quantidadeDeFramesQueVaiOcupar = 0;
 
         // Se for exatamente o tamanho da Pagina

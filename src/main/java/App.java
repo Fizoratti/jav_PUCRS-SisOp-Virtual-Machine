@@ -1,3 +1,5 @@
+import hardware.memory.Word;
+import software.Programs;
 import virtualmachine.VM;
 
 import tasks.Tasks;
@@ -11,9 +13,16 @@ public class App {
         
         VM.init();
 
+        Word[] fibonacci10 = Programs.fibonacci10;
+
+        VM.get().pm.criaProcesso(fibonacci10);
+
+
 //         Menu.get().showMenu();
 
-        Tasks.get().fibonacci10.run();
+//        Tasks.get().mainTask.run();
+
+//        Tasks.get().fibonacci10.run();
 //        Tasks.get().fibonacci.run();
 //        Tasks.get().factorial.run();
 //        Tasks.get().bubbleSort.run();
