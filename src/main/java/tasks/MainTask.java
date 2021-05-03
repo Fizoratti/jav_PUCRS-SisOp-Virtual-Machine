@@ -15,7 +15,7 @@ public class MainTask implements Task {
         Auxiliar aux = new Auxiliar();
         Word[] p = new Programs().fibonacci10;
         aux.cargaProgramaParaMemoria(p, Memory.get().data);
-        VM.get().cpu.setContext(0);
+//        VM.get().cpu.setContext(0);
         Console.log("\n---------------------------------- programa fibonacci_10 carregado ");
         aux.dumpMemoria(Memory.get().data, 0, 17);
         VM.get().cpu.run();

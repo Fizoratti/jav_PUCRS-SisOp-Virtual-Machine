@@ -14,7 +14,7 @@ public class TrapInTask implements Task {
         Auxiliar aux = new Auxiliar();
         Word[] p = new Programs().trapIn;
         aux.cargaProgramaParaMemoria(p, Memory.get().data);
-        VM.get().cpu.setContext(0);
+//        VM.get().cpu.setContext(0);
         Console.log("\n---------------------------------- programa TRAP IN ");
         aux.dumpMemoria(Memory.get().data, 4, 5);
         VM.get().cpu.run();

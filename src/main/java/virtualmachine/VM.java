@@ -6,6 +6,7 @@ import hardware.memory.Memory;
 import hardware.memory.Word;
 import hardware.processor.CPU;
 import hardware.processor.Opcode;
+import software.Escalonador;
 import software.ProcessManager;
 
 // ------------------- V M - constituida de CPU e MEMORIA ------------------------------------------------
@@ -17,6 +18,7 @@ public class VM {
     public int memorySize;
     public CPU cpu;
     public ProcessManager pm;
+    public Escalonador escalonador;
     public Device monitor;
 
     public VM() {
@@ -24,8 +26,13 @@ public class VM {
         Memory.init(memorySize);
 
         cpu = new CPU(Memory.get());
+        cpu.programCounter = 0; // APAGAR
 
         pm = new ProcessManager();
+
+        escalonador = new Escalonador();
+
+
 
 //        monitor = new Display();
     }

@@ -17,6 +17,10 @@ public class App {
 
         VM.get().pm.criaProcesso(fibonacci10);
 
+        VM.get().escalonador.run();
+
+
+
 
 //         Menu.get().showMenu();
 

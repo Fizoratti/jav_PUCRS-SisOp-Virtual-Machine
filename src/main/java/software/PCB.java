@@ -1,16 +1,36 @@
 package software;
 
+import virtualmachine.Interrupt;
+
 import java.util.ArrayList;
 
 public class PCB {
-    private int id;
-    ArrayList<Integer> allocatedPages;
-//    private Context context;
+    public int id;
+    public ArrayList<Integer> allocatedPages;
+
+    public int pc;
+    public StatusPCB status;
+    public int[] reg;
+    public int nVezesCPU;
+    public Interrupt irpt;
+    public int valorEscritaLeitura;
+    public int posicaoEscritaLeitura;
+
+//    public PCB(int id, ArrayList<Integer> allocatedPages) {
+//        this.id = id;
+//        this.allocatedPages = allocatedPages;
+//    }
 
     public PCB(int id, ArrayList<Integer> allocatedPages) {
-        this.id = id;
         this.allocatedPages = allocatedPages;
-//        this.context = new Context(0,1024,allocatedPages,new int[8], 0, new Word(Opcode.___,-1,-1,-1));
+        this.id = id;
+        this.irpt = Interrupt.NONE;
+        this.pc = 0;
+        this.status = StatusPCB.PRONTO;
+        this.nVezesCPU = 0;
+        this.valorEscritaLeitura = 0;
+        this.posicaoEscritaLeitura = 0;
+        reg = new int[10];
     }
 
     public ArrayList<Integer> getAllocatedPages() {
@@ -21,11 +41,12 @@ public class PCB {
         return this.id;
     }
 
-//    public Context getContext() {
-//        return context;
-//    }
+    //retorna a lista de paginas de um processo
+    public ArrayList<Integer> getLista(){
+        return this.allocatedPages;
+    }
+}
 
-//    public void saveContext(Context context){
-//        this.context = context;
-//    }
+enum StatusPCB {
+    PRONTO, BLOQUEADO, EXECUTANDO
 }

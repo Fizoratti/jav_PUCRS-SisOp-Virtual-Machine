@@ -14,7 +14,7 @@ public class FactorialTask implements Task {
         Auxiliar aux = new Auxiliar();
         Word[] p = new Programs().factorial;
         aux.cargaProgramaParaMemoria(p, Memory.get().data);
-        VM.get().cpu.setContext(0);
+//        VM.get().cpu.setContext(0);
         Console.log("\n---------------------------------- programa fatorial carregado ");
         aux.dumpMemoria(Memory.get().data, 0, 27);
         VM.get().cpu.run();

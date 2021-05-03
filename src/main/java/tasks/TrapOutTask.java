@@ -14,7 +14,7 @@ public class TrapOutTask implements Task {
         Auxiliar aux = new Auxiliar();
         Word[] p = new Programs().trapOut;
         aux.cargaProgramaParaMemoria(p, Memory.get().data);
-        VM.get().cpu.setContext(0);
+//        VM.get().cpu.setContext(0);
         Console.log("\n---------------------------------- programa TRAP OUT ");
         aux.dumpMemoria(Memory.get().data, 10, 11);
         VM.get().cpu.run();

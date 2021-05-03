@@ -2,16 +2,17 @@ package software;
 
 import hardware.memory.Word;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class ProcessManager {
     public MemoryManager mm;
-    private ArrayList<PCB> pcbList;
-    private static int process_id = 0;
+    public Queue<PCB> pcbList;
+    public int process_id = 0;
 
     public ProcessManager() {
         this.mm = new MemoryManager();
-        this.pcbList = new ArrayList<>();
+        this.pcbList = new LinkedList<>();
     }
 
     public void criaProcesso(Word[] p) {

@@ -14,7 +14,7 @@ public class FibonacciTask implements Task {
         Auxiliar aux = new Auxiliar();
         Word[] p = new Programs().fibonacci;
         aux.cargaProgramaParaMemoria(p, Memory.get().data);
-        VM.get().cpu.setContext(0);
+//        VM.get().cpu.setContext(0);
         Console.log("\n---------------------------------- programa fibonacci carregado ");
         aux.dumpMemoria(Memory.get().data, 0, 16);
         VM.get().cpu.run();

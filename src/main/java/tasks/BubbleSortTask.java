@@ -14,7 +14,7 @@ public class BubbleSortTask implements Task {
         Auxiliar aux = new Auxiliar();
         Word[] p = new Programs().bubbleSort;
         aux.cargaProgramaParaMemoria(p, Memory.get().data);
-        VM.get().cpu.setContext(0);
+//        VM.get().cpu.setContext(0);
         Console.log("\n---------------------------------- programa bubbleSort carregado ");
         aux.dumpMemoria(Memory.get().data, 0, 39);
         VM.get().cpu.run();
