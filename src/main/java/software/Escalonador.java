@@ -4,6 +4,8 @@ import virtualmachine.VM;
 
 import java.util.concurrent.Semaphore;
 
+import util.Console;
+
 public class Escalonador extends Thread {
     public static Semaphore useESC;
     private volatile int cont;
@@ -16,7 +18,7 @@ public class Escalonador extends Thread {
     //run da thread escalonador, espera alguem mandar ela executar, 
     //apos alguem mandar executar, 1 processo por vez,
     //espera que a rotina de tratamento libere o uso da cpu para voltar a escalonar
-    public void run() {
+    public void run() {                     Console.debug(" > Escalonador.run()");
         while (true) {
             try {
 //                VM.semESC.acquire();
@@ -37,10 +39,10 @@ public class Escalonador extends Thread {
                     VM.get().cpu.setContext(VM.get().pm.pcbList.peek().allocatedPages, VM.get().pm.pcbList.peek().pc, VM.get().pm.pcbList.peek().id, VM.get().pm.pcbList.peek().reg);
                     VM.get().pm.pcbList.remove(VM.get().pm.pcbList.peek());
                     VM.get().cpu.run();
-//                    VM.semCPU.release();
                     cont++;
                 }
             }
         }
     }
+
 }

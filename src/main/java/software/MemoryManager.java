@@ -8,30 +8,30 @@ import java.util.ArrayList;
 
 public class MemoryManager {
     public int MEMORY_SIZE = 1024;
-    public int tamPag;
-    public int tamFrame;
-    public int nroFrames;
-    public boolean[] frameLivre;
+    public int pageSize;
+    public int frameSize;
+    public int frameCount;
+    public boolean[] availableFrames;
 
     public MemoryManager() {
-        this.tamFrame = 16;
-        this.tamPag = 16;
-        this.nroFrames = this.MEMORY_SIZE / this.tamPag;
+        this.frameSize = 16;
+        this.pageSize = 16;
+        this.frameCount = this.MEMORY_SIZE / this.pageSize;
 
-        // tamPag = tamFrame = 16
-        // nroFrames(64) || nroPaginas(64) = tamMemoria(1024) / tamPag(16)
-        frameLivre = iniciarFrames(Memory.get().size, tamFrame);
+        // pageSize = frameSize = 16
+        // frameCount(64) || nroPaginas(64) = tamMemoria(1024) / pageSize(16)
+        availableFrames = iniciarFrames(Memory.get().size, frameSize);
     }
 
     // Inicializa o array de frames com valor TRUE
-    private boolean[] iniciarFrames(int tamMem, int tamPagi) {
-        frameLivre = new boolean[(tamMem / tamPagi)];
+    private boolean[] iniciarFrames(int tamMem, int pageSizei) {
+        availableFrames = new boolean[(tamMem / pageSizei)];
 
-        for (int i = 0; i < frameLivre.length; i++) {
-            frameLivre[i] = true;
+        for (int i = 0; i < availableFrames.length; i++) {
+            availableFrames[i] = true;
         }
 
-        return frameLivre;
+        return availableFrames;
     }
 
     // Dada uma demanda em número de palavras, o gerente deve responder se a alocação é possível
@@ -39,17 +39,17 @@ public class MemoryManager {
         int quantidadeDeFramesQueVaiOcupar = 0;
 
         // Se for exatamente o tamanho da Pagina
-        if (numeroPalavras % tamFrame == 0) {
-            quantidadeDeFramesQueVaiOcupar = ((numeroPalavras / tamFrame));
+        if (numeroPalavras % frameSize == 0) {
+            quantidadeDeFramesQueVaiOcupar = ((numeroPalavras / frameSize));
         }
         // Se for quebrado o tamanho da pagina
         else {
-            quantidadeDeFramesQueVaiOcupar = ((numeroPalavras / tamFrame) + 1);
+            quantidadeDeFramesQueVaiOcupar = ((numeroPalavras / frameSize) + 1);
         }
 
         int quantidadeDeFramesDisponiveis = 0;
-        for (int i = 0; i < frameLivre.length; i++) {
-            if (frameLivre[i]) {
+        for (int i = 0; i < availableFrames.length; i++) {
+            if (availableFrames[i]) {
                 quantidadeDeFramesDisponiveis++;
             }
         }
@@ -63,12 +63,12 @@ public class MemoryManager {
         int quantidadeDeFramesQueVaiOcupar = 0;
 
         // Se for exatamente o tamanho da Pagina
-        if (p.length % tamFrame == 0) {
-            quantidadeDeFramesQueVaiOcupar = ((p.length / tamFrame));
+        if (p.length % frameSize == 0) {
+            quantidadeDeFramesQueVaiOcupar = ((p.length / frameSize));
         }
         // Se for quebrado o tamanho da pagina
         else {
-            quantidadeDeFramesQueVaiOcupar = ((p.length / tamFrame) + 1);
+            quantidadeDeFramesQueVaiOcupar = ((p.length / frameSize) + 1);
         }
 
         int quantidadeNovosFramesOcupados = 0;
@@ -76,14 +76,14 @@ public class MemoryManager {
 
         ArrayList<Integer> paginas = new ArrayList<>();
 
-        for (int f = 0; f < frameLivre.length; f++) {
-            if (frameLivre[f] == true) {
-                frameLivre[f] = false;
+        for (int f = 0; f < availableFrames.length; f++) {
+            if (availableFrames[f] == true) {
+                availableFrames[f] = false;
                 quantidadeNovosFramesOcupados++;
                 paginas.add(f);
             }
 
-            for (int j = (f * tamFrame); j < (f + 1) * tamFrame; j++) {
+            for (int j = (f * frameSize); j < (f + 1) * frameSize; j++) {
                 if (posProg < p.length) {
                     Memory.get().data[j].opc = p[posProg].opc;
                     Memory.get().data[j].r1 = p[posProg].r1;
@@ -105,12 +105,12 @@ public class MemoryManager {
     // o gerente desloca as páginas.
     public void unallocate(ArrayList<Integer> paginasAlocadas) {
         for (Integer pagina : paginasAlocadas) {
-            for (int i = 0; i < frameLivre.length; i++) {
+            for (int i = 0; i < availableFrames.length; i++) {
                 if (pagina == i) {
                     // Libera o frame
-                    frameLivre[i] = true;
+                    availableFrames[i] = true;
                     // Libera a memoria
-                    for (int k = (i * tamFrame); k < (i + 1) * tamFrame; k++) {
+                    for (int k = (i * frameSize); k < (i + 1) * frameSize; k++) {
                         Memory.get().data[k] = new Word(Opcode.___, -1, -1, -1);
                     }
                 }

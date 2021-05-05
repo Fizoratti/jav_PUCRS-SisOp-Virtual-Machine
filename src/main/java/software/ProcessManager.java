@@ -1,6 +1,7 @@
 package software;
 
 import hardware.memory.Word;
+import util.Console;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -8,28 +9,45 @@ import java.util.Queue;
 public class ProcessManager {
     public MemoryManager mm;
     public Queue<PCB> pcbList;
-    public int process_id = 0;
+    public int processId = 0;
 
     public ProcessManager() {
         this.mm = new MemoryManager();
         this.pcbList = new LinkedList<>();
     }
 
-    public void criaProcesso(Word[] p) {
+    /**
+     * 
+     * @param p programa. Ex.: bubbleSort
+     * @return referência para o novo processo criado 
+     */
+    public PCB createProcess(Word[] p) {            Console.debug(" > ProcessManager.createProcess()");
+        PCB processControlBlock;
+
         if (mm.temEspacoParaAlocar(p.length)) {
-            PCB processControlBlock = new PCB(process_id, mm.allocate(p));
-            process_id++;
+            processControlBlock = new PCB(processId, mm.allocate(p));
+            ++processId;
 
             pcbList.add(processControlBlock);
         } else {
-            System.out.println("Sem espaco");
+            Console.error("Sem espaço na memória para criar o processo de ID:"+processId);
+            processControlBlock = null;
         }
+
+        return processControlBlock;
     }
 
-    public void finalizaProcesso(PCB processo) {
+    public void endProcess(PCB processo) {          Console.debug(" > ProcessManager.endProcess()");
         mm.unallocate(processo.getAllocatedPages());
         pcbList.remove(processo);
     }
 
-
+    public PCB getProcess(int id) {
+        if (pcbList.peek().getId() == id) {
+            return pcbList.peek();
+        } else {
+            Console.error("Não foi possível encontrar o processo de ID:"+processId);
+            return null;
+        }
+    }
 }

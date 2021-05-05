@@ -8,6 +8,7 @@ public class PCB {
     public int id;
     public ArrayList<Integer> allocatedPages;
 
+    // CPU context
     public int pc;
     public StatusPCB status;
     public int[] reg;

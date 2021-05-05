@@ -37,13 +37,13 @@ public class CPU extends Thread implements Hardware {
     private int traduz(int pc){
         boolean valido = true;
         try {
-            pagiProg.get(pc/memoryManager.tamPag);
+            pagiProg.get(pc/memoryManager.pageSize);
         } catch (Exception e) {
             interrupt = Interrupt.INVALID_ADDRESS;
             valido = false;
         }
         if(valido){
-            return (pagiProg.get(pc / memoryManager.tamPag) * memoryManager.tamPag)+(pc % memoryManager.tamPag);
+            return (pagiProg.get(pc / memoryManager.pageSize) * memoryManager.pageSize)+(pc % memoryManager.pageSize);
         }
         else{
             return 0;
@@ -303,4 +303,6 @@ public class CPU extends Thread implements Hardware {
 
         }
     }
+
+    
 }

@@ -13,18 +13,9 @@ public class App {
         
         VM.init();
 
-        Word[] fibonacci10 = Programs.fibonacci10;
+//      Menu.get().showMenu();
 
-        VM.get().pm.criaProcesso(fibonacci10);
-
-        VM.get().escalonador.run();
-
-
-
-
-//         Menu.get().showMenu();
-
-//        Tasks.get().mainTask.run();
+        Tasks.get().mainTask.run();
 
 //        Tasks.get().fibonacci10.run();
 //        Tasks.get().fibonacci.run();

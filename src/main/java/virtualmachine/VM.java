@@ -26,13 +26,11 @@ public class VM {
         Memory.init(memorySize);
 
         cpu = new CPU(Memory.get());
-        cpu.programCounter = 0; // APAGAR
+        cpu.programCounter = 0; // Alterar
 
         pm = new ProcessManager();
 
         escalonador = new Escalonador();
-
-
 
 //        monitor = new Display();
     }
