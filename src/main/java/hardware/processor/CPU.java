@@ -1,11 +1,13 @@
 package hardware.processor;
 
+import util.Console;
+import util.Emoji;
+
 import hardware.Hardware;
 import hardware.memory.Memory;
 import hardware.memory.Word;
 import software.MemoryManager;
-import util.Console;
-import util.Emoji;
+
 import virtualmachine.InterruptHandling;
 import virtualmachine.Interrupt;
 import virtualmachine.TrapHandling;
@@ -27,10 +29,10 @@ public class CPU extends Thread implements Hardware {
     private int id; //salva o id do processo em execucao
     private MemoryManager memoryManager = new MemoryManager();
 
-    public CPU(Memory memory) { // ref a MEMORIA e interrupt handler passada na criacao da CPU
-        this.memory = memory; // usa o atributo 'memory' para apontar para o atributo 'memory' da VM.
-        registers = new int[10]; // aloca o espaço dos registradores
-        Console.debug(" > CPU.init() ");
+    // ref a MEMORIA e interrupt handler passada na criacao da CPU
+    public CPU() {
+        this.memory = Memory.get(); // usa o atributo 'memory' para apontar para o atributo 'memory' da VM.
+        this.registers = new int[10]; // aloca o espaço dos registradores
     }
 
     //traduz o endereço logico para o endereco de memoria do programa
@@ -305,5 +307,8 @@ public class CPU extends Thread implements Hardware {
         }
     }
 
+    public static CPU init() {                             Console.debug(" > CPU.init() ");
+        return new CPU();
+    }
     
 }

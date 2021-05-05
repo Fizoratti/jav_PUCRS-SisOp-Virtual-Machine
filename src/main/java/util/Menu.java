@@ -18,7 +18,8 @@ public class Menu {
         "Digite o valor de uma das opções abaixo:\n",
 
         "1. Executar Main Task",
-        "2. Abrir menu antigo (stale)",
+        "2. Executar Test Task",
+        "3. (stale) Abrir menu antigo",
 
         "\n0. Encerrar"
     };
@@ -44,8 +45,12 @@ public class Menu {
                 case 1:
                     Tasks.get().mainTask.run();
                     break;
-
+                    
                 case 2:
+                    Tasks.get().testTask.run();
+                    break;
+                    
+                case 3:
                     showOldMenu();
                     break;
                 
