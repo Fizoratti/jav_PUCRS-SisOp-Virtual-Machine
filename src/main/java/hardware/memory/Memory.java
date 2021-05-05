@@ -75,10 +75,13 @@ public class Memory implements Hardware {
     }
 
     public static void init(int _size) {
-        if(INSTANCE == null)
+        if (INSTANCE == null) {
             INSTANCE = new Memory(_size);
-
-        INSTANCE.cleanMemory();
+            Console.debug(" > Memory.init(size: "+_size+") ");
+            INSTANCE.cleanMemory();
+        } else {
+            Console.error("Can't init memory because memory is not null.");
+        }
     }
 
     public static Memory get() {

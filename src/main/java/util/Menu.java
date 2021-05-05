@@ -12,40 +12,81 @@ import virtualmachine.VM;
 public class Menu {
     private static Menu INSTANCE = new Menu();
 
+    private String header = "\n\n\n================== MENU ==================";
+
+    public String[] options = {
+        "Digite o valor de uma das opções abaixo:\n",
+
+        "1. Executar Main Task",
+        "2. Abrir menu antigo (stale)",
+
+        "\n0. Encerrar"
+    };
+
     private Menu() {}   
 
-    /**
-     * @return instância única do Menu.
-     */
-    public static Menu get() {
-        return INSTANCE;
-    }
-
-    public void showOptions() {
-        Console.log("\n\n\n================== MENU ==================");
-        Console.log("Digite o valor de uma das opções abaixo:\n");
-        Console.log("1. Fibonacci dos 10 primeiros números");
-        Console.log("2. Fibonacci para o valor N do programa");
-        Console.log("3. Fatorial para o valor N do programa");
-        Console.log("4. Ordenação do array do programa");
-        Console.log("5. Trap IN:");
-        Console.log("6. Trap OUT");
-
-        Console.log("\n0. Encerrar");
-    }
 
     public void showMenu() {
-        int option;
+        int input;
         do {
-            showOptions();
+            showOptions(this.options);
     
             // Variável input recebe o valor inserido pelo terminal
             Console.print("\n > Digite a opção: ");
-            option = Integer.parseInt(Console.read());
+            input = Integer.parseInt(Console.read());
 
-            switch (option) {
+            switch (input) {
                 case 0:
-                Console.info("Encerrando...");
+                    Console.info("Encerrando...");
+                    Console.wait(800);
+                    break;
+                
+                case 1:
+                    Tasks.get().mainTask.run();
+                    break;
+
+                case 2:
+                    showOldMenu();
+                    break;
+                
+                default:
+                    Console.error(" Input inválido. Input: "+input);
+                    break;
+                
+            }
+        }
+        while (input != 0);
+
+    }
+
+
+
+
+    public String[] oldOptions = {
+        "Digite o valor de uma das opções abaixo:\n",
+
+        "1. Fibonacci dos 10 primeiros números",
+        "2. Fibonacci para o valor N do programa",
+        "3. Fatorial para o valor N do programa",
+        "4. Ordenação do array do programa",
+        "5. Trap IN:",
+        "6. Trap OUT",
+
+        "\n0. Voltar"
+    };
+
+    public void showOldMenu() {
+        int input;
+        do {
+            showOptions(this.oldOptions);
+    
+            // Variável input recebe o valor inserido pelo terminal
+            Console.print("\n > Digite a opção: ");
+            input = Integer.parseInt(Console.read());
+
+            switch (input) {
+                case 0:
+                Console.info("Voltando...");
                 Console.wait(800);
                 break;
                 
@@ -82,7 +123,30 @@ public class Menu {
                 
             }
         }
-        while (option != 0);
+        while (input != 0);
 
     }
+
+    
+    private void showOptions(String[] options) {
+        Console.log(this.header);
+
+        for (int i=0; i<options.length; i++) {
+            showOption(options[i]);
+        }
+        
+    }
+
+    private void showOption(String option) {
+        Console.log(option);
+    }
+
+
+    /**
+     * @return instância única do Menu.
+     */
+    public static Menu get() {
+        return INSTANCE;
+    }
+
 }

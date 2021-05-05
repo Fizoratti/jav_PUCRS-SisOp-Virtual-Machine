@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class ProcessManager {
+    private static ProcessManager INSTANCE;
+
     public MemoryManager mm;
     public Queue<PCB> pcbList;
     public int processId = 0;
@@ -49,5 +51,21 @@ public class ProcessManager {
             Console.error("Não foi possível encontrar o processo de ID:"+processId);
             return null;
         }
+    }
+
+
+
+    /**
+     * Cria uma instância única para a classe ProcessManager.
+     */
+    public static void init() {
+        if (INSTANCE == null) INSTANCE = new ProcessManager();
+    }
+
+    /**
+     * @return instância única da ProcessManager.
+     */
+    public static ProcessManager get() {
+        return INSTANCE;
     }
 }

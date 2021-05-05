@@ -1,13 +1,10 @@
 package virtualmachine;
 
-import devices.Device;
-import devices.Display;
 import hardware.memory.Memory;
-import hardware.memory.Word;
 import hardware.processor.CPU;
-import hardware.processor.Opcode;
 import software.Escalonador;
 import software.ProcessManager;
+import util.Console;
 
 // ------------------- V M - constituida de CPU e MEMORIA ------------------------------------------------
 // -------------------------- atributos e construcao da VM -----------------------------------------------
@@ -19,21 +16,31 @@ public class VM {
     public CPU cpu;
     public ProcessManager pm;
     public Escalonador escalonador;
-    public Device monitor;
 
     public VM() {
+        // Inicializa Memória e CPU (Hardware)
+
         memorySize = 1024;
         Memory.init(memorySize);
 
         cpu = new CPU(Memory.get());
-        cpu.programCounter = 0; // Alterar
+        cpu.programCounter = 0;         // Alterar
 
-        pm = new ProcessManager();
-
-        escalonador = new Escalonador();
-
-//        monitor = new Display();
+        bootstrap();
     }
+
+
+    private void bootstrap() {              Console.debug(" > VM.bootstrap() ");
+        // Inicializa kernel, OS e drivers (Software)
+
+        ProcessManager.init();
+        Escalonador.init();
+
+        pm = ProcessManager.get();
+        escalonador = Escalonador.get();
+
+    }
+
 
     /**
      * Cria uma instância única para a classe VM.
@@ -47,10 +54,6 @@ public class VM {
      */
     public static VM get() {
         return INSTANCE;
-    }
-
-    private void bootstrap() {
-        // kernel, OS e drivers
     }
 
 }

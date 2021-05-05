@@ -21,7 +21,7 @@ public class CPU extends Thread implements Hardware {
     public Memory memory; // CPU acessa MEMORIA, guarda referencia 'm' a ela. memoria nao muda. ee sempre a mesma.
     public Interrupt interrupt;
 
-    public final int CLOCK = 100; // Tempo em milissegundos para a execução de cada instrução
+    public final int CLOCK = 50; // Tempo em milissegundos para a execução de cada instrução
 
     private List<Integer> pagiProg; // tem a os frames de um programa
     private int id; //salva o id do processo em execucao
@@ -30,6 +30,7 @@ public class CPU extends Thread implements Hardware {
     public CPU(Memory memory) { // ref a MEMORIA e interrupt handler passada na criacao da CPU
         this.memory = memory; // usa o atributo 'memory' para apontar para o atributo 'memory' da VM.
         registers = new int[10]; // aloca o espaço dos registradores
+        Console.debug(" > CPU.init() ");
     }
 
     //traduz o endereço logico para o endereco de memoria do programa

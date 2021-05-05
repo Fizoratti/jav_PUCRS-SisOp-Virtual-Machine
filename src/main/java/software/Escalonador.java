@@ -7,11 +7,13 @@ import java.util.concurrent.Semaphore;
 import util.Console;
 
 public class Escalonador extends Thread {
+    private static Escalonador INSTANCE;
+
     public static Semaphore useESC;
     private volatile int cont;
 
     //construtor do escalonador
-    public Escalonador() {
+    private Escalonador() {
         useESC = new Semaphore(1);
     }
 
@@ -45,4 +47,19 @@ public class Escalonador extends Thread {
         }
     }
 
+
+
+    /**
+     * Cria uma instância única para a classe Escalonador.
+     */
+    public static void init() {
+        if (INSTANCE == null) INSTANCE = new Escalonador();
+    }
+
+    /**
+     * @return instância única do Escalonador.
+     */
+    public static Escalonador get() {
+        return INSTANCE;
+    }
 }
