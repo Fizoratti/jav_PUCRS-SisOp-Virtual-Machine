@@ -14,11 +14,11 @@ public class MainTask implements Task {
 
         Word[] fibonacci10 = Programs.fibonacci10;
 
-        PCB process = VM.get().pm.createProcess(fibonacci10);
+        PCB process = VM.get().pm.create(fibonacci10);
 
         VM.get().escalonador.run();
 
-        VM.get().pm.endProcess(process); // Esta linha não tá rodando
+        VM.get().pm.finish(process); // Esta linha não tá rodando
 
     }
 

@@ -23,7 +23,7 @@ public class ProcessManager {
      * @param p programa. Ex.: bubbleSort
      * @return referência para o novo processo criado 
      */
-    public PCB createProcess(Word[] p) {            Console.debug(" > ProcessManager.createProcess()");
+    public PCB create(Word[] p) {            Console.debug(" > ProcessManager.create()");
         PCB processControlBlock;
 
         if (mm.temEspacoParaAlocar(p.length)) {
@@ -39,7 +39,7 @@ public class ProcessManager {
         return processControlBlock;
     }
 
-    public void endProcess(PCB processo) {          Console.debug(" > ProcessManager.endProcess()");
+    public void finish(PCB processo) {          Console.debug(" > ProcessManager.finish()");
         mm.unallocate(processo.getAllocatedPages());
         pcbList.remove(processo);
     }
