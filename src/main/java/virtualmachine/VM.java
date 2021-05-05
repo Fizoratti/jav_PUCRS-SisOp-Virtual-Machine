@@ -23,7 +23,7 @@ public class VM {
         memorySize = 1024;
         Memory.init(memorySize);
 
-        cpu = new CPU(Memory.get());
+        cpu = CPU.init();
         cpu.programCounter = 0;         // Alterar
 
         bootstrap();

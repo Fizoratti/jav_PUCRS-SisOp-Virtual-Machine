@@ -31,7 +31,7 @@ public class PCB {
         this.nVezesCPU = 0;
         this.valorEscritaLeitura = 0;
         this.posicaoEscritaLeitura = 0;
-        reg = new int[10];
+        this.reg = new int[10];
     }
 
     public ArrayList<Integer> getAllocatedPages() {

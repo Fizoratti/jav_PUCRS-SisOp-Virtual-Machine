@@ -12,6 +12,8 @@ public class Tasks {
     private static Tasks INSTANCE = new Tasks();
 
     public Task mainTask;
+    public Task testTask;
+
     public Task fibonacci10;
     public Task fibonacci;
     public Task factorial;
@@ -21,6 +23,8 @@ public class Tasks {
 
     private Tasks() {
         this.mainTask = new MainTask();
+        this.testTask = new TestTask();
+
         this.fibonacci10 = new Fibonacci10Task();
         this.fibonacci = new FibonacciTask();
         this.factorial = new FactorialTask();

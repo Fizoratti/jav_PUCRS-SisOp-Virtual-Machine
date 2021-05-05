@@ -38,7 +38,12 @@ public class Escalonador extends Thread {
                 //pega o primeiro da fila de prontos, muda status para executando, seta contexto na cpu, retira da fila de prontos, libera cpu.
                 if (VM.get().pm.pcbList.size() > 0) {
                     VM.get().pm.pcbList.peek().status = StatusPCB.EXECUTANDO;
-                    VM.get().cpu.setContext(VM.get().pm.pcbList.peek().allocatedPages, VM.get().pm.pcbList.peek().pc, VM.get().pm.pcbList.peek().id, VM.get().pm.pcbList.peek().reg);
+                    VM.get().cpu.setContext(
+                        VM.get().pm.pcbList.peek().allocatedPages, 
+                        VM.get().pm.pcbList.peek().pc, 
+                        VM.get().pm.pcbList.peek().id, 
+                        VM.get().pm.pcbList.peek().reg
+                    );
                     VM.get().pm.pcbList.remove(VM.get().pm.pcbList.peek());
                     VM.get().cpu.run();
                     cont++;
