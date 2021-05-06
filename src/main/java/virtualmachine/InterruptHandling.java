@@ -2,9 +2,6 @@ package virtualmachine;
 
 public class InterruptHandling {
 
-    public InterruptHandling() {
-    }
-
     public static boolean checkOverflowMathOperation(int value) {
         return (value > -2147483648 && value < 2147483647);
     }

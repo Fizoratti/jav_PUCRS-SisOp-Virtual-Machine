@@ -7,7 +7,7 @@ import hardware.processor.Opcode;
 import java.util.ArrayList;
 
 public class MemoryManager {
-    public int MEMORY_SIZE = 1024;
+    public final int MEMORY_SIZE = 1024;
     public int pageSize;
     public int frameSize;
     public int frameCount;
@@ -20,12 +20,12 @@ public class MemoryManager {
 
         // pageSize = frameSize = 16
         // frameCount(64) || nroPaginas(64) = tamMemoria(1024) / pageSize(16)
-        availableFrames = iniciarFrames(Memory.get().size, frameSize);
+        availableFrames = initFrames(Memory.get().size, frameSize);
     }
 
     // Inicializa o array de frames com valor TRUE
-    private boolean[] iniciarFrames(int tamMem, int pageSizei) {
-        availableFrames = new boolean[(tamMem / pageSizei)];
+    private boolean[] initFrames(int tamMem, int pageSize) {
+        availableFrames = new boolean[(tamMem / pageSize)];
 
         for (int i = 0; i < availableFrames.length; i++) {
             availableFrames[i] = true;
@@ -72,7 +72,7 @@ public class MemoryManager {
         }
 
         int quantidadeNovosFramesOcupados = 0;
-        int posProg = 0;
+        int posicao = 0;
 
         ArrayList<Integer> paginas = new ArrayList<>();
 
@@ -84,12 +84,12 @@ public class MemoryManager {
             }
 
             for (int j = (f * frameSize); j < (f + 1) * frameSize; j++) {
-                if (posProg < p.length) {
-                    Memory.get().data[j].opc = p[posProg].opc;
-                    Memory.get().data[j].r1 = p[posProg].r1;
-                    Memory.get().data[j].r2 = p[posProg].r2;
-                    Memory.get().data[j].p = p[posProg].p;
-                    posProg++;
+                if (posicao < p.length) {
+                    Memory.get().data[j].opc = p[posicao].opc;
+                    Memory.get().data[j].r1 = p[posicao].r1;
+                    Memory.get().data[j].r2 = p[posicao].r2;
+                    Memory.get().data[j].p = p[posicao].p;
+                    posicao++;
                 } else {
                     break;
                 }
@@ -101,17 +101,18 @@ public class MemoryManager {
         return null;
     }
 
-    // Dado um array de inteiros com as páginas de um processo,
-    // o gerente desloca as páginas.
+    // Dado um array de inteiros com as páginas de um processo, o gerente desloca as páginas.
     public void unallocate(ArrayList<Integer> paginasAlocadas) {
         for (Integer pagina : paginasAlocadas) {
             for (int i = 0; i < availableFrames.length; i++) {
                 if (pagina == i) {
+
                     // Libera o frame
                     availableFrames[i] = true;
+
                     // Libera a memoria
-                    for (int k = (i * frameSize); k < (i + 1) * frameSize; k++) {
-                        Memory.get().data[k] = new Word(Opcode.___, -1, -1, -1);
+                    for (int position = (i * frameSize); position < (i + 1) * frameSize; position++) {
+                        Memory.get().write(Memory.BLANK, position);
                     }
                 }
             }

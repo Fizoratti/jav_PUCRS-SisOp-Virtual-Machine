@@ -12,7 +12,6 @@ public class Escalonador extends Thread {
     public static Semaphore useESC;
     private volatile int cont;
 
-    //construtor do escalonador
     private Escalonador() {
         useESC = new Semaphore(1);
     }

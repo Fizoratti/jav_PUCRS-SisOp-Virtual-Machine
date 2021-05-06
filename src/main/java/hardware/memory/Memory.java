@@ -5,6 +5,7 @@ import hardware.processor.Opcode;
 import util.Console;
 
 public class Memory implements Hardware {
+    public static final Word BLANK = new Word(Opcode.___, -1, -1, -1);
     
     private static Memory INSTANCE;
     

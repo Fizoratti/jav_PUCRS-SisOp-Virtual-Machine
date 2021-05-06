@@ -16,56 +16,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CPU extends Thread implements Hardware {
-    // característica do processador: contexto da CPU ...
-    public int programCounter; // ... composto de program counter,
-    public Word instructionRegister; // instruction register,
-    public int[] registers; // registradores da CPU
+    
+    public int programCounter; 
+    public Word instructionRegister; 
+    public int[] registers; 
     public Memory memory; // CPU acessa MEMORIA, guarda referencia 'm' a ela. memoria nao muda. ee sempre a mesma.
     public Interrupt interrupt;
 
     public final int CLOCK = 50; // Tempo em milissegundos para a execução de cada instrução
 
-    private List<Integer> pagiProg; // tem a os frames de um programa
-    private int id; //salva o id do processo em execucao
+    private List<Integer> programPages; 
+    private int id;
     private MemoryManager memoryManager = new MemoryManager();
 
-    // ref a MEMORIA e interrupt handler passada na criacao da CPU
+
     public CPU() {
-        this.memory = Memory.get(); // usa o atributo 'memory' para apontar para o atributo 'memory' da VM.
-        this.registers = new int[10]; // aloca o espaço dos registradores
+        this.memory = Memory.get();     // usa o atributo 'memory' para apontar para o atributo 'memory' da VM.
+        this.registers = new int[10]; 
     }
 
-    //traduz o endereço logico para o endereco de memoria do programa
-    //verifica a validade do endereco a cada traducao, caso seja invalido, interrompe o programa
-    private int traduz(int pc){
-        boolean valido = true;
-        try {
-            pagiProg.get(pc/memoryManager.pageSize);
-        } catch (Exception e) {
-            interrupt = Interrupt.INVALID_ADDRESS;
-            valido = false;
-        }
-        if(valido){
-            return (pagiProg.get(pc / memoryManager.pageSize) * memoryManager.pageSize)+(pc % memoryManager.pageSize);
-        }
-        else{
-            return 0;
-        }
-    }
 
     public void setContext(ArrayList<Integer> paginas, int pc, int id, int[] reg) {
+        interrupt = Interrupt.NONE;
+        
+        this.programPages = paginas;
         this.programCounter = pc;
-        this.pagiProg = paginas;
         this.id = id;
         this.registers = reg;
-        interrupt = Interrupt.NONE; // reset da interrupcao registrada
     }
 
-    public void run() {                             Console.debug(" > CPU.run() "); Console.print(Emoji.BUILDING_CONSTRUCTION + " > ");
+    public void run() {                                    Console.debug(" > CPU.run() "); Console.print(Emoji.BUILDING_CONSTRUCTION + " > ");
 
         while (interrupt == Interrupt.NONE) {                // ciclo de instrucoes. acaba cfe instrucao, veja cada caso.
 
-            instructionRegister = memory.data[traduz(programCounter)];                // FETCH - busca posicao da memoria apontada por pc, guarda em ir
+            instructionRegister = memory.data[translate(programCounter)];                // FETCH - busca posicao da memoria apontada por pc, guarda em ir
 
             switch (instructionRegister.opc) {        // EXECUTA INSTRUCAO NO ir - para cada opcode, sua execução
 
@@ -103,7 +87,7 @@ public class CPU extends Thread implements Hardware {
                 case JMPIM: // PC <- [A]
                     int value = instructionRegister.p;
                     if (InterruptHandling.checkAddressLimits(value)) {
-                        programCounter = memory.data[traduz(value)].p;
+                        programCounter = memory.data[translate(value)].p;
                         programCounter++;
                     } else {
                         interrupt = Interrupt.INVALID_ADDRESS;
@@ -114,7 +98,7 @@ public class CPU extends Thread implements Hardware {
                     value = instructionRegister.p;
                     if (InterruptHandling.checkAddressLimits(value)) {
                         if (registers[instructionRegister.r2] > 0)
-                            programCounter = memory.data[traduz(value)].p;
+                            programCounter = memory.data[translate(value)].p;
                         else
                             programCounter++;
                     } else {
@@ -126,7 +110,7 @@ public class CPU extends Thread implements Hardware {
                     value = instructionRegister.p;
                     if (InterruptHandling.checkAddressLimits(value)) {
                         if (registers[instructionRegister.r2] < 0)
-                            programCounter = memory.data[traduz(value)].p;
+                            programCounter = memory.data[translate(value)].p;
                         else
                             programCounter++;
                     } else {
@@ -138,7 +122,7 @@ public class CPU extends Thread implements Hardware {
                     value = instructionRegister.p;
                     if (InterruptHandling.checkAddressLimits(value)) {
                         if (registers[instructionRegister.r2] == 0)
-                            programCounter = memory.data[traduz(value)].p;
+                            programCounter = memory.data[translate(value)].p;
                         else
                             programCounter++;
                     } else {
@@ -214,7 +198,7 @@ public class CPU extends Thread implements Hardware {
                 case LDD: // Rd <-  [A]
                     value = instructionRegister.p;
                     if (InterruptHandling.checkAddressLimits(value)) {
-                        registers[instructionRegister.r1] = memory.data[traduz(value)].p;
+                        registers[instructionRegister.r1] = memory.data[translate(value)].p;
                         programCounter++;
                     } else {
                         interrupt = Interrupt.INVALID_ADDRESS;
@@ -224,8 +208,8 @@ public class CPU extends Thread implements Hardware {
                 case STD: // [A] <-  Rs
                     value = instructionRegister.p;
                     if (InterruptHandling.checkAddressLimits(value)) {
-                        memory.data[traduz(value)].opc = Opcode.DATA;
-                        memory.data[traduz(value)].p = registers[instructionRegister.r1];
+                        memory.data[translate(value)].opc = Opcode.DATA;
+                        memory.data[translate(value)].p = registers[instructionRegister.r1];
                         programCounter++;
                     } else {
                         interrupt = Interrupt.INVALID_ADDRESS;
@@ -235,7 +219,7 @@ public class CPU extends Thread implements Hardware {
                 case LDX: // Rd <-  [Rs]
                     value = registers[instructionRegister.r2];
                     if (InterruptHandling.checkAddressLimits(value)) {
-                        registers[instructionRegister.r1] = memory.data[traduz(value)].p; // OBS
+                        registers[instructionRegister.r1] = memory.data[translate(value)].p; // OBS
                         programCounter++;
                     } else {
                         interrupt = Interrupt.INVALID_ADDRESS;
@@ -245,8 +229,8 @@ public class CPU extends Thread implements Hardware {
                 case STX: // [Rd] <- Rs
                     value = registers[instructionRegister.r1];
                     if (InterruptHandling.checkAddressLimits(value)) {
-                        memory.data[traduz(value)].opc = Opcode.DATA;
-                        memory.data[traduz(value)].p = registers[instructionRegister.r2];
+                        memory.data[translate(value)].opc = Opcode.DATA;
+                        memory.data[translate(value)].p = registers[instructionRegister.r2];
                         programCounter++;
                     } else {
                         interrupt = Interrupt.INVALID_ADDRESS;
@@ -305,6 +289,32 @@ public class CPU extends Thread implements Hardware {
             }
 
         }
+    }
+
+    /**
+     * Converte de um endereço lógico em um endereço físico.
+     */
+    private int translate(int pc){
+
+        boolean isValid = true;
+        
+        int pageSize = memoryManager.pageSize;
+        int index = pc / pageSize;
+        int res = 0;
+        
+        try {
+            programPages.get(index);
+        } 
+        catch (Exception e) {
+            interrupt = Interrupt.INVALID_ADDRESS;
+            isValid = false;
+        }
+
+        if(isValid){
+            res = (programPages.get(index) * pageSize) + (pc % pageSize);
+        }
+
+        return res;
     }
 
     public static CPU init() {                             Console.debug(" > CPU.init() ");
